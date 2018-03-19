@@ -11,5 +11,12 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            
+        </StackPanel>
+        
+        <StackPanel Grid.Column="1">
+            
+        </StackPanel>
     </Grid>
 </Window>

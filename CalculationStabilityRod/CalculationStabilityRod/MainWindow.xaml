@@ -11,12 +11,72 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
-            
-        </StackPanel>
-        
-        <StackPanel Grid.Column="1">
-            
-        </StackPanel>
+
+        <Grid Grid.Column="0" ShowGridLines="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="135"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Margin="5" Padding="5" Background="White"  BorderBrush="SteelBlue" BorderThickness="4,4,4,4" CornerRadius="4" VerticalAlignment="Top">
+                <Label Margin="1" Name="NameParameter" HorizontalAlignment="Center" FontSize="16" Foreground="Black" FontFamily="Times New Roman" FontWeight="Bold">Параметры системы</Label>
+            </Border>
+
+            <Border Grid.Column="0" Grid.Row="1" Margin="5" Padding="5" Background="White" BorderBrush="SteelBlue" BorderThickness="4,4,4,4" CornerRadius="2" VerticalAlignment="Stretch">
+                <Grid ShowGridLines="True">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="170"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="60"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="5">
+                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" Name="NameLengthRod" HorizontalAlignment="Stretch">Длина стержня -</Label>
+                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" Name="NameMomentInertion" HorizontalAlignment="Stretch">Момент инерцции -</Label>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Margin="5">
+                        <TextBox Margin="5" HorizontalAlignment="Stretch"></TextBox>
+                        <TextBox Margin="5" HorizontalAlignment="Stretch"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2" Margin="4">
+                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" Name="NameDimensionRod" HorizontalAlignment="Left">cm</Label>
+                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" Name="NameDimensionMonentInertion" HorizontalAlignment="Left">cm^4</Label>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="0" Grid.Row="2" Margin="5" Padding="5" Background="White" BorderBrush="SteelBlue" BorderThickness="4,4,4,4" CornerRadius="2" VerticalAlignment="Stretch">
+                <StackPanel Margin="1">
+                    <Label Margin="1" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman" HorizontalAlignment="Center">Типы заделки</Label>
+                    
+                    <ComboBox Margin="2" Name="ComboBoxTypeOfSealing" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <ComboBoxItem IsSelected="True">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hinged support.jpg"></Image>
+                                <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Шарнирно подвижная опора</TextBlock>
+                            </StackPanel>
+                        </ComboBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hingeless fixed support.jpg"></Image>
+                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Шарнирно неподвижная опора</TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Slider.jpg"></Image>
+                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Ползун</TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Fixed support.jpg"></Image>
+                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Жесткая заделка</TextBlock>
+                        </StackPanel>
+                    </ComboBox>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Window>

@@ -5,18 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CalculationStabilityRod"
         mc:Ignorable="d"
-        Title="Расчет устойчивости стержней" Height="700" Width="1000">
+        Title="Расчет устойчивости стержней" Height="700" Width="1000" Icon="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\favicon.ico" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold" WindowState="Normal" Focusable="True" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen">
     <Grid ShowGridLines="True">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" ShowGridLines="True">
+        <Grid Grid.Column="0" ShowGridLines="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="60"></RowDefinition>
                 <RowDefinition Height="100"></RowDefinition>
                 <RowDefinition Height="135"></RowDefinition>
+                <RowDefinition Height="250"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
@@ -24,8 +25,18 @@
                 <Label Margin="1" Name="NameParameter" HorizontalAlignment="Center" FontSize="16" Foreground="Black" FontFamily="Times New Roman" FontWeight="Bold">Параметры системы</Label>
             </Border>
 
-            <Border Grid.Column="0" Grid.Row="1" Margin="5" Padding="5" Background="White" BorderBrush="SteelBlue" BorderThickness="4,4,4,4" CornerRadius="2" VerticalAlignment="Stretch">
-                <Grid ShowGridLines="True">
+            <Border Grid.Column="0" Grid.Row="1" Margin="5" Padding="5" BorderBrush="SteelBlue" BorderThickness="4,4,4,4" CornerRadius="2" VerticalAlignment="Stretch">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Offset="0" Color="AliceBlue"></GradientStop>
+                            <GradientStop Offset="0.5" Color="White"></GradientStop>
+                            <GradientStop Offset="1" Color="AliceBlue"></GradientStop>
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Border.Background>
+                
+                <Grid ShowGridLines="False">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
@@ -49,7 +60,17 @@
                 </Grid>
             </Border>
 
-            <Border Grid.Column="0" Grid.Row="2" Margin="5" Padding="5" Background="White" BorderBrush="SteelBlue" BorderThickness="4,4,4,4" CornerRadius="2" VerticalAlignment="Stretch">
+            <Border Grid.Column="0" Grid.Row="2" Margin="5" Padding="5" BorderBrush="SteelBlue" BorderThickness="4,4,4,4" CornerRadius="2" VerticalAlignment="Stretch">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Offset="0" Color="AliceBlue"></GradientStop>
+                            <GradientStop Offset="0.5" Color="White"></GradientStop>
+                            <GradientStop Offset="1" Color="AliceBlue"></GradientStop>
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Border.Background>
+                
                 <StackPanel Margin="1">
                     <Label Margin="1" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman" HorizontalAlignment="Center">Типы заделки</Label>
                     
@@ -75,6 +96,67 @@
                             <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Жесткая заделка</TextBlock>
                         </StackPanel>
                     </ComboBox>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="0" Grid.Row="3" Margin="5" Padding="5" BorderBrush="SteelBlue" BorderThickness="4,4,4,4" CornerRadius="4" VerticalAlignment="Stretch">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Offset="0" Color="AliceBlue"></GradientStop>
+                            <GradientStop Offset="0.5" Color="White"></GradientStop>
+                            <GradientStop Offset="1" Color="AliceBlue"></GradientStop>
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Border.Background>
+                <StackPanel>
+                    <TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman" Margin="5">Пружины</TextBlock>
+
+                    <DockPanel LastChildFill="True">
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                            <TextBlock HorizontalAlignment="Left" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman" Margin="15,2,3,5">Номер пружины</TextBlock>
+                            <TextBox Margin="1,5,5,5" Width="50"></TextBox>
+                            <TextBlock HorizontalAlignment="Right" Margin="5" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman">; X=</TextBlock>
+                            <TextBox Margin="1,5,5,5" Width="50"></TextBox>
+                            <TextBlock Margin="1,4,5,1" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman">cm;</TextBlock>
+                            <TextBlock FontSize="16" FontFamily="Times New Roman" FontWeight="Bold" Margin="1,5,1,5">[c]=</TextBlock>
+                            <TextBox Width="50" Margin="1,5,5,5"></TextBox>
+                            <TextBlock Margin="5" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman">H*m</TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Margin="2,2,16,2" DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Stretch">
+                            <Button HorizontalAlignment="Right" Margin="10,10,2,10" Padding="5" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" Background="#FFC4F990">Добавить</Button>
+                            <Button HorizontalAlignment="Right" Margin="10,10,2,10" Padding="5" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" Background="AntiqueWhite">Удалить</Button>
+                        </StackPanel>
+                    </DockPanel>
+
+                    <RichTextBox Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="100"></RichTextBox>
+                </StackPanel>
+            </Border>
+
+            <Border Grid.Column="0" Grid.Row="4" Margin="5" Padding="5" CornerRadius="4" BorderThickness="4,4,4,4" BorderBrush="SteelBlue">
+                <Border.Background>
+                    <LinearGradientBrush>
+                        <LinearGradientBrush.GradientStops>
+                            <GradientStop Offset="0" Color="AliceBlue"></GradientStop>
+                            <GradientStop Offset="0.5" Color="White"></GradientStop>
+                            <GradientStop Offset="1" Color="AliceBlue"></GradientStop>
+                        </LinearGradientBrush.GradientStops>
+                    </LinearGradientBrush>
+                </Border.Background>
+                
+                <StackPanel Margin="1">
+                    <TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman">Результаты</TextBlock>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman" Margin="5">K =</TextBlock>
+                        <TextBox Margin="5,8,5,8" Width="400" FontFamily="Times New Roman" FontSize="14" FontWeight="Bold"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman" Margin="5">Критическая сила =</TextBlock>
+                        <TextBox Width="250" Margin="5,8,5,8" FontFamily="Times New Roman" FontSize="14" FontWeight="Bold"></TextBox>
+                    </StackPanel>
                 </StackPanel>
             </Border>
         </Grid>

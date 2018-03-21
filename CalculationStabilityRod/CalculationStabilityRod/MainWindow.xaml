@@ -14,10 +14,10 @@
 
         <Grid Grid.Column="0" ShowGridLines="False">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"></RowDefinition>
-                <RowDefinition Height="100"></RowDefinition>
-                <RowDefinition Height="135"></RowDefinition>
-                <RowDefinition Height="250"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
@@ -35,7 +35,7 @@
                         </LinearGradientBrush.GradientStops>
                     </LinearGradientBrush>
                 </Border.Background>
-                
+
                 <Grid ShowGridLines="False">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="170"></ColumnDefinition>
@@ -70,10 +70,10 @@
                         </LinearGradientBrush.GradientStops>
                     </LinearGradientBrush>
                 </Border.Background>
-                
+
                 <StackPanel Margin="1">
-                    <Label Margin="1" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman" HorizontalAlignment="Center">Типы заделки</Label>
-                    
+                    <TextBlock TextAlignment="Center" Margin="1" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman">Типы заделки</TextBlock>
+
                     <ComboBox Margin="2" Name="ComboBoxTypeOfSealing" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <ComboBoxItem IsSelected="True">
                             <StackPanel Orientation="Horizontal">
@@ -110,7 +110,7 @@
                     </LinearGradientBrush>
                 </Border.Background>
                 <StackPanel>
-                    <TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman" Margin="5">Пружины</TextBlock>
+                    <TextBlock TextAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman" Margin="5">Пружины</TextBlock>
 
                     <DockPanel LastChildFill="True">
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
@@ -144,9 +144,9 @@
                         </LinearGradientBrush.GradientStops>
                     </LinearGradientBrush>
                 </Border.Background>
-                
+
                 <StackPanel Margin="1">
-                    <TextBlock HorizontalAlignment="Center" FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman">Результаты</TextBlock>
+                    <TextBlock TextAlignment="Center" FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman">Результаты</TextBlock>
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman" Margin="5">K =</TextBlock>
@@ -160,5 +160,18 @@
                 </StackPanel>
             </Border>
         </Grid>
+
+        <StackPanel Grid.Column="1">
+            <TextBlock Margin="5" TextAlignment="Center" FontFamily="Times New Roman" FontWeight="Bold" FontSize="20">Схема</TextBlock>
+            <Canvas Margin="5" Height="100">
+                <Ellipse Canvas.Left="100" Canvas.Top="50" Fill="White" Stroke="Black" Height="10" Width="10"></Ellipse>
+                <Ellipse Fill="White" Canvas.Right="100" Canvas.Top="50" Stroke="Black" Height="10" Width="10"></Ellipse>
+                <Line Canvas.Top="55" Canvas.Left="100" X1="10" Y1="0" X2="273" Y2="0" Stroke="Black" StrokeThickness="3"></Line>
+                <Line Canvas.Right="55" Canvas.Top="55" X1="40" Y1="0" X2="0" Y2="0" StrokeThickness="2" Stroke="Red"></Line>
+                <Line Canvas.Right="80" Canvas.Top="55" X1="0" Y1="10" X2="-20" Y2="0" Stroke="Red" StrokeThickness="2"></Line>
+                <Line Canvas.Right="80" Canvas.Top="55" X1="0" Y1="-10" X2="-20" Y2="0" Stroke="Red" StrokeThickness="2"></Line>
+             </Canvas>
+            <TextBlock Margin="5" TextAlignment="Center" FontFamily="Times New Roman" FontWeight="Bold" FontSize="20">Эпюры</TextBlock>
+        </StackPanel>
     </Grid>
 </Window>

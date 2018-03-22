@@ -77,13 +77,13 @@
                     <ComboBox Margin="2" Name="ComboBoxTypeOfSealing" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <ComboBoxItem IsSelected="True">
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hinged support.jpg"></Image>
-                                <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Шарнирно подвижная опора</TextBlock>
+                                <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hingeless fixed support.jpg"></Image>
+                                <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Шарнирно не подвижная опора</TextBlock>
                             </StackPanel>
                         </ComboBoxItem>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hingeless fixed support.jpg"></Image>
-                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Шарнирно неподвижная опора</TextBlock>
+                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hinged support.jpg"></Image>
+                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Шарнирно подвижная опора</TextBlock>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
@@ -170,7 +170,29 @@
                 <Line Canvas.Right="55" Canvas.Top="55" X1="40" Y1="0" X2="0" Y2="0" StrokeThickness="2" Stroke="Red"></Line>
                 <Line Canvas.Right="80" Canvas.Top="55" X1="0" Y1="10" X2="-20" Y2="0" Stroke="Red" StrokeThickness="2"></Line>
                 <Line Canvas.Right="80" Canvas.Top="55" X1="0" Y1="-10" X2="-20" Y2="0" Stroke="Red" StrokeThickness="2"></Line>
-             </Canvas>
+                <Line Canvas.Right="104" Canvas.Top="60" X1="0" Y2="10" StrokeThickness="2" Stroke="Black"></Line>
+                <Ellipse Fill="White" Stroke="Black" Height="10" Width="10" Canvas.Right="100" Canvas.Top="70"></Ellipse>
+                <Line Stroke="Black" StrokeThickness="2" Canvas.Right="87" Canvas.Top="80" X1="35"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="85" Canvas.Top="79" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="90" Canvas.Top="79" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="95" Canvas.Top="79" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="100" Canvas.Top="79" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="105" Canvas.Top="79" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="110" Canvas.Top="79" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="115" Canvas.Top="79" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="120" Canvas.Top="79" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="105" Canvas.Top="60" X1="10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="105" Canvas.Top="60" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="88" Canvas.Top="70" X1="35"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="124" Canvas.Top="70" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="119" Canvas.Top="70" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="114" Canvas.Top="70" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="109" Canvas.Top="70" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="104" Canvas.Top="70" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="99" Canvas.Top="70" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="94" Canvas.Top="70" X1="-10" Y1="10"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="89" Canvas.Top="70" X1="-10" Y1="10"></Line>
+            </Canvas>
             <TextBlock Margin="5" TextAlignment="Center" FontFamily="Times New Roman" FontWeight="Bold" FontSize="20">Эпюры</TextBlock>
         </StackPanel>
     </Grid>

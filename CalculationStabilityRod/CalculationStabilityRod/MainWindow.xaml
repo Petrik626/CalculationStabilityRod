@@ -74,12 +74,8 @@
                 <StackPanel Margin="1">
                     <TextBlock TextAlignment="Center" Margin="1" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman">Типы заделки</TextBlock>
 
-                    <ComboBox Margin="2" Name="ComboBoxTypeOfSealing" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <ComboBox Margin="2" Name="ComboBoxTypeOfSealing" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="ComboBoxTypeOfSealing_SelectionChanged">
                         <ComboBoxItem IsSelected="True">
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hingeless fixed support.jpg"></Image>
-                                <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Шарнирно не подвижная опора</TextBlock>
-                            </StackPanel>
                         </ComboBoxItem>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hinged support.jpg"></Image>
@@ -94,6 +90,11 @@
                         <StackPanel Orientation="Horizontal">
                             <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Fixed support.jpg"></Image>
                             <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Жесткая заделка</TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hingeless fixed support.jpg"></Image>
+                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Шарнирно неподвижная опора</TextBlock>
                         </StackPanel>
                     </ComboBox>
                 </StackPanel>
@@ -125,8 +126,8 @@
                         </StackPanel>
 
                         <StackPanel Margin="2,2,16,2" DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Stretch">
-                            <Button HorizontalAlignment="Right" Margin="10,10,2,10" Padding="5" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" Background="#FFC4F990">Добавить</Button>
-                            <Button HorizontalAlignment="Right" Margin="10,10,2,10" Padding="5" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" Background="AntiqueWhite">Удалить</Button>
+                            <Button HorizontalAlignment="Right" Margin="10,10,2,10" Padding="5" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" Background="#FFC4F990" Name="AddSpringButton" Click="AddSpringButton_Click">Добавить</Button>
+                            <Button HorizontalAlignment="Right" Margin="10,10,2,10" Padding="5" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" Background="AntiqueWhite" Name="DeleteSpringButton">Удалить</Button>
                         </StackPanel>
                     </DockPanel>
 
@@ -164,7 +165,6 @@
         <StackPanel Grid.Column="1">
             <TextBlock Margin="5" TextAlignment="Center" FontFamily="Times New Roman" FontWeight="Bold" FontSize="20">Схема</TextBlock>
             <Canvas Margin="5" Height="100">
-                <Ellipse Canvas.Left="100" Canvas.Top="50" Fill="White" Stroke="Black" Height="10" Width="10"></Ellipse>
                 <Ellipse Fill="White" Canvas.Right="100" Canvas.Top="50" Stroke="Black" Height="10" Width="10"></Ellipse>
                 <Line Canvas.Top="55" Canvas.Left="100" X1="10" Y1="0" X2="273" Y2="0" Stroke="Black" StrokeThickness="3"></Line>
                 <Line Canvas.Right="55" Canvas.Top="55" X1="40" Y1="0" X2="0" Y2="0" StrokeThickness="2" Stroke="Red"></Line>
@@ -181,17 +181,44 @@
                 <Line Stroke="Black" StrokeThickness="1" Canvas.Right="110" Canvas.Top="79" X1="-10" Y1="10"></Line>
                 <Line Stroke="Black" StrokeThickness="1" Canvas.Right="115" Canvas.Top="79" X1="-10" Y1="10"></Line>
                 <Line Stroke="Black" StrokeThickness="1" Canvas.Right="120" Canvas.Top="79" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="105" Canvas.Top="60" X1="10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="105" Canvas.Top="60" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="88" Canvas.Top="70" X1="35"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="124" Canvas.Top="70" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="119" Canvas.Top="70" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="114" Canvas.Top="70" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="109" Canvas.Top="70" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="104" Canvas.Top="70" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="99" Canvas.Top="70" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="94" Canvas.Top="70" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Left="89" Canvas.Top="70" X1="-10" Y1="10"></Line>
+                <Ellipse Canvas.Left="100" Canvas.Top="50" Fill="White" Stroke="Black" Height="10" Width="10" Name="hingelessFixedSupportEllipse"></Ellipse>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="105" Canvas.Top="60" X1="10" Y1="10" Name="hingelessFixedSupportLine0"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="105" Canvas.Top="60" X1="-10" Y1="10" Name="hingelessFixedSupportLine1"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="88" Canvas.Top="70" X1="35" Name="hingelessFixedSupportLine2"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="124" Canvas.Top="70" X1="-10" Y1="10" Name="hingelessFixedSupportLine3"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="119" Canvas.Top="70" X1="-10" Y1="10" Name="hingelessFixedSupportLine4"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="114" Canvas.Top="70" X1="-10" Y1="10" Name="hingelessFixedSupportLine5"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="109" Canvas.Top="70" X1="-10" Y1="10" Name="hingelessFixedSupportLine6"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="104" Canvas.Top="70" X1="-10" Y1="10" Name="hingelessFixedSupportLine7"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="99" Canvas.Top="70" X1="-10" Y1="10" Name="hingelessFixedSupportLine8"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="94" Canvas.Top="70" X1="-10" Y1="10" Name="hingelessFixedSupportLine9"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="89" Canvas.Top="70" X1="-10" Y1="10" Name="hingelessFixedSupportLine10"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="30" Y1="50" Name="fixedSupportLine0"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="33" X1="-10" Y1="10" Name="fixedSupportLine1"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="43" X1="-10" Y1="10" Name="fixedSupportLine2"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="53" X1="-10" Y1="10" Name="fixedSupportLine3"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="65" X1="-10" Y1="10" Name="fixedSupportLine4"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="75" X1="-10" Y1="10" Name="fixedSupportLine5"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="65" X1="20" Name="sliderLine0"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="45" X1="20" Name="sliderLine1"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="45" X1="10" Y1="-5" Name="sliderLine2"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="122" Canvas.Top="45" X1="10" Y1="-5" Name="sliderLine3"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="130" Canvas.Top="45" X1="10" Y1="-5" Name="sliderLine4"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="65" X1="10" Y1="5" Name="sliderLine5"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="122" Canvas.Top="65" X1="10" Y1="5" Name="sliderLine6"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="130" Canvas.Top="65" X1="10" Y1="5" Name="sliderLine7"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="105" Canvas.Top="60" X1="0" Y2="15" Name="hingedSupportLine0"></Line>
+                <Ellipse Height="10" Width="10" Fill="White" Stroke="Black" StrokeThickness="0" Canvas.Left="100" Canvas.Top="70" Name="hingedSupportEllipse"></Ellipse>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="88" Canvas.Top="80" X1="35" Name="hingedSupportLine1"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="90" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine2"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="94" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine3"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="98" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine4"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="102" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine5"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="106" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine6"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine7"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="114" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine8"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="118" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine9"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="122" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine10"></Line>
             </Canvas>
             <TextBlock Margin="5" TextAlignment="Center" FontFamily="Times New Roman" FontWeight="Bold" FontSize="20">Эпюры</TextBlock>
         </StackPanel>

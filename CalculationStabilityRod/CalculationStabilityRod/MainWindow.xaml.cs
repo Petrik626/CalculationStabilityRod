@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using OxyPlot.Wpf;
+using OxyPlot;
 
 namespace CalculationStabilityRod
 {
@@ -24,6 +26,8 @@ namespace CalculationStabilityRod
         private List<Line> hingelessFixedSupport;
         private List<Line> slider;
         private List<Line> hingedSupport;
+
+        public IList<DataPoint> Points { get; private set; }
 
         public MainWindow()
         {
@@ -76,6 +80,15 @@ namespace CalculationStabilityRod
             };
 
             ComboBoxTypeOfSealing.SelectedIndex = 4;
+
+            Points = new List<DataPoint>
+            {
+                new DataPoint(0,0),
+                new DataPoint(7,12),
+                new DataPoint(8,2),
+                new DataPoint(6,3),
+                new DataPoint(4,4)
+            };
 
         }
 

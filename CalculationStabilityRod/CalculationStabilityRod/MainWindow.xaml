@@ -1,63 +1,62 @@
-﻿<Window x:Class="CalculationStabilityRod.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CalculationStabilityRod"
         xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:Properties="clr-namespace:CalculationStabilityRod.Properties" x:Class="CalculationStabilityRod.MainWindow"
         mc:Ignorable="d"
         Title="Расчет устойчивости стержней" Height="700" Width="1000" Icon="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\favicon.ico" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold" WindowState="Normal" Focusable="True" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen">
 
     <Grid ShowGridLines="True">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0" ShowGridLines="False">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
 
             <Border Margin="5" Padding="5" Background="White"  BorderBrush="SteelBlue" BorderThickness="4,4,4,4" CornerRadius="4" VerticalAlignment="Top">
-                <Label Margin="1" Name="NameParameter" HorizontalAlignment="Center" FontSize="16" Foreground="Black" FontFamily="Times New Roman" FontWeight="Bold">Параметры системы</Label>
+                <Label Margin="1" x:Name="NameParameter" HorizontalAlignment="Center" FontSize="16" Foreground="Black" FontFamily="Times New Roman" FontWeight="Bold" Content="Параметры системы"/>
             </Border>
 
             <Border Grid.Column="0" Grid.Row="1" Margin="5" Padding="5" BorderBrush="SteelBlue" BorderThickness="4,4,4,4" CornerRadius="2" VerticalAlignment="Stretch">
                 <Border.Background>
                     <LinearGradientBrush>
-                        <LinearGradientBrush.GradientStops>
-                            <GradientStop Offset="0" Color="AliceBlue"></GradientStop>
-                            <GradientStop Offset="0.5" Color="White"></GradientStop>
-                            <GradientStop Offset="1" Color="AliceBlue"></GradientStop>
-                        </LinearGradientBrush.GradientStops>
+                        <GradientStop Offset="0" Color="AliceBlue"/>
+                        <GradientStop Offset="0.5" Color="White"/>
+                        <GradientStop Offset="1" Color="AliceBlue"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
                 <Grid ShowGridLines="False">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="170"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition Width="60"></ColumnDefinition>
+                        <ColumnDefinition Width="170"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="60"/>
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0" Margin="5">
-                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" Name="NameLengthRod" HorizontalAlignment="Stretch">Длина стержня -</Label>
-                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" Name="NameMomentInertion" HorizontalAlignment="Stretch">Момент инерцции -</Label>
+                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" x:Name="NameLengthRod" HorizontalAlignment="Stretch" Content="Длина стержня -"/>
+                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" x:Name="NameMomentInertion" HorizontalAlignment="Stretch" Content="Момент инерцции -"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Margin="5">
-                        <TextBox Margin="5" HorizontalAlignment="Stretch"></TextBox>
-                        <TextBox Margin="5" HorizontalAlignment="Stretch"></TextBox>
+                        <TextBox Margin="5" HorizontalAlignment="Stretch"/>
+                        <TextBox Margin="5" HorizontalAlignment="Stretch"/>
                     </StackPanel>
 
                     <StackPanel Grid.Column="2" Margin="4">
-                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" Name="NameDimensionRod" HorizontalAlignment="Left">cm</Label>
-                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" Name="NameDimensionMonentInertion" HorizontalAlignment="Left">cm^4</Label>
+                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" x:Name="NameDimensionRod" HorizontalAlignment="Left" Content="cm"/>
+                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" x:Name="NameDimensionMonentInertion" HorizontalAlignment="Left" Content="cm^4"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -65,38 +64,35 @@
             <Border Grid.Column="0" Grid.Row="2" Margin="5" Padding="5" BorderBrush="SteelBlue" BorderThickness="4,4,4,4" CornerRadius="2" VerticalAlignment="Stretch">
                 <Border.Background>
                     <LinearGradientBrush>
-                        <LinearGradientBrush.GradientStops>
-                            <GradientStop Offset="0" Color="AliceBlue"></GradientStop>
-                            <GradientStop Offset="0.5" Color="White"></GradientStop>
-                            <GradientStop Offset="1" Color="AliceBlue"></GradientStop>
-                        </LinearGradientBrush.GradientStops>
+                        <GradientStop Offset="0" Color="AliceBlue"/>
+                        <GradientStop Offset="0.5" Color="White"/>
+                        <GradientStop Offset="1" Color="AliceBlue"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
                 <StackPanel Margin="1">
-                    <TextBlock TextAlignment="Center" Margin="1" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman">Типы заделки</TextBlock>
+                    <TextBlock TextAlignment="Center" Margin="1" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman"><Run Text="Типы заделки"/></TextBlock>
 
-                    <ComboBox Margin="2" Name="ComboBoxTypeOfSealing" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="ComboBoxTypeOfSealing_SelectionChanged">
-                        <ComboBoxItem IsSelected="True">
-                        </ComboBoxItem>
+                    <ComboBox Margin="2" x:Name="ComboBoxTypeOfSealing" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="ComboBoxTypeOfSealing_SelectionChanged">
+                        <ComboBoxItem IsSelected="True"/>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hinged support.jpg"></Image>
-                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Шарнирно подвижная опора</TextBlock>
+                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hinged support.jpg"/>
+                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold"><Run Text="Шарнирно подвижная опора"/></TextBlock>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Slider.jpg"></Image>
-                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Ползун</TextBlock>
+                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Slider.jpg"/>
+                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold"><Run Text="Ползун"/></TextBlock>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Fixed support.jpg"></Image>
-                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Жесткая заделка</TextBlock>
+                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Fixed support.jpg"/>
+                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold"><Run Text="Жесткая заделка"/></TextBlock>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hingeless fixed support.jpg"></Image>
-                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold">Шарнирно неподвижная опора</TextBlock>
+                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hingeless fixed support.jpg"/>
+                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold"><Run Text="Шарнирно неподвижная опора"/></TextBlock>
                         </StackPanel>
                     </ComboBox>
                 </StackPanel>
@@ -105,132 +101,146 @@
             <Border Grid.Column="0" Grid.Row="3" Margin="5" Padding="5" BorderBrush="SteelBlue" BorderThickness="4,4,4,4" CornerRadius="4" VerticalAlignment="Stretch">
                 <Border.Background>
                     <LinearGradientBrush>
-                        <LinearGradientBrush.GradientStops>
-                            <GradientStop Offset="0" Color="AliceBlue"></GradientStop>
-                            <GradientStop Offset="0.5" Color="White"></GradientStop>
-                            <GradientStop Offset="1" Color="AliceBlue"></GradientStop>
-                        </LinearGradientBrush.GradientStops>
+                        <GradientStop Offset="0" Color="AliceBlue"/>
+                        <GradientStop Offset="0.5" Color="White"/>
+                        <GradientStop Offset="1" Color="AliceBlue"/>
                     </LinearGradientBrush>
                 </Border.Background>
                 <StackPanel>
-                    <TextBlock TextAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman" Margin="5">Пружины</TextBlock>
+                    <TextBlock TextAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman" Margin="5"><Run Text="Пружины"/></TextBlock>
 
                     <DockPanel LastChildFill="True">
                         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                            <TextBlock HorizontalAlignment="Left" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman" Margin="15,2,3,5">Номер пружины</TextBlock>
-                            <TextBox Margin="1,5,5,5" Width="50"></TextBox>
-                            <TextBlock HorizontalAlignment="Right" Margin="5" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman">; X=</TextBlock>
-                            <TextBox Margin="1,5,5,5" Width="50"></TextBox>
-                            <TextBlock Margin="1,4,5,1" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman">cm;</TextBlock>
-                            <TextBlock FontSize="16" FontFamily="Times New Roman" FontWeight="Bold" Margin="1,5,1,5">[c]=</TextBlock>
-                            <TextBox Width="50" Margin="1,5,5,5"></TextBox>
-                            <TextBlock Margin="5" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman">H*m</TextBlock>
+                            <TextBlock HorizontalAlignment="Left" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman" Margin="15,2,3,5"><Run Text="Номер пружины"/></TextBlock>
+                            <TextBox Margin="1,5,5,5" Width="50"/>
+                            <TextBlock HorizontalAlignment="Right" Margin="5" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman"><Run Text="; X="/></TextBlock>
+                            <TextBox Margin="1,5,5,5" Width="50"/>
+                            <TextBlock Margin="1,4,5,1" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman"><Run Text="cm;"/></TextBlock>
+                            <TextBlock FontSize="16" FontFamily="Times New Roman" FontWeight="Bold" Margin="1,5,1,5"><Run Text="[c]="/></TextBlock>
+                            <TextBox Width="50" Margin="1,5,5,5"/>
+                            <TextBlock Margin="5" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman"><Run Text="H*m"/></TextBlock>
                         </StackPanel>
 
                         <StackPanel Margin="2,2,16,2" DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Stretch">
-                            <Button HorizontalAlignment="Right" Margin="10,10,2,10" Padding="5" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" Background="#FFC4F990" Name="AddSpringButton" Click="AddSpringButton_Click">Добавить</Button>
-                            <Button HorizontalAlignment="Right" Margin="10,10,2,10" Padding="5" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" Background="AntiqueWhite" Name="DeleteSpringButton">Удалить</Button>
+                            <Button HorizontalAlignment="Right" Margin="10,10,2,10" Padding="5" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" Background="#FFC4F990" x:Name="AddSpringButton" Click="AddSpringButton_Click" Content="Добавить"/>
+                            <Button HorizontalAlignment="Right" Margin="10,10,2,10" Padding="5" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" Background="AntiqueWhite" x:Name="DeleteSpringButton" Content="Удалить"/>
                         </StackPanel>
                     </DockPanel>
 
-                    <RichTextBox Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="100"></RichTextBox>
+                    <RichTextBox Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="100"/>
                 </StackPanel>
             </Border>
 
             <Border Grid.Column="0" Grid.Row="4" Margin="5" Padding="5" CornerRadius="4" BorderThickness="4,4,4,4" BorderBrush="SteelBlue">
                 <Border.Background>
                     <LinearGradientBrush>
-                        <LinearGradientBrush.GradientStops>
-                            <GradientStop Offset="0" Color="AliceBlue"></GradientStop>
-                            <GradientStop Offset="0.5" Color="White"></GradientStop>
-                            <GradientStop Offset="1" Color="AliceBlue"></GradientStop>
-                        </LinearGradientBrush.GradientStops>
+                        <GradientStop Offset="0" Color="AliceBlue"/>
+                        <GradientStop Offset="0.5" Color="White"/>
+                        <GradientStop Offset="1" Color="AliceBlue"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
                 <StackPanel Margin="1">
-                    <TextBlock TextAlignment="Center" FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman">Результаты</TextBlock>
+                    <TextBlock TextAlignment="Center" FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman"><Run Text="Результаты"/></TextBlock>
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman" Margin="5">K =</TextBlock>
-                        <TextBox Margin="5,8,5,8" Width="400" FontFamily="Times New Roman" FontSize="14" FontWeight="Bold"></TextBox>
+                        <TextBlock FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman" Margin="5"><Run Text="K ="/></TextBlock>
+                        <TextBox Margin="5,8,5,8" Width="400" FontFamily="Times New Roman" FontSize="14" FontWeight="Bold"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman" Margin="5">Критическая сила =</TextBlock>
-                        <TextBox Width="250" Margin="5,8,5,8" FontFamily="Times New Roman" FontSize="14" FontWeight="Bold"></TextBox>
+                        <TextBlock FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman" Margin="5"><Run Text="Критическая сила ="/></TextBlock>
+                        <TextBox Width="250" Margin="5,8,5,8" FontFamily="Times New Roman" FontSize="14" FontWeight="Bold"/>
                     </StackPanel>
                 </StackPanel>
             </Border>
         </Grid>
 
         <StackPanel Grid.Column="1">
-            <TextBlock Margin="5" TextAlignment="Center" FontFamily="Times New Roman" FontWeight="Bold" FontSize="20">Схема</TextBlock>
+            <TextBlock Margin="5" TextAlignment="Center" FontFamily="Times New Roman" FontWeight="Bold" FontSize="20"><Run Text="Схема"/></TextBlock>
             <Canvas Margin="5" Height="100">
-                <Ellipse Fill="White" Canvas.Right="100" Canvas.Top="50" Stroke="Black" Height="10" Width="10"></Ellipse>
-                <Line Canvas.Top="55" Canvas.Left="100" X1="10" Y1="0" X2="273" Y2="0" Stroke="Black" StrokeThickness="3"></Line>
-                <Line Canvas.Right="70" Canvas.Top="55" X1="30" Y1="0" X2="0" Y2="0" StrokeThickness="1" Stroke="Red"></Line>
-                <Line Canvas.Right="89" Canvas.Top="55" X1="0" Y1="5" X2="-10" Y2="0" Stroke="Red" StrokeThickness="1"></Line>
-                <Line Canvas.Right="89" Canvas.Top="55" X1="0" Y1="-5" X2="-10" Y2="0" Stroke="Red" StrokeThickness="1"></Line>
-                <Line Canvas.Right="104" Canvas.Top="60" X1="0" Y2="10" StrokeThickness="2" Stroke="Black"></Line>
-                <Ellipse Fill="White" Stroke="Black" Height="10" Width="10" Canvas.Right="100" Canvas.Top="70"></Ellipse>
-                <Line Stroke="Black" StrokeThickness="2" Canvas.Right="87" Canvas.Top="80" X1="35"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="85" Canvas.Top="79" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="90" Canvas.Top="79" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="95" Canvas.Top="79" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="100" Canvas.Top="79" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="105" Canvas.Top="79" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="110" Canvas.Top="79" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="115" Canvas.Top="79" X1="-10" Y1="10"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="120" Canvas.Top="79" X1="-10" Y1="10"></Line>
-                <Ellipse Canvas.Left="100" Canvas.Top="50" Fill="White" Stroke="Black" Height="10" Width="10" Name="hingelessFixedSupportEllipse"></Ellipse>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="105" Canvas.Top="60" X1="10" Y1="10" Name="hingelessFixedSupportLine0"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="105" Canvas.Top="60" X1="-10" Y1="10" Name="hingelessFixedSupportLine1"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="88" Canvas.Top="70" X1="35" Name="hingelessFixedSupportLine2"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="124" Canvas.Top="70" X1="-10" Y1="10" Name="hingelessFixedSupportLine3"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="116" Canvas.Top="70" X1="-10" Y1="10" Name="hingelessFixedSupportLine4"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="102" Canvas.Top="70" X1="-10" Y1="10" Name="hingelessFixedSupportLine5"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="95" Canvas.Top="70" X1="-10" Y1="10" Name="hingelessFixedSupportLine6"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="89" Canvas.Top="70" X1="-10" Y1="10" Name="hingelessFixedSupportLine7"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="30" Y1="50" Name="fixedSupportLine0"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="33" X1="-10" Y1="10" Name="fixedSupportLine1"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="43" X1="-10" Y1="10" Name="fixedSupportLine2"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="53" X1="-10" Y1="10" Name="fixedSupportLine3"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="63" X1="-10" Y1="10" Name="fixedSupportLine4"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="76" X1="-10" Y1="10" Name="fixedSupportLine5"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="65" X1="20" Name="sliderLine0"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="45" X1="20" Name="sliderLine1"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="45" X1="10" Y1="-5" Name="sliderLine2"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="122" Canvas.Top="45" X1="10" Y1="-5" Name="sliderLine3"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="130" Canvas.Top="45" X1="10" Y1="-5" Name="sliderLine4"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="65" X1="10" Y1="5" Name="sliderLine5"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="122" Canvas.Top="65" X1="10" Y1="5" Name="sliderLine6"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="130" Canvas.Top="65" X1="10" Y1="5" Name="sliderLine7"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="105" Canvas.Top="60" X1="0" Y2="15" Name="hingedSupportLine0"></Line>
-                <Ellipse Height="10" Width="10" Fill="White" Stroke="Black" StrokeThickness="0" Canvas.Left="100" Canvas.Top="70" Name="hingedSupportEllipse"></Ellipse>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="88" Canvas.Top="80" X1="35" Name="hingedSupportLine1"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="90" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine2"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="94" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine3"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="98" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine4"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="102" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine5"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="106" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine6"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine7"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="114" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine8"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="118" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine9"></Line>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="122" Canvas.Top="80" X1="-10" Y1="10" Name="hingedSupportLine10"></Line>
+                <Ellipse Fill="White" Canvas.Right="100" Canvas.Top="50" Stroke="Black" Height="10" Width="10"/>
+                <Line Canvas.Top="55" Canvas.Left="100" X1="10" Y1="0" X2="273" Y2="0" Stroke="Black" StrokeThickness="3"/>
+                <Line Canvas.Right="70" Canvas.Top="55" X1="30" Y1="0" X2="0" Y2="0" StrokeThickness="1" Stroke="Red"/>
+                <Line Canvas.Right="89" Canvas.Top="55" X1="0" Y1="5" X2="-10" Y2="0" Stroke="Red" StrokeThickness="1"/>
+                <Line Canvas.Right="89" Canvas.Top="55" X1="0" Y1="-5" X2="-10" Y2="0" Stroke="Red" StrokeThickness="1"/>
+                <Line Canvas.Right="104" Canvas.Top="60" X1="0" Y2="10" StrokeThickness="2" Stroke="Black"/>
+                <Ellipse Fill="White" Stroke="Black" Height="10" Width="10" Canvas.Right="100" Canvas.Top="70"/>
+                <Line Stroke="Black" StrokeThickness="2" Canvas.Right="87" Canvas.Top="80" X1="35"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="85" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="90" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="95" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="100" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="105" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="110" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="115" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="120" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Ellipse Canvas.Left="100" Canvas.Top="50" Fill="White" Stroke="Black" Height="10" Width="10" x:Name="hingelessFixedSupportEllipse"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="105" Canvas.Top="60" X1="10" Y1="10" x:Name="hingelessFixedSupportLine0"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="105" Canvas.Top="60" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine1"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="88" Canvas.Top="70" X1="35" x:Name="hingelessFixedSupportLine2"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="124" Canvas.Top="70" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine3"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="116" Canvas.Top="70" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine4"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="102" Canvas.Top="70" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine5"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="95" Canvas.Top="70" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine6"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="89" Canvas.Top="70" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine7"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="30" Y1="50" x:Name="fixedSupportLine0"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="33" X1="-10" Y1="10" x:Name="fixedSupportLine1"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="43" X1="-10" Y1="10" x:Name="fixedSupportLine2"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="53" X1="-10" Y1="10" x:Name="fixedSupportLine3"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="63" X1="-10" Y1="10" x:Name="fixedSupportLine4"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="76" X1="-10" Y1="10" x:Name="fixedSupportLine5"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="65" X1="20" x:Name="sliderLine0"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="45" X1="20" x:Name="sliderLine1"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="45" X1="10" Y1="-5" x:Name="sliderLine2"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="122" Canvas.Top="45" X1="10" Y1="-5" x:Name="sliderLine3"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="130" Canvas.Top="45" X1="10" Y1="-5" x:Name="sliderLine4"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="65" X1="10" Y1="5" x:Name="sliderLine5"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="122" Canvas.Top="65" X1="10" Y1="5" x:Name="sliderLine6"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="130" Canvas.Top="65" X1="10" Y1="5" x:Name="sliderLine7"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="105" Canvas.Top="60" X1="0" Y2="15" x:Name="hingedSupportLine0"/>
+                <Ellipse Height="10" Width="10" Fill="White" Stroke="Black" StrokeThickness="0" Canvas.Left="100" Canvas.Top="70" x:Name="hingedSupportEllipse"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="88" Canvas.Top="80" X1="35" x:Name="hingedSupportLine1"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="90" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine2"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="94" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine3"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="98" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine4"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="102" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine5"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="106" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine6"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine7"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="114" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine8"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="118" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine9"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="122" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine10"/>
             </Canvas>
-            <TextBlock Margin="5" TextAlignment="Center" FontFamily="Times New Roman" FontWeight="Bold" FontSize="20">Эпюры</TextBlock>
 
-            <Grid ShowGridLines="True">
+            <Grid ShowGridLines="False">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="150"></RowDefinition>
-                    <RowDefinition Height="150"></RowDefinition>
-                    <RowDefinition Height="150"></RowDefinition>
+                    <RowDefinition Height="130"/>
+                    <RowDefinition Height="130"/>
+                    <RowDefinition Height="130"/>
+                    <RowDefinition Height="130"/>
                 </Grid.RowDefinitions>
 
-                <oxy:Plot Grid.Row="0" Title="Эпюра">
+                <oxy:Plot Grid.Row="0" Title="Эпюра прогибов" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="diagramDeflection">
                     <oxy:Plot.Series>
-                        <oxy:LineSeries ItemsSource="{Binding MainWindow.Points}"></oxy:LineSeries>
+                        <oxy:LineSeries ItemsSource="{Binding Points}"></oxy:LineSeries>
+                    </oxy:Plot.Series>
+                </oxy:Plot>
+
+                <oxy:Plot Grid.Row="1" Title="Эпюра угла поворота" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="diagramAngle">
+                    <oxy:Plot.Series>
+                        <oxy:LineSeries ItemsSource="{Binding Points}"/>
+                    </oxy:Plot.Series>
+                </oxy:Plot>
+
+                <oxy:Plot Grid.Row="2" Title="Эпюра моментов" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="diagramMoment">
+                    <oxy:Plot.Series>
+                        <oxy:LineSeries ItemsSource="{Binding Points}"/>
+                    </oxy:Plot.Series>
+                </oxy:Plot>
+
+                <oxy:Plot Grid.Row="3" Title="Эпюра перерезывающих сил" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="diagramForce">
+                    <oxy:Plot.Series>
+                        <oxy:LineSeries ItemsSource="{Binding Points}"/>
                     </oxy:Plot.Series>
                 </oxy:Plot>
             </Grid>

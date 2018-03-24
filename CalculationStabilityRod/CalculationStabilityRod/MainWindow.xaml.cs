@@ -20,6 +20,9 @@ namespace CalculationStabilityRod
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
+    /// 
+
+
     public partial class MainWindow : Window
     {
         private List<Line> fixedSupport;
@@ -31,9 +34,9 @@ namespace CalculationStabilityRod
 
         public MainWindow()
         {
-            InitializeComponent();
+           InitializeComponent();
 
-            fixedSupport = new List<Line>()
+           fixedSupport = new List<Line>()
             {
                 fixedSupportLine0,
                 fixedSupportLine1,
@@ -42,7 +45,7 @@ namespace CalculationStabilityRod
                 fixedSupportLine4,
                 fixedSupportLine5
             };
-            hingelessFixedSupport = new List<Line>()
+           hingelessFixedSupport = new List<Line>()
             {
                 hingelessFixedSupportLine0,
                 hingelessFixedSupportLine1,
@@ -53,7 +56,7 @@ namespace CalculationStabilityRod
                 hingelessFixedSupportLine6,
                 hingelessFixedSupportLine7
             };
-            slider = new List<Line>()
+           slider = new List<Line>()
             {
                 sliderLine0,
                 sliderLine1,
@@ -64,7 +67,7 @@ namespace CalculationStabilityRod
                 sliderLine6,
                 sliderLine7
             };
-            hingedSupport = new List<Line>()
+           hingedSupport = new List<Line>()
             {
                 hingedSupportLine0,
                 hingedSupportLine1,
@@ -79,17 +82,16 @@ namespace CalculationStabilityRod
                 hingedSupportLine10
             };
 
-            ComboBoxTypeOfSealing.SelectedIndex = 4;
+           ComboBoxTypeOfSealing.SelectedIndex = 4;
 
-            Points = new List<DataPoint>
-            {
+           Points = new List<DataPoint>
+           {
                 new DataPoint(0,0),
                 new DataPoint(7,12),
                 new DataPoint(8,2),
                 new DataPoint(6,3),
                 new DataPoint(4,4)
-            };
-
+           };
         }
 
         private void SetStrokeThicknessLines(List<Line> lines, double thikness)

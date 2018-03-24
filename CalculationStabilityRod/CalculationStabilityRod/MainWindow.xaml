@@ -123,7 +123,7 @@
 
                         <StackPanel Margin="2,2,16,2" DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Stretch">
                             <Button HorizontalAlignment="Right" Margin="10,10,2,10" Padding="5" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" Background="#FFC4F990" x:Name="AddSpringButton" Click="AddSpringButton_Click" Content="Добавить"/>
-                            <Button HorizontalAlignment="Right" Margin="10,10,2,10" Padding="5" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" Background="AntiqueWhite" x:Name="DeleteSpringButton" Content="Удалить"/>
+                            <Button HorizontalAlignment="Right" Margin="10,10,2,10" Padding="5" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" Background="AntiqueWhite" x:Name="DeleteSpringButton" Content="Удалить" Click="DeleteSpringButton_Click"/>
                         </StackPanel>
                     </DockPanel>
 
@@ -222,25 +222,27 @@
 
                 <oxy:Plot Grid.Row="0" Title="Эпюра прогибов" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="diagramDeflection">
                     <oxy:Plot.Series>
-                        <oxy:LineSeries ItemsSource="{Binding Points}"></oxy:LineSeries>
+                        <oxy:LineSeries>
+
+                        </oxy:LineSeries>
                     </oxy:Plot.Series>
                 </oxy:Plot>
 
                 <oxy:Plot Grid.Row="1" Title="Эпюра угла поворота" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="diagramAngle">
                     <oxy:Plot.Series>
-                        <oxy:LineSeries ItemsSource="{Binding Points}"/>
+                        
                     </oxy:Plot.Series>
                 </oxy:Plot>
 
                 <oxy:Plot Grid.Row="2" Title="Эпюра моментов" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="diagramMoment">
                     <oxy:Plot.Series>
-                        <oxy:LineSeries ItemsSource="{Binding Points}"/>
+                        
                     </oxy:Plot.Series>
                 </oxy:Plot>
 
                 <oxy:Plot Grid.Row="3" Title="Эпюра перерезывающих сил" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="diagramForce">
                     <oxy:Plot.Series>
-                        <oxy:LineSeries ItemsSource="{Binding Points}"/>
+                        
                     </oxy:Plot.Series>
                 </oxy:Plot>
             </Grid>

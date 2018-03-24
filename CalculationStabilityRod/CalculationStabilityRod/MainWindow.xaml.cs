@@ -21,8 +21,7 @@ namespace CalculationStabilityRod
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     /// 
-
-
+  
     public partial class MainWindow : Window
     {
         private List<Line> fixedSupport;
@@ -30,13 +29,22 @@ namespace CalculationStabilityRod
         private List<Line> slider;
         private List<Line> hingedSupport;
 
-        public IList<DataPoint> Points { get; private set; }
+        public IList<DataPoint> PointsDeflection { get; private set; }
+        public IList<DataPoint> PointsAngle { get; private set; }
+        public IList<DataPoint> PointsMoment { get; private set; }
+        public IList<DataPoint> PointsForce { get; private set; }
+
+        LineSeries deflectionSeries = new LineSeries();
+        LineSeries angleSeries = new LineSeries();
+        LineSeries momentSeries = new LineSeries();
+        LineSeries forceSeries = new LineSeries();
+
 
         public MainWindow()
         {
-           InitializeComponent();
+            InitializeComponent();
 
-           fixedSupport = new List<Line>()
+            fixedSupport = new List<Line>()
             {
                 fixedSupportLine0,
                 fixedSupportLine1,
@@ -45,7 +53,7 @@ namespace CalculationStabilityRod
                 fixedSupportLine4,
                 fixedSupportLine5
             };
-           hingelessFixedSupport = new List<Line>()
+            hingelessFixedSupport = new List<Line>()
             {
                 hingelessFixedSupportLine0,
                 hingelessFixedSupportLine1,
@@ -56,7 +64,7 @@ namespace CalculationStabilityRod
                 hingelessFixedSupportLine6,
                 hingelessFixedSupportLine7
             };
-           slider = new List<Line>()
+            slider = new List<Line>()
             {
                 sliderLine0,
                 sliderLine1,
@@ -67,7 +75,7 @@ namespace CalculationStabilityRod
                 sliderLine6,
                 sliderLine7
             };
-           hingedSupport = new List<Line>()
+            hingedSupport = new List<Line>()
             {
                 hingedSupportLine0,
                 hingedSupportLine1,
@@ -82,16 +90,43 @@ namespace CalculationStabilityRod
                 hingedSupportLine10
             };
 
-           ComboBoxTypeOfSealing.SelectedIndex = 4;
+            ComboBoxTypeOfSealing.SelectedIndex = 4;
 
-           Points = new List<DataPoint>
-           {
+            PointsDeflection = new List<DataPoint>
+            {
                 new DataPoint(0,0),
-                new DataPoint(7,12),
-                new DataPoint(8,2),
-                new DataPoint(6,3),
-                new DataPoint(4,4)
-           };
+                new DataPoint(1,0),
+                new DataPoint(2,0)
+            };
+            PointsAngle = new List<DataPoint>
+            {
+                new DataPoint(0,0),
+                new DataPoint(1,0),
+                new DataPoint(2,0)
+            };
+            PointsMoment = new List<DataPoint>
+            {
+                new DataPoint(0,0),
+                new DataPoint(1,0),
+                new DataPoint(2,0)
+            };
+            PointsForce = new List<DataPoint>
+            {
+                new DataPoint(0,0),
+                new DataPoint(1,0),
+                new DataPoint(2,0)
+            };
+
+            deflectionSeries.ItemsSource = PointsDeflection;
+            angleSeries.ItemsSource = PointsAngle;
+            momentSeries.ItemsSource = PointsMoment;
+            forceSeries.ItemsSource = PointsForce;
+
+            diagramDeflection.Series.Add(deflectionSeries);
+            diagramAngle.Series.Add(angleSeries);
+            diagramMoment.Series.Add(momentSeries);
+            diagramForce.Series.Add(forceSeries);
+
         }
 
         private void SetStrokeThicknessLines(List<Line> lines, double thikness)
@@ -118,6 +153,11 @@ namespace CalculationStabilityRod
                 case 3: SetStrokeThicknessLines(hingedSupport,0.0); SetStrokeThicknessLines(slider, 0.0); SetStrokeThicknessLines(hingelessFixedSupport, 0.0); hingelessFixedSupportEllipse.StrokeThickness = 0.0; hingedSupportEllipse.StrokeThickness = 0.0; SetStrokeThicknessLines(fixedSupport, 1.0); break;
                 case 4: SetStrokeThicknessLines(slider, 0.0); SetStrokeThicknessLines(fixedSupport, 0.0); SetStrokeThicknessLines(hingedSupport, 0.0); hingelessFixedSupportEllipse.StrokeThickness = 1.0; hingedSupportEllipse.StrokeThickness = 0.0; SetStrokeThicknessLines(hingelessFixedSupport, 1.0); break;
             }
+        }
+
+        private void DeleteSpringButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

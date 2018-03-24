@@ -24,11 +24,11 @@ namespace CalculationStabilityRod
         private List<Line> hingelessFixedSupport;
         private List<Line> slider;
         private List<Line> hingedSupport;
+
         public MainWindow()
         {
             InitializeComponent();
 
-            ComboBoxTypeOfSealing.SelectedIndex = -1;
             fixedSupport = new List<Line>()
             {
                 fixedSupportLine0,
@@ -47,10 +47,7 @@ namespace CalculationStabilityRod
                 hingelessFixedSupportLine4,
                 hingelessFixedSupportLine5,
                 hingelessFixedSupportLine6,
-                hingelessFixedSupportLine7,
-                hingelessFixedSupportLine8,
-                hingelessFixedSupportLine9,
-                hingelessFixedSupportLine10
+                hingelessFixedSupportLine7
             };
             slider = new List<Line>()
             {
@@ -77,6 +74,9 @@ namespace CalculationStabilityRod
                 hingedSupportLine9,
                 hingedSupportLine10
             };
+
+            ComboBoxTypeOfSealing.SelectedIndex = 4;
+
         }
 
         private void SetStrokeThicknessLines(List<Line> lines, double thikness)

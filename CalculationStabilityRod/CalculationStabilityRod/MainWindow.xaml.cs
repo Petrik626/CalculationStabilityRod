@@ -34,11 +34,13 @@ namespace CalculationStabilityRod
         public IList<DataPoint> PointsMoment { get; private set; }
         public IList<DataPoint> PointsForce { get; private set; }
 
-        LineSeries deflectionSeries = new LineSeries();
-        LineSeries angleSeries = new LineSeries();
-        LineSeries momentSeries = new LineSeries();
-        LineSeries forceSeries = new LineSeries();
+        private LineSeries deflectionSeries = new LineSeries();
+        private LineSeries angleSeries = new LineSeries();
+        private LineSeries momentSeries = new LineSeries();
+        private LineSeries forceSeries = new LineSeries();
 
+
+        internal IList<Spring> Springs { get; set; } = new List<Spring>();
 
         public MainWindow()
         {
@@ -158,6 +160,11 @@ namespace CalculationStabilityRod
         private void DeleteSpringButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void SpringGrid_Loaded(object sender, RoutedEventArgs e)
+        {
+            SpringGrid.ItemsSource = Springs;
         }
     }
 }

@@ -108,26 +108,14 @@
                 </Border.Background>
                 <StackPanel>
                     <TextBlock TextAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman" Margin="5"><Run Text="Пружины"/></TextBlock>
+                    <DataGrid Name="SpringGrid" AutoGenerateColumns="False" Height="200" Loaded="SpringGrid_Loaded">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Номер пружини" Width="140" Binding="{Binding Path=ID}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Координата X" Width="140" Binding="{Binding Path=CoordsX}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Жесткость пружини" Width="185" Binding="{Binding Path=Rigidity}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
-                    <DockPanel LastChildFill="True">
-                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                            <TextBlock HorizontalAlignment="Left" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman" Margin="15,2,3,5"><Run Text="Номер пружины"/></TextBlock>
-                            <TextBox Margin="1,5,5,5" Width="50"/>
-                            <TextBlock HorizontalAlignment="Right" Margin="5" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman"><Run Text="; X="/></TextBlock>
-                            <TextBox Margin="1,5,5,5" Width="50"/>
-                            <TextBlock Margin="1,4,5,1" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman"><Run Text="cm;"/></TextBlock>
-                            <TextBlock FontSize="16" FontFamily="Times New Roman" FontWeight="Bold" Margin="1,5,1,5"><Run Text="[c]="/></TextBlock>
-                            <TextBox Width="50" Margin="1,5,5,5"/>
-                            <TextBlock Margin="5" FontSize="16" FontWeight="Bold" FontFamily="Times New Roman"><Run Text="H*m"/></TextBlock>
-                        </StackPanel>
-
-                        <StackPanel Margin="2,2,16,2" DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Stretch">
-                            <Button HorizontalAlignment="Right" Margin="10,10,2,10" Padding="5" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" Background="#FFC4F990" x:Name="AddSpringButton" Click="AddSpringButton_Click" Content="Добавить"/>
-                            <Button HorizontalAlignment="Right" Margin="10,10,2,10" Padding="5" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman" Background="AntiqueWhite" x:Name="DeleteSpringButton" Content="Удалить" Click="DeleteSpringButton_Click"/>
-                        </StackPanel>
-                    </DockPanel>
-
-                    <RichTextBox Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="100"/>
                 </StackPanel>
             </Border>
 

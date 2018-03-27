@@ -108,7 +108,7 @@
                 </Border.Background>
                 <StackPanel>
                     <TextBlock TextAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman" Margin="5"><Run Text="Пружины"/></TextBlock>
-                    <DataGrid Name="SpringGrid" AutoGenerateColumns="False" Height="200" Loaded="SpringGrid_Loaded">
+                    <DataGrid Name="SpringGrid" AutoGenerateColumns="False" Height="200" PreviewKeyDown="SpringGrid_PreviewKeyDown">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Номер пружини" Width="140" Binding="{Binding Path=ID}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Координата X" Width="140" Binding="{Binding Path=CoordsX}"></DataGridTextColumn>

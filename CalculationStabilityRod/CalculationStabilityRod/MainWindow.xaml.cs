@@ -45,6 +45,7 @@ namespace CalculationStabilityRod
         public MainWindow()
         {
             InitializeComponent();
+            SpringGrid.ItemsSource = Springs;
 
             fixedSupport = new List<Line>()
             {
@@ -157,14 +158,19 @@ namespace CalculationStabilityRod
             }
         }
 
-        private void DeleteSpringButton_Click(object sender, RoutedEventArgs e)
+        private void SpringGrid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-
-        }
-
-        private void SpringGrid_Loaded(object sender, RoutedEventArgs e)
-        {
-            SpringGrid.ItemsSource = Springs;
+            if(e.Key == Key.Delete)
+            {
+                if(MessageBox.Show("Удалить пружину?","",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
+                {
+                    SpringGrid.CanUserDeleteRows = true;
+                }
+                else
+                {
+                    SpringGrid.CanUserDeleteRows = false;
+                }
+            }
         }
     }
 }

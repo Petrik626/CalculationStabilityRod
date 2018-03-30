@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,7 +41,8 @@ namespace CalculationStabilityRod
         private LineSeries forceSeries = new LineSeries();
 
 
-        internal IList<Spring> Springs { get; set; } = new List<Spring>();
+        private Balk balk = new Balk();
+        private IList<Spring> Springs { get; set; } = new List<Spring>();
 
         public MainWindow()
         {
@@ -132,12 +134,37 @@ namespace CalculationStabilityRod
 
         }
 
-        private void SetStrokeThicknessLines(List<Line> lines, double thikness)
+        private void SetStrokeThicknessLines(IList<Line> lines, double thikness)
         {
             foreach(Line l in lines)
             {
                 l.StrokeThickness = thikness;
             }
+        }
+
+        private void ValidatingCorrectInput(string input, out string output, out double parameter)
+        {
+            StringBuilder sb = new StringBuilder(input);
+            string pattern = @"\b\d+([.,]\d+)?\b";
+            bool flag = Regex.IsMatch(sb.ToString(), pattern, RegexOptions.Compiled);
+
+            if (!flag)
+            {
+                for (int i = 0; i < sb.ToString().Length; i++)
+                {
+                    if (!char.IsNumber(sb[i]))
+                    {
+                        sb.Remove(i, 1);
+                    }
+                }
+            }
+            else
+            {
+                sb.Replace(".", ",");
+            }
+
+            output = sb.ToString();
+            parameter = double.Parse(output);
         }
 
         private void AddSpringButton_Click(object sender, RoutedEventArgs e)
@@ -171,6 +198,23 @@ namespace CalculationStabilityRod
                     SpringGrid.CanUserDeleteRows = false;
                 }
             }
+        }
+
+        private void LengthBalkTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string output;
+            double length;
+
+            ValidatingCorrectInput(LengthBalkTextBox.Text, out output, out length);
+
+            LengthBalkTextBox.Text = output;
+            balk.Length = length;
+            LengthBalkTextBox.SelectionStart = output.Length;
+        }
+
+        private void MomentInertionBalkTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

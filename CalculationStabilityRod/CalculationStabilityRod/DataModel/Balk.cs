@@ -8,10 +8,10 @@ using System.Runtime.InteropServices;
 namespace CalculationStabilityRod
 {
     [StructLayout(LayoutKind.Auto)]
-    internal sealed class Spring
+    internal sealed class Balk
     {
-        public int ID { get; set; }
-        public double CoordsX { get; set; }
-        public double Rigidity { get; set; }
-    }
+        public double Length { get; set; } = 0.0;
+        public double MomentInertion { get; set; } = 0.0;
+        public IList<Spring> Springs { get; set; } = new List<Spring>();
+    } 
 }

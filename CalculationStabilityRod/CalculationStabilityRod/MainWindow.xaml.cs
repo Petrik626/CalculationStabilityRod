@@ -145,14 +145,24 @@ namespace CalculationStabilityRod
         private void ValidatingCorrectInput(string input, out string output, out double parameter)
         {
             StringBuilder sb = new StringBuilder(input);
-            string pattern = @"\b\d+([.,]\d+)?\b";
+            string pattern = @"^\d+[.,]?(\d+)?$";
             bool flag = Regex.IsMatch(sb.ToString(), pattern, RegexOptions.Compiled);
+            int countCommas = 0;
 
             if (!flag)
             {
                 for (int i = 0; i < sb.ToString().Length; i++)
                 {
-                    if (!char.IsNumber(sb[i]))
+                    if(sb[i]=='.' || sb[i] == ',')
+                    {
+                        countCommas++;
+                        if(countCommas>1)
+                        {
+                            sb.Remove(i, 1);
+                            countCommas--;
+                        }
+                    }
+                    else if (!(char.IsNumber(sb[i]) || sb[i] == '.' || sb[i] == ','))
                     {
                         sb.Remove(i, 1);
                     }
@@ -161,6 +171,15 @@ namespace CalculationStabilityRod
             else
             {
                 sb.Replace(".", ",");
+            }
+
+
+            if (sb.ToString() == string.Empty)
+            {
+                output = string.Empty;
+                parameter = 0.0;
+
+                return;
             }
 
             output = sb.ToString();
@@ -214,7 +233,13 @@ namespace CalculationStabilityRod
 
         private void MomentInertionBalkTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            string output;
+            double momentInertion;
 
+            ValidatingCorrectInput(MomentInertionBalkTextBox.Text, out output, out momentInertion);
+            MomentInertionBalkTextBox.Text = output;
+            balk.MomentInertion = momentInertion;
+            MomentInertionBalkTextBox.SelectionStart = output.Length;
         }
     }
 }

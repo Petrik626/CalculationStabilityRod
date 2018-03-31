@@ -42,12 +42,11 @@ namespace CalculationStabilityRod
 
 
         private Balk balk = new Balk();
-        private IList<Spring> Springs { get; set; } = new List<Spring>();
 
         public MainWindow()
         {
             InitializeComponent();
-            SpringGrid.ItemsSource = Springs;
+            SpringGrid.ItemsSource = balk.Springs;
 
             fixedSupport = new List<Line>()
             {

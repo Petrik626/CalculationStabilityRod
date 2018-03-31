@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="Расчет устойчивости стержней" Height="700" Width="1000" Icon="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\favicon.ico" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold" WindowState="Normal" Focusable="True" WindowStyle="SingleBorderWindow" WindowStartupLocation="CenterScreen">
 
-    <Grid ShowGridLines="True">
+    <Grid ShowGridLines="False">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -147,57 +147,57 @@
         <StackPanel Grid.Column="1">
             <TextBlock Margin="5" TextAlignment="Center" FontFamily="Times New Roman" FontWeight="Bold" FontSize="20"><Run Text="Схема"/></TextBlock>
             <Canvas Margin="5" Height="100">
-                <Ellipse Fill="White" Canvas.Right="100" Canvas.Top="50" Stroke="Black" Height="10" Width="10"/>
-                <Line Canvas.Top="55" Canvas.Left="100" X1="10" Y1="0" X2="273" Y2="0" Stroke="Black" StrokeThickness="3"/>
-                <Line Canvas.Right="70" Canvas.Top="55" X1="30" Y1="0" X2="0" Y2="0" StrokeThickness="1" Stroke="Red"/>
-                <Line Canvas.Right="89" Canvas.Top="55" X1="0" Y1="5" X2="-10" Y2="0" Stroke="Red" StrokeThickness="1"/>
-                <Line Canvas.Right="89" Canvas.Top="55" X1="0" Y1="-5" X2="-10" Y2="0" Stroke="Red" StrokeThickness="1"/>
-                <Line Canvas.Right="104" Canvas.Top="60" X1="0" Y2="10" StrokeThickness="2" Stroke="Black"/>
-                <Ellipse Fill="White" Stroke="Black" Height="10" Width="10" Canvas.Right="100" Canvas.Top="70"/>
-                <Line Stroke="Black" StrokeThickness="2" Canvas.Right="87" Canvas.Top="80" X1="35"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="85" Canvas.Top="79" X1="-10" Y1="10"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="90" Canvas.Top="79" X1="-10" Y1="10"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="95" Canvas.Top="79" X1="-10" Y1="10"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="100" Canvas.Top="79" X1="-10" Y1="10"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="105" Canvas.Top="79" X1="-10" Y1="10"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="110" Canvas.Top="79" X1="-10" Y1="10"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="115" Canvas.Top="79" X1="-10" Y1="10"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="120" Canvas.Top="79" X1="-10" Y1="10"/>
-                <Ellipse Canvas.Left="100" Canvas.Top="50" Fill="White" Stroke="Black" Height="10" Width="10" x:Name="hingelessFixedSupportEllipse"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="105" Canvas.Top="60" X1="10" Y1="10" x:Name="hingelessFixedSupportLine0"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="105" Canvas.Top="60" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine1"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="88" Canvas.Top="70" X1="35" x:Name="hingelessFixedSupportLine2"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="124" Canvas.Top="70" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine3"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="116" Canvas.Top="70" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine4"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="102" Canvas.Top="70" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine5"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="95" Canvas.Top="70" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine6"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="89" Canvas.Top="70" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine7"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="30" Y1="50" x:Name="fixedSupportLine0"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="33" X1="-10" Y1="10" x:Name="fixedSupportLine1"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="43" X1="-10" Y1="10" x:Name="fixedSupportLine2"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="53" X1="-10" Y1="10" x:Name="fixedSupportLine3"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="63" X1="-10" Y1="10" x:Name="fixedSupportLine4"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="76" X1="-10" Y1="10" x:Name="fixedSupportLine5"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="65" X1="20" x:Name="sliderLine0"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="45" X1="20" x:Name="sliderLine1"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="45" X1="10" Y1="-5" x:Name="sliderLine2"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="122" Canvas.Top="45" X1="10" Y1="-5" x:Name="sliderLine3"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="130" Canvas.Top="45" X1="10" Y1="-5" x:Name="sliderLine4"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="113" Canvas.Top="65" X1="10" Y1="5" x:Name="sliderLine5"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="122" Canvas.Top="65" X1="10" Y1="5" x:Name="sliderLine6"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="130" Canvas.Top="65" X1="10" Y1="5" x:Name="sliderLine7"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="105" Canvas.Top="60" X1="0" Y2="15" x:Name="hingedSupportLine0"/>
-                <Ellipse Height="10" Width="10" Fill="White" Stroke="Black" StrokeThickness="0" Canvas.Left="100" Canvas.Top="70" x:Name="hingedSupportEllipse"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="88" Canvas.Top="80" X1="35" x:Name="hingedSupportLine1"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="90" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine2"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="94" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine3"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="98" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine4"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="102" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine5"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="106" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine6"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="110" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine7"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="114" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine8"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="118" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine9"/>
-                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="122" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine10"/>
+                <Ellipse Fill="White" Canvas.Right="45" Canvas.Top="50" Stroke="Black" Height="10" Width="10"/>
+                <Line Canvas.Top="55" Canvas.Left="20" X1="10" Y1="0" X2="408" Y2="0" Stroke="Black" StrokeThickness="3"/>
+                <Line Canvas.Right="14" Canvas.Top="55" X1="30" Y1="0" X2="0" Y2="0" StrokeThickness="1" Stroke="Red"/>
+                <Line Canvas.Right="35" Canvas.Top="55" X1="0" Y1="5" X2="-10" Y2="0" Stroke="Red" StrokeThickness="1"/>
+                <Line Canvas.Right="35" Canvas.Top="55" X1="0" Y1="-5" X2="-10" Y2="0" Stroke="Red" StrokeThickness="1"/>
+                <Line Canvas.Right="49" Canvas.Top="60" X1="0" Y2="10" StrokeThickness="2" Stroke="Black"/>
+                <Ellipse Fill="White" Stroke="Black" Height="10" Width="10" Canvas.Right="45" Canvas.Top="70"/>
+                <Line Stroke="Black" StrokeThickness="2" Canvas.Right="33" Canvas.Top="80" X1="35"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="31" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="36" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="41" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="46" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="51" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="56" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="61" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="66" Canvas.Top="79" X1="-10" Y1="10"/>
+                <Ellipse Canvas.Left="22" Canvas.Top="50" Fill="White" Stroke="Black" Height="10" Width="10" x:Name="hingelessFixedSupportEllipse"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="27" Canvas.Top="60" X1="10" Y1="10" x:Name="hingelessFixedSupportLine0"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="27" Canvas.Top="60" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine1"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="10" Canvas.Top="70" X1="35" x:Name="hingelessFixedSupportLine2"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="46" Canvas.Top="70" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine3"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="38" Canvas.Top="70" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine4"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="30" Canvas.Top="70" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine5"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="22" Canvas.Top="70" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine6"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="14" Canvas.Top="70" X1="-10" Y1="10" x:Name="hingelessFixedSupportLine7"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="32" Canvas.Top="30" Y1="50" x:Name="fixedSupportLine0"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="32" Canvas.Top="33" X1="-10" Y1="10" x:Name="fixedSupportLine1"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="32" Canvas.Top="43" X1="-10" Y1="10" x:Name="fixedSupportLine2"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="32" Canvas.Top="53" X1="-10" Y1="10" x:Name="fixedSupportLine3"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="32" Canvas.Top="63" X1="-10" Y1="10" x:Name="fixedSupportLine4"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="32" Canvas.Top="76" X1="-10" Y1="10" x:Name="fixedSupportLine5"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="34" Canvas.Top="65" X1="20" x:Name="sliderLine0"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="34" Canvas.Top="45" X1="20" x:Name="sliderLine1"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="34" Canvas.Top="45" X1="10" Y1="-5" x:Name="sliderLine2"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="43" Canvas.Top="45" X1="10" Y1="-5" x:Name="sliderLine3"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="52" Canvas.Top="45" X1="10" Y1="-5" x:Name="sliderLine4"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="34" Canvas.Top="65" X1="10" Y1="5" x:Name="sliderLine5"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="43" Canvas.Top="65" X1="10" Y1="5" x:Name="sliderLine6"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="52" Canvas.Top="65" X1="10" Y1="5" x:Name="sliderLine7"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="27" Canvas.Top="60" X1="0" Y2="15" x:Name="hingedSupportLine0"/>
+                <Ellipse Height="10" Width="10" Fill="White" Stroke="Black" StrokeThickness="0" Canvas.Left="22" Canvas.Top="70" x:Name="hingedSupportEllipse"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="10" Canvas.Top="80" X1="35" x:Name="hingedSupportLine1"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="13" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine2"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="17" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine3"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="21" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine4"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="25" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine5"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="29" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine6"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="33" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine7"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="37" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine8"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="41" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine9"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Left="45" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine10"/>
             </Canvas>
 
             <Grid ShowGridLines="False">

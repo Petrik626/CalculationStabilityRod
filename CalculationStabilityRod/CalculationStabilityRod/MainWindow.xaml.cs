@@ -35,6 +35,8 @@ namespace CalculationStabilityRod
         public IList<DataPoint> PointsMoment { get; private set; }
         public IList<DataPoint> PointsForce { get; private set; }
 
+        public IList<System.Windows.UIElement> SpringElements { get; set; }
+
         private LineSeries deflectionSeries = new LineSeries();
         private LineSeries angleSeries = new LineSeries();
         private LineSeries momentSeries = new LineSeries();
@@ -131,6 +133,39 @@ namespace CalculationStabilityRod
             diagramMoment.Series.Add(momentSeries);
             diagramForce.Series.Add(forceSeries);
 
+            SpringElements = new List<System.Windows.UIElement>
+            {
+                SpringEllipse0,
+                SpringEllipse1,
+                SpringLine0,
+                SpringLine1,
+                SpringLine2,
+                SpringLine3,
+                SpringLine4,
+                SpringLine5,
+                SpringLine6,
+                SpringLine7,
+                SpringLine8,
+                SpringLine9,
+                SpringLine10
+            };
+
+        }
+
+        private void AddElementsSpringInCanvas(Canvas canvas, IList<System.Windows.UIElement> elements)
+        {
+            foreach(var el in elements)
+            {
+                canvas.Children.Add(el);
+            }
+        }
+
+        private void RemoveElementsSpringOfCanvas(Canvas canvas, IList<System.Windows.UIElement> elements)
+        {
+            foreach(var el in elements)
+            {
+                canvas.Children.Remove(el);
+            }
         }
 
         private void SetStrokeThicknessLines(IList<Line> lines, double thikness)

@@ -24,7 +24,7 @@ namespace CalculationStabilityRod
   
     public partial class MainWindow : Window
     {
-        private Func<double, double> SpringStartDeawing = (x) => 22.0 - 22.0 * x + 2608.0 * x * x - 4352.0 * x * x * x + 2176.0 * x * x * x * x;
+        private Func<double, double> SpringStartDeawing = (x) => 22.0 + 338.0 * x + 328.0 * x * x - 512.0 * x * x * x + 256.0 * x * x * x * x;
         private List<Line> fixedSupport;
         private List<Line> hingelessFixedSupport;
         private List<Line> slider;
@@ -35,7 +35,7 @@ namespace CalculationStabilityRod
         public IList<DataPoint> PointsMoment { get; private set; }
         public IList<DataPoint> PointsForce { get; private set; }
 
-        private SpringView springs;
+        private IList<SpringView> Springs = new List<SpringView>();
 
         private LineSeries deflectionSeries = new LineSeries();
         private LineSeries angleSeries = new LineSeries();
@@ -137,6 +137,14 @@ namespace CalculationStabilityRod
 
         }
 
+        private void AddSpringInSpringView(Balk balk, IList<SpringView> elements)
+        {
+            foreach(var el in balk.Springs)
+            {
+                elements.Add(new SpringView(el.CoordsX));
+            }
+        }
+
         private void AddElementsSpringInCanvas(Canvas canvas, IEnumerable<System.Windows.UIElement> elements)
         {
             foreach(var el in elements)
@@ -205,11 +213,6 @@ namespace CalculationStabilityRod
             parameter = double.Parse(output);
         }
 
-        private void AddSpringButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void ComboBoxTypeOfSealing_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {           
             int index = ComboBoxTypeOfSealing.SelectedIndex;
@@ -230,9 +233,6 @@ namespace CalculationStabilityRod
                 if(MessageBox.Show("Удалить пружину?","",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
                 {
                     SpringGrid.CanUserDeleteRows = true;
-                    double x = SpringStartDeawing(0.5);
-                    springs = new SpringView(225);
-                    AddElementsSpringInCanvas(SpringView.SpringCanvas, springs);
                 }
                 else
                 {

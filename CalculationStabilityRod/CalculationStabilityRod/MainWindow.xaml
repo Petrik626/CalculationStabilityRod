@@ -199,19 +199,6 @@
                 <Line Stroke="Black" StrokeThickness="0" Canvas.Left="41" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine9"/>
                 <Line Stroke="Black" StrokeThickness="0" Canvas.Left="45" Canvas.Top="80" X1="-10" Y1="10" x:Name="hingedSupportLine10"/>
 
-                <Ellipse Stroke="Black" Fill="White" StrokeThickness="1" Width="10" Height="10" Canvas.Left="225" Canvas.Top="55" Name="SpringEllipse0"></Ellipse>
-                <Line StrokeThickness="1" Stroke="Black" Y1="3" Canvas.Top="65" Canvas.Left="230" Name="SpringLine0"></Line>
-                <Line StrokeThickness="1" Stroke="Black" X1="3" Y1="3" Canvas.Top="68" Canvas.Left="230" Name="SpringLine1"></Line>
-                <Line StrokeThickness="1" Stroke="Black" X1="-3" Y1="3" Canvas.Top="71" Canvas.Left="233" Name="SpringLine2"></Line>
-                <Line StrokeThickness="1" Stroke="Black" Y1="3" Canvas.Left="230" Canvas.Top="74" Name="SpringLine3"></Line>
-                <Ellipse StrokeThickness="1" Fill="White" Stroke="Black" Width="10" Height="10" Canvas.Left="225" Canvas.Top="75" Name="SpringEllipse1"></Ellipse>
-                <Line StrokeThickness="1" Stroke="Black" X1="25" Canvas.Left="218" Canvas.Top="85" Name="SpringLine4"></Line>
-                <Line StrokeThickness="1" Stroke="Black" X1="-8" Y1="8" Canvas.Left="219" Canvas.Top="85" Name="SpringLine5"></Line>
-                <Line StrokeThickness="1" Stroke="Black" X1="-8" Y1="8" Canvas.Left="224" Canvas.Top="85" Name="SpringLine6"></Line>
-                <Line StrokeThickness="1" Stroke="Black" X1="-8" Y1="8" Canvas.Left="229" Canvas.Top="85" Name="SpringLine7"></Line>
-                <Line StrokeThickness="1" Stroke="Black" X1="-8" Y1="8" Canvas.Left="234" Canvas.Top="85" Name="SpringLine8"></Line>
-                <Line StrokeThickness="1" Stroke="Black" X1="-8" Y1="8" Canvas.Left="239" Canvas.Top="85" Name="SpringLine9"></Line>
-                <Line StrokeThickness="1" Stroke="Black" X1="-8" Y1="8" Canvas.Left="244" Canvas.Top="85" Name="SpringLine10"></Line>
             </Canvas> 
 
             <Grid ShowGridLines="False">

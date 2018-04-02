@@ -24,6 +24,7 @@ namespace CalculationStabilityRod
   
     public partial class MainWindow : Window
     {
+        private Func<double, double> SpringStartDeawing = (x) => 22.0 - 22.0 * x + 2608.0 * x * x - 4352.0 * x * x * x + 2176.0 * x * x * x * x;
         private List<Line> fixedSupport;
         private List<Line> hingelessFixedSupport;
         private List<Line> slider;
@@ -132,6 +133,8 @@ namespace CalculationStabilityRod
             diagramMoment.Series.Add(momentSeries);
             diagramForce.Series.Add(forceSeries);
 
+            SpringView.SpringCanvas = OutlineBalkCanvas;
+
         }
 
         private void AddElementsSpringInCanvas(Canvas canvas, IEnumerable<System.Windows.UIElement> elements)
@@ -227,6 +230,9 @@ namespace CalculationStabilityRod
                 if(MessageBox.Show("Удалить пружину?","",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
                 {
                     SpringGrid.CanUserDeleteRows = true;
+                    double x = SpringStartDeawing(0.5);
+                    springs = new SpringView(225);
+                    AddElementsSpringInCanvas(SpringView.SpringCanvas, springs);
                 }
                 else
                 {

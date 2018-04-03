@@ -11,11 +11,11 @@ namespace CalculationStabilityRod
     internal sealed class Spring
     {
         static Spring() { CountSprings = 0; }
-        public Spring() { CountSprings++; }
+        public Spring() { ID = CountSprings++; }
 
         public static int CountSprings { get; private set; }
 
-        public int ID { get; set; }
+        public int ID { get; private set; }
         public double CoordsX { get; set; }
         public double Rigidity { get; set; }
     }

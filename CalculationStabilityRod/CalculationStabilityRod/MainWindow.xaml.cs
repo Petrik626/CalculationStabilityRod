@@ -273,9 +273,8 @@ namespace CalculationStabilityRod
         {
             if (e.Key == Key.Enter)
             {
-                
+
                 int index = SpringGrid.SelectedIndex - 1;
-                balk.Springs[index].ID = Spring.CountSprings;
                 int springID = balk.Springs[index].ID;
 
                 double x = balk.Springs[index].CoordsX / balk.Length;
@@ -289,7 +288,7 @@ namespace CalculationStabilityRod
                 }
 
 
-                springsPictures.Add(springID, new SpringView(leftCanvas));
+                springsPictures[springID] = new SpringView(leftCanvas);
                 AddElementsSpringInCanvas(OutlineBalkCanvas, springsPictures[springID]);
             }
         }

@@ -24,7 +24,7 @@ namespace CalculationStabilityRod
   
     public partial class MainWindow : Window
     {
-        private Func<double, double> SpringStartDeawing = (x) => 22.0 + 338.0 * x + 328.0 * x * x - 512.0 * x * x * x + 256.0 * x * x * x * x;
+        private Func<double, double> SpringStartDrawing = (x) => 22.0 + 338.0 * x + 328.0 * x * x - 512.0 * x * x * x + 256.0 * x * x * x * x;
         private List<Line> fixedSupport;
         private List<Line> hingelessFixedSupport;
         private List<Line> slider;
@@ -42,7 +42,7 @@ namespace CalculationStabilityRod
         private LineSeries momentSeries = new LineSeries();
         private LineSeries forceSeries = new LineSeries();
 
-
+        Dictionary<int, SpringView> springsPictures = new Dictionary<int, SpringView>();
         private Balk balk = new Balk();
 
         public MainWindow()
@@ -232,6 +232,11 @@ namespace CalculationStabilityRod
             {
                 if(MessageBox.Show("Удалить пружину?","",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
                 {
+                    int index = SpringGrid.SelectedIndex;
+                    int springID = balk.Springs[index].ID;
+
+                    RemoveElementsSpringOfCanvas(OutlineBalkCanvas, springsPictures[springID]);
+                    springsPictures.Remove(springID);
                     SpringGrid.CanUserDeleteRows = true;
                 }
                 else
@@ -262,6 +267,31 @@ namespace CalculationStabilityRod
             MomentInertionBalkTextBox.Text = output;
             balk.MomentInertion = momentInertion;
             MomentInertionBalkTextBox.SelectionStart = output.Length;
+        }
+
+        private void SpringGrid_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                
+                int index = SpringGrid.SelectedIndex - 1;
+                balk.Springs[index].ID = Spring.CountSprings;
+                int springID = balk.Springs[index].ID;
+
+                double x = balk.Springs[index].CoordsX / balk.Length;
+                double leftCanvas = SpringStartDrawing(x);
+               
+
+                if (springsPictures.ContainsKey(springID))
+                {
+                    RemoveElementsSpringOfCanvas(OutlineBalkCanvas, springsPictures[springID]);
+                    springsPictures.Remove(springID);
+                }
+
+
+                springsPictures.Add(springID, new SpringView(leftCanvas));
+                AddElementsSpringInCanvas(OutlineBalkCanvas, springsPictures[springID]);
+            }
         }
     }
 }

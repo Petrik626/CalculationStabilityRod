@@ -211,27 +211,25 @@
 
                 <oxy:Plot Grid.Row="0" Title="Эпюра прогибов" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="diagramDeflection">
                     <oxy:Plot.Series>
-                        <oxy:LineSeries>
-
-                        </oxy:LineSeries>
+                        <oxy:LineSeries ItemsSource="{Binding PointsDeflection}"></oxy:LineSeries>
                     </oxy:Plot.Series>
                 </oxy:Plot>
 
                 <oxy:Plot Grid.Row="1" Title="Эпюра угла поворота" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="diagramAngle">
                     <oxy:Plot.Series>
-                        
+                        <oxy:LineSeries ItemsSource="{Binding PointsAngle}"></oxy:LineSeries>
                     </oxy:Plot.Series>
                 </oxy:Plot>
 
                 <oxy:Plot Grid.Row="2" Title="Эпюра моментов" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="diagramMoment">
                     <oxy:Plot.Series>
-                        
+                        <oxy:LineSeries ItemsSource="{Binding PointsMoment}"></oxy:LineSeries>
                     </oxy:Plot.Series>
                 </oxy:Plot>
 
                 <oxy:Plot Grid.Row="3" Title="Эпюра перерезывающих сил" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" x:Name="diagramForce">
                     <oxy:Plot.Series>
-                        
+                        <oxy:LineSeries ItemsSource="{Binding PointsForce}"></oxy:LineSeries>
                     </oxy:Plot.Series>
                 </oxy:Plot>
             </Grid>

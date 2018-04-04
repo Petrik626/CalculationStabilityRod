@@ -37,17 +37,13 @@ namespace CalculationStabilityRod
 
         private IList<SpringView> Springs = new List<SpringView>();
 
-        private LineSeries deflectionSeries = new LineSeries();
-        private LineSeries angleSeries = new LineSeries();
-        private LineSeries momentSeries = new LineSeries();
-        private LineSeries forceSeries = new LineSeries();
-
         Dictionary<int, SpringView> springsPictures = new Dictionary<int, SpringView>();
         private Balk balk = new Balk();
 
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
             SpringGrid.ItemsSource = balk.Springs;
 
             fixedSupport = new List<Line>()
@@ -122,16 +118,6 @@ namespace CalculationStabilityRod
                 new DataPoint(1,0),
                 new DataPoint(2,0)
             };
-
-            deflectionSeries.ItemsSource = PointsDeflection;
-            angleSeries.ItemsSource = PointsAngle;
-            momentSeries.ItemsSource = PointsMoment;
-            forceSeries.ItemsSource = PointsForce;
-
-            diagramDeflection.Series.Add(deflectionSeries);
-            diagramAngle.Series.Add(angleSeries);
-            diagramMoment.Series.Add(momentSeries);
-            diagramForce.Series.Add(forceSeries);
 
             SpringView.SpringCanvas = OutlineBalkCanvas;
 

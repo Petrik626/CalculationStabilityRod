@@ -93,6 +93,7 @@ namespace CalculationStabilityRod
             };
 
             ComboBoxTypeOfSealing.SelectedIndex = 4;
+            balk.LeftBorderConditions = BorderConditions.HingelessFixedSupport;
 
             PointsDeflection = new List<DataPoint>
             {
@@ -205,10 +206,42 @@ namespace CalculationStabilityRod
 
             switch(index)
             {
-                case 1: SetStrokeThicknessLines(slider, 0.0); SetStrokeThicknessLines(fixedSupport, 0.0); SetStrokeThicknessLines(hingelessFixedSupport, 0.0); hingelessFixedSupportEllipse.StrokeThickness = 1.0; hingedSupportEllipse.StrokeThickness = 1.0; SetStrokeThicknessLines(hingedSupport, 1.0); break;
-                case 2: SetStrokeThicknessLines(hingedSupport,0.0); SetStrokeThicknessLines(fixedSupport, 0.0); SetStrokeThicknessLines(hingelessFixedSupport, 0.0); hingelessFixedSupportEllipse.StrokeThickness = 0.0; hingedSupportEllipse.StrokeThickness = 0.0; SetStrokeThicknessLines(slider, 1.0); break;
-                case 3: SetStrokeThicknessLines(hingedSupport,0.0); SetStrokeThicknessLines(slider, 0.0); SetStrokeThicknessLines(hingelessFixedSupport, 0.0); hingelessFixedSupportEllipse.StrokeThickness = 0.0; hingedSupportEllipse.StrokeThickness = 0.0; SetStrokeThicknessLines(fixedSupport, 1.0); break;
-                case 4: SetStrokeThicknessLines(slider, 0.0); SetStrokeThicknessLines(fixedSupport, 0.0); SetStrokeThicknessLines(hingedSupport, 0.0); hingelessFixedSupportEllipse.StrokeThickness = 1.0; hingedSupportEllipse.StrokeThickness = 0.0; SetStrokeThicknessLines(hingelessFixedSupport, 1.0); break;
+                case 1:
+                    balk.LeftBorderConditions = BorderConditions.HingedSupport;
+                    SetStrokeThicknessLines(slider, 0.0);
+                    SetStrokeThicknessLines(fixedSupport, 0.0);
+                    SetStrokeThicknessLines(hingelessFixedSupport, 0.0);
+                    hingelessFixedSupportEllipse.StrokeThickness = 1.0;
+                    hingedSupportEllipse.StrokeThickness = 1.0;
+                    SetStrokeThicknessLines(hingedSupport, 1.0);
+                    break;
+                case 2:
+                    balk.LeftBorderConditions = BorderConditions.Slider;
+                    SetStrokeThicknessLines(hingedSupport,0.0);
+                    SetStrokeThicknessLines(fixedSupport, 0.0);
+                    SetStrokeThicknessLines(hingelessFixedSupport, 0.0);
+                    hingelessFixedSupportEllipse.StrokeThickness = 0.0;
+                    hingedSupportEllipse.StrokeThickness = 0.0;
+                    SetStrokeThicknessLines(slider, 1.0);
+                    break;
+                case 3:
+                    balk.LeftBorderConditions = BorderConditions.FixedSupport;
+                    SetStrokeThicknessLines(hingedSupport,0.0);
+                    SetStrokeThicknessLines(slider, 0.0);
+                    SetStrokeThicknessLines(hingelessFixedSupport, 0.0);
+                    hingelessFixedSupportEllipse.StrokeThickness = 0.0;
+                    hingedSupportEllipse.StrokeThickness = 0.0;
+                    SetStrokeThicknessLines(fixedSupport, 1.0);
+                    break;
+                case 4:
+                    balk.LeftBorderConditions = BorderConditions.HingelessFixedSupport;
+                    SetStrokeThicknessLines(slider, 0.0);
+                    SetStrokeThicknessLines(fixedSupport, 0.0);
+                    SetStrokeThicknessLines(hingedSupport, 0.0);
+                    hingelessFixedSupportEllipse.StrokeThickness = 1.0;
+                    hingedSupportEllipse.StrokeThickness = 0.0;
+                    SetStrokeThicknessLines(hingelessFixedSupport, 1.0);
+                    break;
             }
         }
 

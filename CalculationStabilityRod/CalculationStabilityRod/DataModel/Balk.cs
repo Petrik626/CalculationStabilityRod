@@ -8,11 +8,24 @@ using System.Windows;
 
 namespace CalculationStabilityRod
 {
+    internal enum BorderConditions
+    {
+        HingedSupport = 1, Slider, FixedSupport, HingelessFixedSupport
+    }
+
     [StructLayout(LayoutKind.Auto)]
     internal sealed class Balk:UIElement
     {
+        public static readonly DependencyProperty LengthProperty;
+        public static readonly DependencyProperty MomentInertionProperty;
+        public static readonly DependencyProperty SpringsProperty;
+        public static readonly DependencyProperty CriticalForceProperty;
         private static readonly Lazy<Balk> instance = new Lazy<Balk>(() => new Balk());
-        private Balk() { }
+        private readonly BorderConditions _rigthBorderConditions;
+        private Balk()
+        {
+            _rigthBorderConditions = BorderConditions.HingedSupport;
+        }
 
         static Balk()
         {
@@ -26,11 +39,6 @@ namespace CalculationStabilityRod
             SpringsProperty = DependencyProperty.Register("Springs", typeof(IList<Spring>), typeof(Balk), metadataSprings);
             CriticalForceProperty = DependencyProperty.Register("CriticalForce", typeof(Force), typeof(Balk), metadataCriticalForce);
         }
-
-        public static readonly DependencyProperty LengthProperty;
-        public static readonly DependencyProperty MomentInertionProperty;
-        public static readonly DependencyProperty SpringsProperty;
-        public static readonly DependencyProperty CriticalForceProperty;
 
         public double Length
         {
@@ -52,6 +60,8 @@ namespace CalculationStabilityRod
             set => SetValue(CriticalForceProperty, value);
             get => (Force)(GetValue(CriticalForceProperty));
         }
+        public BorderConditions LeftBorderConditions { get; set; }
+        public BorderConditions RightBorderConditions { get => _rigthBorderConditions; }
         public static Balk Source { get => instance.Value; }
     } 
 }

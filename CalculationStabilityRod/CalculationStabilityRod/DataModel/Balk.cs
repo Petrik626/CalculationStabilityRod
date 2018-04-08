@@ -19,15 +19,18 @@ namespace CalculationStabilityRod
             FrameworkPropertyMetadata metadataLength = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault);
             FrameworkPropertyMetadata metadataMoment = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault);
             FrameworkPropertyMetadata metadataSprings = new FrameworkPropertyMetadata(new List<Spring>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault);
+            FrameworkPropertyMetadata metadataCriticalForce = new FrameworkPropertyMetadata(new Force(), FrameworkPropertyMetadataOptions.None);
 
             LengthProperty = DependencyProperty.Register("Length", typeof(double), typeof(Balk), metadataLength);
             MomentInertionProperty = DependencyProperty.Register("MomentInertion", typeof(double), typeof(Balk), metadataMoment);
             SpringsProperty = DependencyProperty.Register("Springs", typeof(IList<Spring>), typeof(Balk), metadataSprings);
+            CriticalForceProperty = DependencyProperty.Register("CriticalForce", typeof(Force), typeof(Balk), metadataCriticalForce);
         }
 
         public static readonly DependencyProperty LengthProperty;
         public static readonly DependencyProperty MomentInertionProperty;
         public static readonly DependencyProperty SpringsProperty;
+        public static readonly DependencyProperty CriticalForceProperty;
 
         public double Length
         {
@@ -43,6 +46,11 @@ namespace CalculationStabilityRod
         {
             set => SetValue(SpringsProperty, value);
             get => (IList<Spring>)(GetValue(SpringsProperty));
+        }
+        public Force CriticalForce
+        {
+            set => SetValue(CriticalForceProperty, value);
+            get => (Force)(GetValue(CriticalForceProperty));
         }
         public static Balk Source { get => instance.Value; }
     } 

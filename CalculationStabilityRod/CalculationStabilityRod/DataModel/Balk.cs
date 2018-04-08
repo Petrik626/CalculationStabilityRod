@@ -11,6 +11,9 @@ namespace CalculationStabilityRod
     [StructLayout(LayoutKind.Auto)]
     internal sealed class Balk:UIElement
     {
+        private static readonly Lazy<Balk> instance = new Lazy<Balk>(() => new Balk());
+        private Balk() { }
+
         static Balk()
         {
             FrameworkPropertyMetadata metadataLength = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault);
@@ -41,5 +44,6 @@ namespace CalculationStabilityRod
             set => SetValue(SpringsProperty, value);
             get => (IList<Spring>)(GetValue(SpringsProperty));
         }
+        public static Balk Source { get => instance.Value; }
     } 
 }

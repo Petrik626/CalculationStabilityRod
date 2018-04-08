@@ -38,7 +38,7 @@ namespace CalculationStabilityRod
         private IList<SpringView> Springs = new List<SpringView>();
 
         Dictionary<int, SpringView> springsPictures = new Dictionary<int, SpringView>();
-        private Balk balk = new Balk();
+        private Balk balk = Balk.Source;
 
         public MainWindow()
         {

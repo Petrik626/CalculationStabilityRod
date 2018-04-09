@@ -86,10 +86,10 @@ namespace CalculationStabilityRod
 
             for(int i=0; i<matrix._numberOfRow;i++)
             {
-                s = new Function((x) => 0.0);
                 for(int j=0; j<matrix._numberOfColumn; j++)
                 {
-                    for(int k=0;k<a._numberOfColumn;k++)
+                    s = new Function((x) => 0.0);
+                    for (int k=0;k<a._numberOfColumn;k++)
                     {
                         s = s + a._components[i, j] * b._components[i, j];
                     }
@@ -100,10 +100,42 @@ namespace CalculationStabilityRod
 
             return matrix;
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixFunction Add(MatrixFunction a, MatrixFunction b) => a + b;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixFunction Subtract(MatrixFunction a, MatrixFunction b) => a - b;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixFunction Multiply(MatrixFunction a, MatrixFunction b) => a * b;
         #endregion
         #region PROPERTIES
         public double NumberOfRow { get => _numberOfRow; }
         public double NumberOfColums { get => _numberOfColumn; }
+        public Function[,] Components
+        {
+            get => _components;
+            set
+            {
+                if (_components == null)
+                {
+                    throw new NullReferenceException();
+                }
+                else if(_numberOfRow != value.GetLength(0) || _numberOfColumn != value.GetLength(1))
+                {
+                    throw new ArgumentException();
+                }
+
+                for(int i=0; i<_numberOfRow; i++)
+                {
+                    for(int j=0;j<_numberOfColumn;j++)
+                    {
+                        _components[i, j] = value[i, j];
+                    }
+                }
+            }
+        }
         [IndexerName("Function")]
         public Function this[int index1, int index2]
         {

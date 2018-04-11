@@ -59,6 +59,27 @@ namespace CalculationStabilityRod
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixFunction operator+(MatrixFunction a, Matrix b)
+        {
+            if(a._numberOfRow!=b.CountOfRow || a._numberOfColumn != b.CountOfColumn) { throw new ArgumentException(); }
+
+            MatrixFunction matrix = new MatrixFunction(a._numberOfRow, a._numberOfColumn);
+
+            for(int i=0;i<matrix._numberOfRow;i++)
+            {
+                for(int j=0;j<matrix._numberOfColumn;j++)
+                {
+                    matrix._components[i, j] = a._components[i, j] + b[i, j];
+                }
+            }
+
+            return matrix;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixFunction operator +(Matrix a, MatrixFunction b) => b + a;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixFunction operator-(MatrixFunction a, MatrixFunction b)
         {
             if((a._numberOfRow!=b._numberOfRow) || (a._numberOfColumn != b._numberOfColumn)) { throw new ArgumentException(); }
@@ -70,6 +91,42 @@ namespace CalculationStabilityRod
                 for(int j=0;j<matrix._numberOfColumn;j++)
                 {
                     matrix._components[i, j] = a._components[i, j] - b._components[i, j];
+                }
+            }
+
+            return matrix;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixFunction operator-(MatrixFunction a, Matrix b)
+        {
+            if (a._numberOfRow != b.CountOfRow || a._numberOfColumn != b.CountOfColumn) { throw new ArgumentException(); }
+
+            MatrixFunction matrix = new MatrixFunction(a._numberOfRow, a._numberOfColumn);
+
+            for (int i = 0; i < matrix._numberOfRow; i++)
+            {
+                for (int j = 0; j < matrix._numberOfColumn; j++)
+                {
+                    matrix._components[i, j] = a._components[i, j] - b[i, j];
+                }
+            }
+
+            return matrix;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixFunction operator-(Matrix b, MatrixFunction a)
+        {
+            if (a._numberOfRow != b.CountOfRow || a._numberOfColumn != b.CountOfColumn) { throw new ArgumentException(); }
+
+            MatrixFunction matrix = new MatrixFunction(a._numberOfRow, a._numberOfColumn);
+
+            for (int i = 0; i < matrix._numberOfRow; i++)
+            {
+                for (int j = 0; j < matrix._numberOfColumn; j++)
+                {
+                    matrix._components[i, j] = b[i, j] - a._components[i, j];
                 }
             }
 
@@ -102,13 +159,103 @@ namespace CalculationStabilityRod
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixFunction operator*(MatrixFunction a, double b)
+        {
+            MatrixFunction matrix = new MatrixFunction(a._numberOfRow, a._numberOfColumn);
+
+            for(int i=0; i<matrix._numberOfRow; i++)
+            {
+                for(int j=0; j<matrix._numberOfColumn; j++)
+                {
+                    matrix._components[i, j] = a._components[i, j] * b;
+                }
+            }
+
+            return matrix;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixFunction operator *(double a, MatrixFunction b) => b * a;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixFunction operator*(MatrixFunction a, Matrix b)
+        {
+            if (a.NumberOfRow != b.CountOfColumn) { throw new ArgumentException("Number of columns and rows are not equal each other in argument"); }
+
+            MatrixFunction matrix = new MatrixFunction(a._numberOfRow, b.CountOfColumn);
+            Function s;
+
+            for (int i = 0; i < matrix._numberOfRow; i++)
+            {
+                for (int j = 0; j < matrix._numberOfColumn; j++)
+                {
+                    s = new Function((x) => 0.0);
+                    for (int k = 0; k < a._numberOfColumn; k++)
+                    {
+                        s = s + a._components[i, j] * b[i, j];
+                    }
+
+                    matrix._components[i, j] = s;
+                }
+            }
+
+            return matrix;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixFunction operator *(Matrix a, MatrixFunction b)
+        {
+            if (a.CountOfRow != b._numberOfColumn) { throw new ArgumentException("Number of columns and rows are not equal each other in argument"); }
+
+            MatrixFunction matrix = new MatrixFunction(a.CountOfRow, b._numberOfColumn);
+            Function s;
+
+            for (int i = 0; i < matrix._numberOfRow; i++)
+            {
+                for (int j = 0; j < matrix._numberOfColumn; j++)
+                {
+                    s = new Function((x) => 0.0);
+                    for (int k = 0; k < a.CountOfColumn; k++)
+                    {
+                        s = s + a[i, j] * b._components[i, j];
+                    }
+
+                    matrix._components[i, j] = s;
+                }
+            }
+
+            return matrix;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixFunction Add(MatrixFunction a, MatrixFunction b) => a + b;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixFunction Add(MatrixFunction a, Matrix b) => a + b;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixFunction Add(Matrix a, MatrixFunction b) => a + b;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixFunction Subtract(MatrixFunction a, MatrixFunction b) => a - b;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixFunction Subtract(MatrixFunction a, Matrix b) => a - b;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static MatrixFunction Subtract(Matrix a, MatrixFunction b) => a - b;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixFunction Multiply(MatrixFunction a, MatrixFunction b) => a * b;
+
+        public static MatrixFunction Multiply(MatrixFunction a, double b) => a * b;
+
+        public static MatrixFunction Multiply(double a, MatrixFunction b) => a * b;
+
+        public static MatrixFunction Multiply(MatrixFunction a, Matrix b) => a * b;
+
+        public static MatrixFunction Multiply(Matrix a, MatrixFunction b) => a * b;
+
         #endregion
         #region PROPERTIES
         public double NumberOfRow { get => _numberOfRow; }

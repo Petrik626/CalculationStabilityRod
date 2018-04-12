@@ -8,6 +8,36 @@ using System.Windows;
 
 namespace CalculationStabilityRod
 {
+    internal class ChangeLengthBalkEventArgs:EventArgs
+    {
+        private readonly double _oldLength;
+        private readonly double _newLength;
+
+        public ChangeLengthBalkEventArgs(double oldLength, double newLength)
+        {
+            _oldLength = oldLength;
+            _newLength = newLength;
+        }
+
+        public double OldLength => _oldLength;
+        public double NewLength => _newLength;
+    }
+
+    internal class ChangeMomentInertionBalkEventArgs:EventArgs
+    {
+        private readonly double _oldMoment;
+        private readonly double _newMoment;
+
+        public ChangeMomentInertionBalkEventArgs(double oldMoment, double newMoment)
+        {
+            _oldMoment = oldMoment;
+            _newMoment = newMoment;
+        }
+
+        public double OldMoment => _oldMoment;
+        public double NewMoment => _newMoment;
+    }
+
     internal enum BorderConditions
     {
         HingedSupport = 1, Slider, FixedSupport, HingelessFixedSupport
@@ -22,6 +52,9 @@ namespace CalculationStabilityRod
         public static readonly DependencyProperty CriticalForceProperty;
         private static readonly Lazy<Balk> instance = new Lazy<Balk>(() => new Balk());
         private readonly BorderConditions _rigthBorderConditions;
+        public event EventHandler<ChangeLengthBalkEventArgs> ChangeLength;
+        public event EventHandler<ChangeMomentInertionBalkEventArgs> ChangeMomentInertion;
+
         private Balk()
         {
             _rigthBorderConditions = BorderConditions.HingedSupport;
@@ -40,14 +73,38 @@ namespace CalculationStabilityRod
             CriticalForceProperty = DependencyProperty.Register("CriticalForce", typeof(Force), typeof(Balk), metadataCriticalForce);
         }
 
+        private void OnChageLength(ChangeLengthBalkEventArgs e)
+        {
+            ChangeLength?.Invoke(this, e);
+        }
+
+        private void OnChangeMomentInertion(ChangeMomentInertionBalkEventArgs e)
+        {
+            ChangeMomentInertion?.Invoke(this, e);
+        }
+
         public double Length
         {
-            set => SetValue(LengthProperty, value);
+            set
+            {
+                double oldLength = Length;
+                if(oldLength == value) { return; }
+
+                SetValue(LengthProperty, value);
+                OnChageLength(new ChangeLengthBalkEventArgs(oldLength, value));
+            }
             get => (double)GetValue(LengthProperty);
         }
         public double MomentInertion
         {
-            set => SetValue(MomentInertionProperty, value);
+            set
+            {
+                double oldMoment = MomentInertion;
+                if(oldMoment == value) { return; }
+
+                SetValue(MomentInertionProperty, value);
+                OnChangeMomentInertion(new ChangeMomentInertionBalkEventArgs(oldMoment, value));
+            }
             get => (double)GetValue(MomentInertionProperty);
         }
         public IList<Spring> Springs

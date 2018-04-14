@@ -15,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OxyPlot.Wpf;
 using OxyPlot;
+using Mathematics.Objects;
+using static System.Math;
 
 namespace CalculationStabilityRod
 {
@@ -37,6 +39,7 @@ namespace CalculationStabilityRod
 
         private IList<SpringView> Springs = new List<SpringView>();
 
+        private MatrixFunction spanMatrix;
         Dictionary<int, SpringView> springsPictures = new Dictionary<int, SpringView>();
         private Balk balk = Balk.Source;
 
@@ -121,7 +124,16 @@ namespace CalculationStabilityRod
             };
 
             SpringView.SpringCanvas = OutlineBalkCanvas;
-
+            spanMatrix = new MatrixFunction(4, 4)
+            {
+                Components = new Function[4,4]
+                {
+                    { new Function((x)=>1), new Function((x)=>x), new Function((x)=>x-Cos(x)),new Function((x)=>x-Sin(x)) },
+                    { new Function((x)=>0), new Function((x)=>1), new Function(Sin), new Function((x)=>1-Cos(x))},
+                    { new Function((x)=>0), new Function((x)=>0), new Function(Cos), new Function(Sin) },
+                    { new Function((x)=>0), new Function((x)=>0), new Function((x)=>-Sin(x)), new Function(Cos)}
+                }
+            };
         }
 
         private void AddSpringInSpringView(Balk balk, IList<SpringView> elements)

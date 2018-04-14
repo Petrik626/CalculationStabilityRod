@@ -38,6 +38,21 @@ namespace CalculationStabilityRod
         public double NewMoment => _newMoment;
     }
 
+    internal class ChangeLeftBorderConditionsEventArgs:EventArgs
+    {
+        private readonly BorderConditions _oldLeftBorderConditions;
+        private readonly BorderConditions _newLeftBorderConditions;
+
+        public ChangeLeftBorderConditionsEventArgs(BorderConditions oldleft, BorderConditions newLeft)
+        {
+            _oldLeftBorderConditions = oldleft;
+            _newLeftBorderConditions = newLeft;
+        }
+
+        public BorderConditions OldLefrBorderConditions => _oldLeftBorderConditions;
+        public BorderConditions NewLeftBorderConditions => _newLeftBorderConditions;
+    }
+
     internal enum BorderConditions
     {
         HingedSupport = 1, Slider, FixedSupport, HingelessFixedSupport
@@ -50,10 +65,12 @@ namespace CalculationStabilityRod
         public static readonly DependencyProperty MomentInertionProperty;
         public static readonly DependencyProperty SpringsProperty;
         public static readonly DependencyProperty CriticalForceProperty;
+        public static readonly DependencyProperty LeftBorderConditionsProperty;
         private static readonly Lazy<Balk> instance = new Lazy<Balk>(() => new Balk());
         private readonly BorderConditions _rigthBorderConditions;
         public event EventHandler<ChangeLengthBalkEventArgs> ChangeLength;
         public event EventHandler<ChangeMomentInertionBalkEventArgs> ChangeMomentInertion;
+        public event EventHandler<ChangeLeftBorderConditionsEventArgs> ChangeLeftBorderConditions;
 
         private Balk()
         {
@@ -66,11 +83,13 @@ namespace CalculationStabilityRod
             FrameworkPropertyMetadata metadataMoment = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault);
             FrameworkPropertyMetadata metadataSprings = new FrameworkPropertyMetadata(new List<Spring>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault);
             FrameworkPropertyMetadata metadataCriticalForce = new FrameworkPropertyMetadata(new Force(), FrameworkPropertyMetadataOptions.None);
+            FrameworkPropertyMetadata metadataLeftBorderConditions = new FrameworkPropertyMetadata(BorderConditions.HingelessFixedSupport, FrameworkPropertyMetadataOptions.None);
 
             LengthProperty = DependencyProperty.Register("Length", typeof(double), typeof(Balk), metadataLength);
             MomentInertionProperty = DependencyProperty.Register("MomentInertion", typeof(double), typeof(Balk), metadataMoment);
             SpringsProperty = DependencyProperty.Register("Springs", typeof(IList<Spring>), typeof(Balk), metadataSprings);
             CriticalForceProperty = DependencyProperty.Register("CriticalForce", typeof(Force), typeof(Balk), metadataCriticalForce);
+            LeftBorderConditionsProperty = DependencyProperty.Register("LeftBorderConditions", typeof(BorderConditions), typeof(Balk), metadataLeftBorderConditions);
         }
 
         private void OnChageLength(ChangeLengthBalkEventArgs e)
@@ -81,6 +100,11 @@ namespace CalculationStabilityRod
         private void OnChangeMomentInertion(ChangeMomentInertionBalkEventArgs e)
         {
             ChangeMomentInertion?.Invoke(this, e);
+        }
+
+        private void OnChangeLeftBorderConditions(ChangeLeftBorderConditionsEventArgs e)
+        {
+            ChangeLeftBorderConditions?.Invoke(this, e);
         }
 
         public double Length
@@ -117,7 +141,18 @@ namespace CalculationStabilityRod
             set => SetValue(CriticalForceProperty, value);
             get => (Force)(GetValue(CriticalForceProperty));
         }
-        public BorderConditions LeftBorderConditions { get; set; }
+        public BorderConditions LeftBorderConditions
+        {
+            get => (BorderConditions)GetValue(LeftBorderConditionsProperty);
+            set
+            {
+                BorderConditions old = LeftBorderConditions;
+                if (old == value) { return; }
+
+                SetValue(LeftBorderConditionsProperty, value);
+                OnChangeLeftBorderConditions(new ChangeLeftBorderConditionsEventArgs(old, value));
+            }
+        }
         public BorderConditions RightBorderConditions { get => _rigthBorderConditions; }
         public static Balk Source { get => instance.Value; }
     } 

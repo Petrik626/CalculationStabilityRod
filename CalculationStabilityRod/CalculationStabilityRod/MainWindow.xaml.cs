@@ -128,12 +128,14 @@ namespace CalculationStabilityRod
             {
                 Components = new Function[4,4]
                 {
-                    { new Function((x)=>1), new Function((x)=>x), new Function((x)=>x-Cos(x)),new Function((x)=>x-Sin(x)) },
-                    { new Function((x)=>0), new Function((x)=>1), new Function(Sin), new Function((x)=>1-Cos(x))},
-                    { new Function((x)=>0), new Function((x)=>0), new Function(Cos), new Function(Sin) },
-                    { new Function((x)=>0), new Function((x)=>0), new Function((x)=>-Sin(x)), new Function(Cos)}
+                    { 1, new Function((x)=>x), new Function((x)=>x-Cos(x)),new Function((x)=>x-Sin(x)) },
+                    { 0, 1, new Function(Sin), new Function((x)=>1-Cos(x))},
+                    { 0, 0, new Function(Cos), new Function(Sin) },
+                    { 0, 0, new Function((x)=>-Sin(x)), new Function(Cos)}
                 }
             };
+
+            balk.LengthChanged += balkView_SpringViewChanged;
         }
 
         private void AddSpringInSpringView(Balk balk, IList<SpringView> elements)
@@ -310,7 +312,7 @@ namespace CalculationStabilityRod
 
                 double x = balk.Springs[index].CoordsX / balk.Length;
                 double leftCanvas = SpringStartDrawing(x);
-               
+
 
                 if (springsPictures.ContainsKey(springID))
                 {
@@ -321,6 +323,22 @@ namespace CalculationStabilityRod
 
                 springsPictures[springID] = new SpringView(leftCanvas);
                 AddElementsSpringInCanvas(OutlineBalkCanvas, springsPictures[springID]);
+            }
+        }
+
+        private void balkView_SpringViewChanged(object sender, LengthChangedBalkEventArgs e)
+        {
+            if (springsPictures.Count == 0) { return; }
+
+            Balk b = sender as Balk;
+            double newLength = e.NewLength, leftCanvas;
+
+            foreach (var el in b.Springs)
+            {
+                RemoveElementsSpringOfCanvas(OutlineBalkCanvas, springsPictures[el.ID]);
+                leftCanvas = SpringStartDrawing(el.CoordsX / newLength);
+                springsPictures[el.ID] = new SpringView(leftCanvas);
+                AddElementsSpringInCanvas(OutlineBalkCanvas, springsPictures[el.ID]);
             }
         }
     }

@@ -8,5 +8,6 @@ namespace CalculationStabilityRod
         public double Value { get; set; }
 
         public static implicit operator double(Force f)=>f.Value;
+        public static implicit operator Force(double d)=>new Force { Value=d};
     }
 }

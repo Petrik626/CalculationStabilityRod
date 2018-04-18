@@ -128,22 +128,19 @@ namespace CalculationStabilityRod
             {
                 Components = new Function[4,4]
                 {
-                    { 1, new Function((x)=>x), new Function((x)=>x-Cos(x)),new Function((x)=>x-Sin(x)) },
-                    { 0, 1, new Function(Sin), new Function((x)=>1-Cos(x))},
-                    { 0, 0, new Function(Cos), new Function(Sin) },
-                    { 0, 0, new Function((x)=>-Sin(x)), new Function(Cos)}
+                    { 1, new Function((x)=>x), new Function((x)=>(1-Cos(balk.K*x))/(balk.ExternalForce)),new Function((x)=>(balk.K*x-Sin(x))/(Pow(balk.K,3)*balk.ElasticModulus*balk.MomentInertion)) },
+                    { 0, 1, new Function((x)=>(Sin(balk.K*x))/(balk.K*balk.ElasticModulus*balk.MomentInertion)), new Function((x)=>(1-Cos(balk.K*x))/(balk.ExternalForce))},
+                    { 0, 0, new Function((x)=>Cos(balk.K*x)), new Function((x)=>(Sin(balk.K*x))/(balk.K)) },
+                    { 0, 0, new Function((x)=>-balk.K*Sin(balk.K*x)), new Function((x)=>Cos(balk.K*x))}
                 }
             };
 
             balk.LengthChanged += balkView_SpringViewChanged;
-        }
+            balk.LengthChanged += balk_LengthChanged;
 
-        private void AddSpringInSpringView(Balk balk, IList<SpringView> elements)
-        {
-            foreach(var el in balk.Springs)
-            {
-                elements.Add(new SpringView(el.CoordsX));
-            }
+            balk.MomentInertionChanged += balk_MomentInertionChanged;
+
+            balk.LeftBorderConditionChanged += balk_LeftBorderConditionChanged;
         }
 
         private void AddElementsSpringInCanvas(Canvas canvas, IEnumerable<System.Windows.UIElement> elements)
@@ -340,6 +337,32 @@ namespace CalculationStabilityRod
                 springsPictures[el.ID] = new SpringView(leftCanvas);
                 AddElementsSpringInCanvas(OutlineBalkCanvas, springsPictures[el.ID]);
             }
+        }
+
+        private void balk_LengthChanged(object sender, LengthChangedBalkEventArgs e)
+        {
+            Balk b = sender as Balk;
+
+            FindSolutionStabilityProblemRod(b);
+        }
+
+        private void balk_MomentInertionChanged(object sender, MomentInertionChangedBalkEventArgs e)
+        {
+            Balk b = sender as Balk;
+
+            FindSolutionStabilityProblemRod(b);
+        }
+
+        private void balk_LeftBorderConditionChanged(object sender, LeftBorderConditionChangedEventArgs e)
+        {
+            Balk b = sender as Balk;
+
+            FindSolutionStabilityProblemRod(b);
+        }
+
+        private void FindSolutionStabilityProblemRod(Balk model)
+        {
+            CriticalForceTextBox.Text = balk.CriticalForce.Value.ToString();
         }
     }
 }

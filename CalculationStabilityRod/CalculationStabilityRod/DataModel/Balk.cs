@@ -153,6 +153,9 @@ namespace CalculationStabilityRod
                 OnChangeLeftBorderConditions(new LeftBorderConditionChangedEventArgs(old, value));
             }
         }
+        public Force ExternalForce { get; set; } = 1000000.0;
+        public double ElasticModulus { get; set; } = 100000.0;
+        public double K => Math.Sqrt(ExternalForce / (ElasticModulus * MomentInertion));
         public BorderConditions RightBorderConditions { get => _rigthBorderConditions; }
         public static Balk Source { get => instance.Value; }
     } 

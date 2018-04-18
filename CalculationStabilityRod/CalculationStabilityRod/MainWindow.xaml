@@ -133,12 +133,12 @@
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman" Margin="5"><Run Text="K ="/></TextBlock>
-                        <TextBox Margin="5,8,5,8" Width="400" FontFamily="Times New Roman" FontSize="14" FontWeight="Bold"/>
+                        <TextBox Margin="5,8,5,8" Width="400" FontFamily="Times New Roman" FontSize="14" FontWeight="Bold" IsReadOnly="True"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman" Margin="5"><Run Text="Критическая сила ="/></TextBlock>
-                        <TextBox Width="250" Margin="5,8,5,8" FontFamily="Times New Roman" FontSize="14" FontWeight="Bold"/>
+                        <TextBox Width="250" Margin="5,8,5,8" FontFamily="Times New Roman" FontSize="14" FontWeight="Bold" Name="CriticalForceTextBox" IsReadOnly="True"/>
                     </StackPanel>
                 </StackPanel>
             </Border>

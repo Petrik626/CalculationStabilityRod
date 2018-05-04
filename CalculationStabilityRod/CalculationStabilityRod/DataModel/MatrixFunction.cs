@@ -228,6 +228,28 @@ namespace CalculationStabilityRod
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static VectorFunction operator*(MatrixFunction m, VectorFunction v)
+        {
+            if (m._numberOfColumn != v.Dimension) { throw new ArgumentException("Size of matrix and vector are not equaling each other"); }
+
+            Function[] functions = new Function[m._numberOfRow];
+
+            Function f;
+            for(int i=0; i<m._numberOfRow; i++)
+            {
+                f = 0.0;
+                for(int j=0; j<v.Dimension; j++)
+                {
+                    f = f + m._components[i, j] * v[j];
+                }
+
+                functions[i] = f;
+            }
+
+            return functions;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixFunction Add(MatrixFunction a, MatrixFunction b) => a + b;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -248,18 +270,25 @@ namespace CalculationStabilityRod
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixFunction Multiply(MatrixFunction a, MatrixFunction b) => a * b;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixFunction Multiply(MatrixFunction a, double b) => a * b;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixFunction Multiply(double a, MatrixFunction b) => a * b;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixFunction Multiply(MatrixFunction a, Matrix b) => a * b;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MatrixFunction Multiply(Matrix a, MatrixFunction b) => a * b;
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static VectorFunction Multiply(MatrixFunction m, VectorFunction v) => m * v;
 
         #endregion
         #region PROPERTIES
-        public double NumberOfRow { get => _numberOfRow; }
-        public double NumberOfColums { get => _numberOfColumn; }
+        public int NumberOfRow { get => _numberOfRow; }
+        public int NumberOfColumns { get => _numberOfColumn; }
         public Function[,] Components
         {
             get => _components;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Windows;
 
-namespace CalculationStabilityRod
+namespace CalculationStabilityRod.DataModel
 {
     internal class LengthBalkChangedEventArgs : EventArgs
     {

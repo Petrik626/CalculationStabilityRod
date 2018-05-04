@@ -3,7 +3,7 @@ using Mathematics.Objects;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 
-namespace CalculationStabilityRod
+namespace CalculationStabilityRod.DataModel
 {
     [StructLayout(LayoutKind.Auto)]
     internal sealed class MatrixFunction

@@ -7,7 +7,7 @@ using Mathematics.Objects;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace CalculationStabilityRod
+namespace CalculationStabilityRod.DataModel
 {
     [StructLayout(LayoutKind.Auto)]
     internal class VectorFunction

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace CalculationStabilityRod
+namespace CalculationStabilityRod.DataModel
 {
     [StructLayout(LayoutKind.Auto)]
     internal struct Force

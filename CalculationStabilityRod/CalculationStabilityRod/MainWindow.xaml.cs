@@ -19,6 +19,7 @@ using Mathematics.Objects;
 using static System.Math;
 using System.Collections.Specialized;
 using System.Collections.ObjectModel;
+using CalculationStabilityRod.DataModel;
 
 namespace CalculationStabilityRod
 {
@@ -372,24 +373,12 @@ namespace CalculationStabilityRod
             CriticalForceTextBox.Text = balk.CriticalForce.Value.ToString();
         }
 
-        private void InvalidateOxyPlot()
+        private void FormLossStability_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             diagramDeflection.InvalidatePlot(true);
             diagramAngle.InvalidatePlot(true);
             diagramMoment.InvalidatePlot(true);
             diagramForce.InvalidatePlot(true);
-        }
-
-        private void FormLossStability_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add: InvalidateOxyPlot(); break;
-                case NotifyCollectionChangedAction.Move: InvalidateOxyPlot(); break;
-                case NotifyCollectionChangedAction.Remove: InvalidateOxyPlot(); break;
-                case NotifyCollectionChangedAction.Replace: InvalidateOxyPlot(); break;
-                case NotifyCollectionChangedAction.Reset: InvalidateOxyPlot(); break;
-            }
         }
     }
 }

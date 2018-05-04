@@ -17,6 +17,8 @@ using OxyPlot.Wpf;
 using OxyPlot;
 using Mathematics.Objects;
 using static System.Math;
+using System.Collections.Specialized;
+using System.Collections.ObjectModel;
 
 namespace CalculationStabilityRod
 {
@@ -32,10 +34,10 @@ namespace CalculationStabilityRod
         private List<Line> slider;
         private List<Line> hingedSupport;
 
-        public IList<DataPoint> PointsDeflection { get; private set; }
-        public IList<DataPoint> PointsAngle { get; private set; }
-        public IList<DataPoint> PointsMoment { get; private set; }
-        public IList<DataPoint> PointsForce { get; private set; }
+        public ObservableCollection<DataPoint> PointsDeflection { get; private set; }
+        public ObservableCollection<DataPoint> PointsAngle { get; private set; }
+        public ObservableCollection<DataPoint> PointsMoment { get; private set; }
+        public ObservableCollection<DataPoint> PointsForce { get; private set; }
 
         private IList<SpringView> Springs = new List<SpringView>();
 
@@ -98,25 +100,25 @@ namespace CalculationStabilityRod
             ComboBoxTypeOfSealing.SelectedIndex = 4;
             balk.LeftBorderConditions = BorderConditions.HingelessFixedSupport;
 
-            PointsDeflection = new List<DataPoint>
+            PointsDeflection = new ObservableCollection<DataPoint>
             {
                 new DataPoint(0,0),
                 new DataPoint(1,0),
                 new DataPoint(2,0)
             };
-            PointsAngle = new List<DataPoint>
+            PointsAngle = new ObservableCollection<DataPoint>
             {
                 new DataPoint(0,0),
                 new DataPoint(1,0),
                 new DataPoint(2,0)
             };
-            PointsMoment = new List<DataPoint>
+            PointsMoment = new ObservableCollection<DataPoint>
             {
                 new DataPoint(0,0),
                 new DataPoint(1,0),
                 new DataPoint(2,0)
             };
-            PointsForce = new List<DataPoint>
+            PointsForce = new ObservableCollection<DataPoint>
             {
                 new DataPoint(0,0),
                 new DataPoint(1,0),
@@ -141,6 +143,11 @@ namespace CalculationStabilityRod
             balk.MomentInertionChanged += balk_MomentInertionChanged;
 
             balk.LeftBorderConditionChanged += balk_LeftBorderConditionChanged;
+
+            PointsDeflection.CollectionChanged += FormLossStability_CollectionChanged;
+            PointsAngle.CollectionChanged += FormLossStability_CollectionChanged;
+            PointsMoment.CollectionChanged += FormLossStability_CollectionChanged;
+            PointsForce.CollectionChanged += FormLossStability_CollectionChanged;
         }
 
         private void AddElementsSpringInCanvas(Canvas canvas, IEnumerable<System.Windows.UIElement> elements)
@@ -363,6 +370,26 @@ namespace CalculationStabilityRod
         private void FindSolutionStabilityProblemRod(Balk model)
         {
             CriticalForceTextBox.Text = balk.CriticalForce.Value.ToString();
+        }
+
+        private void InvalidateOxyPlot()
+        {
+            diagramDeflection.InvalidatePlot(true);
+            diagramAngle.InvalidatePlot(true);
+            diagramMoment.InvalidatePlot(true);
+            diagramForce.InvalidatePlot(true);
+        }
+
+        private void FormLossStability_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add: InvalidateOxyPlot(); break;
+                case NotifyCollectionChangedAction.Move: InvalidateOxyPlot(); break;
+                case NotifyCollectionChangedAction.Remove: InvalidateOxyPlot(); break;
+                case NotifyCollectionChangedAction.Replace: InvalidateOxyPlot(); break;
+                case NotifyCollectionChangedAction.Reset: InvalidateOxyPlot(); break;
+            }
         }
     }
 }

@@ -75,6 +75,7 @@
     </ApplicationDefinition>
     <Compile Include="DataModel\Force.cs" />
     <Compile Include="DataModel\MatrixFunction.cs" />
+    <Compile Include="DataModel\VectorFunction.cs" />
     <Compile Include="ViewModel\SpringView.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

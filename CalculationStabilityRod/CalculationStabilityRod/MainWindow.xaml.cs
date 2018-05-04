@@ -330,7 +330,7 @@ namespace CalculationStabilityRod
             }
         }
 
-        private void balkView_SpringViewChanged(object sender, LengthChangedBalkEventArgs e)
+        private void balkView_SpringViewChanged(object sender, LengthBalkChangedEventArgs e)
         {
             if (springsPictures.Count == 0) { return; }
 
@@ -346,14 +346,14 @@ namespace CalculationStabilityRod
             }
         }
 
-        private void balk_LengthChanged(object sender, LengthChangedBalkEventArgs e)
+        private void balk_LengthChanged(object sender, LengthBalkChangedEventArgs e)
         {
             Balk b = sender as Balk;
 
             FindSolutionStabilityProblemRod(b);
         }
 
-        private void balk_MomentInertionChanged(object sender, MomentInertionChangedBalkEventArgs e)
+        private void balk_MomentInertionChanged(object sender, MomentInertionBalkChangedEventArgs e)
         {
             Balk b = sender as Balk;
 

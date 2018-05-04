@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CalculationStabilityRod.DataModel
 {
-    class VectorFunction
+    internal class VectorFunction
     {
+
     }
 }

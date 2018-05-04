@@ -8,12 +8,12 @@ using System.Windows;
 
 namespace CalculationStabilityRod
 {
-    internal class LengthChangedBalkEventArgs:EventArgs
+    internal class LengthBalkChangedEventArgs : EventArgs
     {
         private readonly double _oldLength;
         private readonly double _newLength;
 
-        public LengthChangedBalkEventArgs(double oldLength, double newLength)
+        public LengthBalkChangedEventArgs(double oldLength, double newLength)
         {
             _oldLength = oldLength;
             _newLength = newLength;
@@ -23,12 +23,12 @@ namespace CalculationStabilityRod
         public double NewLength => _newLength;
     }
 
-    internal class MomentInertionChangedBalkEventArgs:EventArgs
+    internal class MomentInertionBalkChangedEventArgs : EventArgs
     {
         private readonly double _oldMoment;
         private readonly double _newMoment;
 
-        public MomentInertionChangedBalkEventArgs(double oldMoment, double newMoment)
+        public MomentInertionBalkChangedEventArgs(double oldMoment, double newMoment)
         {
             _oldMoment = oldMoment;
             _newMoment = newMoment;
@@ -68,8 +68,8 @@ namespace CalculationStabilityRod
         public static readonly DependencyProperty LeftBorderConditionsProperty;
         private static readonly Lazy<Balk> instance = new Lazy<Balk>(() => new Balk());
         private readonly BorderConditions _rigthBorderConditions;
-        public event EventHandler<LengthChangedBalkEventArgs> LengthChanged;
-        public event EventHandler<MomentInertionChangedBalkEventArgs> MomentInertionChanged;
+        public event EventHandler<LengthBalkChangedEventArgs> LengthChanged;
+        public event EventHandler<MomentInertionBalkChangedEventArgs> MomentInertionChanged;
         public event EventHandler<LeftBorderConditionChangedEventArgs> LeftBorderConditionChanged;
 
         private Balk()
@@ -92,12 +92,12 @@ namespace CalculationStabilityRod
             LeftBorderConditionsProperty = DependencyProperty.Register("LeftBorderConditions", typeof(BorderConditions), typeof(Balk), metadataLeftBorderConditions);
         }
 
-        private void OnChageLength(LengthChangedBalkEventArgs e)
+        private void OnChageLength(LengthBalkChangedEventArgs e)
         {
             LengthChanged?.Invoke(this, e);
         }
 
-        private void OnChangeMomentInertion(MomentInertionChangedBalkEventArgs e)
+        private void OnChangeMomentInertion(MomentInertionBalkChangedEventArgs e)
         {
             MomentInertionChanged?.Invoke(this, e);
         }
@@ -115,7 +115,7 @@ namespace CalculationStabilityRod
                 if(oldLength == value) { return; }
 
                 SetValue(LengthProperty, value);
-                OnChageLength(new LengthChangedBalkEventArgs(oldLength, value));
+                OnChageLength(new LengthBalkChangedEventArgs(oldLength, value));
             }
             get => (double)GetValue(LengthProperty);
         }
@@ -127,7 +127,7 @@ namespace CalculationStabilityRod
                 if(oldMoment == value) { return; }
 
                 SetValue(MomentInertionProperty, value);
-                OnChangeMomentInertion(new MomentInertionChangedBalkEventArgs(oldMoment, value));
+                OnChangeMomentInertion(new MomentInertionBalkChangedEventArgs(oldMoment, value));
             }
             get => (double)GetValue(MomentInertionProperty);
         }

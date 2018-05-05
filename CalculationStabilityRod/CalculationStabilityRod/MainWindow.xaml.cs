@@ -43,6 +43,7 @@ namespace CalculationStabilityRod
         private IList<SpringView> Springs = new List<SpringView>();
 
         private MatrixFunction spanMatrix;
+        private VectorFunction startVector;
         Dictionary<int, SpringView> springsPictures = new Dictionary<int, SpringView>();
         private Balk balk = Balk.Source;
 
@@ -126,6 +127,11 @@ namespace CalculationStabilityRod
                 new DataPoint(2,0)
             };
 
+            diagramDeflection.InvalidatePlot(true);
+            diagramAngle.InvalidatePlot(true);
+            diagramMoment.InvalidatePlot(true);
+            diagramForce.InvalidatePlot(true);
+
             SpringView.SpringCanvas = OutlineBalkCanvas;
             spanMatrix = new MatrixFunction(4, 4)
             {
@@ -136,6 +142,11 @@ namespace CalculationStabilityRod
                     { 0, 0, new Function((x)=>Cos(balk.K*x)), new Function((x)=>(Sin(balk.K*x))/(balk.K)) },
                     { 0, 0, new Function((x)=>-balk.K*Sin(balk.K*x)), new Function((x)=>Cos(balk.K*x))}
                 }
+            };
+
+            startVector = new VectorFunction(4)
+            {
+                Components = new Function[4] { 1, 1, 1, 1 }
             };
 
             balk.LengthChanged += balkView_SpringViewChanged;
@@ -227,6 +238,7 @@ namespace CalculationStabilityRod
             {
                 case 1:
                     balk.LeftBorderConditions = BorderConditions.HingedSupport;
+                    startVector[0] = 0; startVector[2] = 0;
                     SetStrokeThicknessLines(slider, 0.0);
                     SetStrokeThicknessLines(fixedSupport, 0.0);
                     SetStrokeThicknessLines(hingelessFixedSupport, 0.0);
@@ -236,6 +248,7 @@ namespace CalculationStabilityRod
                     break;
                 case 2:
                     balk.LeftBorderConditions = BorderConditions.Slider;
+                    startVector[0] = 0; startVector[1] = 0;
                     SetStrokeThicknessLines(hingedSupport,0.0);
                     SetStrokeThicknessLines(fixedSupport, 0.0);
                     SetStrokeThicknessLines(hingelessFixedSupport, 0.0);
@@ -245,6 +258,7 @@ namespace CalculationStabilityRod
                     break;
                 case 3:
                     balk.LeftBorderConditions = BorderConditions.FixedSupport;
+                    startVector[0] = 0; startVector[1] = 0;
                     SetStrokeThicknessLines(hingedSupport,0.0);
                     SetStrokeThicknessLines(slider, 0.0);
                     SetStrokeThicknessLines(hingelessFixedSupport, 0.0);
@@ -254,6 +268,7 @@ namespace CalculationStabilityRod
                     break;
                 case 4:
                     balk.LeftBorderConditions = BorderConditions.HingelessFixedSupport;
+                    startVector[0] = 0; startVector[2] = 0;
                     SetStrokeThicknessLines(slider, 0.0);
                     SetStrokeThicknessLines(fixedSupport, 0.0);
                     SetStrokeThicknessLines(hingedSupport, 0.0);
@@ -370,15 +385,13 @@ namespace CalculationStabilityRod
 
         private void FindSolutionStabilityProblemRod(Balk model)
         {
+            VectorFunction result = spanMatrix * startVector;
             CriticalForceTextBox.Text = balk.CriticalForce.Value.ToString();
         }
 
         private void FormLossStability_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            diagramDeflection.InvalidatePlot(true);
-            diagramAngle.InvalidatePlot(true);
-            diagramMoment.InvalidatePlot(true);
-            diagramForce.InvalidatePlot(true);
+
         }
     }
 }

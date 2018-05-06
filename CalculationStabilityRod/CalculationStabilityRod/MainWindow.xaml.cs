@@ -43,7 +43,11 @@ namespace CalculationStabilityRod
         private IList<SpringView> Springs = new List<SpringView>();
 
         private MatrixFunction spanMatrix;
-        private VectorFunction startVector;
+        private MatrixFunction equationMatrixExtension;
+        private VectorFunction startVector = new VectorFunction(4)
+        {
+            Components = new Function[4] { 1, 1, 1, 1 }
+        };
         Dictionary<int, SpringView> springsPictures = new Dictionary<int, SpringView>();
         private Balk balk = Balk.Source;
 
@@ -99,6 +103,27 @@ namespace CalculationStabilityRod
                 hingedSupportLine10
             };
 
+            spanMatrix = new MatrixFunction(4, 4)
+            {
+                Components = new Function[4, 4]
+                {
+                    { 1, new Function((x)=>x), new Function((x)=>(1-Cos(balk.K*x))/(balk.K*balk.K*balk.MomentInertion*balk.ElasticModulus)),new Function((x)=>(balk.K*x-Sin(x))/(Pow(balk.K,3)*balk.ElasticModulus*balk.MomentInertion)) },
+                    { 0, 1, new Function((x)=>(Sin(balk.K*x))/(balk.K*balk.ElasticModulus*balk.MomentInertion)), new Function((x)=>(1-Cos(balk.K*x))/(balk.K*balk.K*balk.ElasticModulus*balk.MomentInertion))},
+                    { 0, 0, new Function((x)=>Cos(balk.K*x)), new Function((x)=>(Sin(balk.K*x))/(balk.K)) },
+                    { 0, 0, new Function((x)=>-balk.K*Sin(balk.K*x)), new Function((x)=>Cos(balk.K*x))}
+                }
+            };
+            equationMatrixExtension = new MatrixFunction(4, 4)
+            {
+                Components = new Function[4, 4]
+                {
+                    { 1, new Function((x)=>balk.Length), new Function((x)=>(1-Cos(balk.Length*x))/(x*x*balk.MomentInertion*balk.ElasticModulus)),new Function((x)=>(x*balk.Length-Sin(balk.Length))/(Pow(x,3)*balk.ElasticModulus*balk.MomentInertion)) },
+                    { 0, 1, new Function((x)=>(Sin(balk.Length*x))/(x*balk.ElasticModulus*balk.MomentInertion)), new Function((x)=>(1-Cos(balk.Length*x))/(x*x*balk.ElasticModulus*balk.MomentInertion))},
+                    { 0, 0, new Function((x)=>Cos(balk.Length *x)), new Function((x)=>(Sin(balk.Length *x))/(x)) },
+                    { 0, 0, new Function((x)=>-x*Sin(balk.Length*x)), new Function((x)=>Cos(balk.Length*x))}
+                }
+            };
+
             ComboBoxTypeOfSealing.SelectedIndex = 4;
             balk.LeftBorderConditions = BorderConditions.HingelessFixedSupport;
 
@@ -133,24 +158,11 @@ namespace CalculationStabilityRod
             diagramForce.InvalidatePlot(true);
 
             SpringView.SpringCanvas = OutlineBalkCanvas;
-            spanMatrix = new MatrixFunction(4, 4)
-            {
-                Components = new Function[4,4]
-                {
-                    { 1, new Function((x)=>x), new Function((x)=>(1-Cos(balk.K*x))/(balk.ExternalForce)),new Function((x)=>(balk.K*x-Sin(x))/(Pow(balk.K,3)*balk.ElasticModulus*balk.MomentInertion)) },
-                    { 0, 1, new Function((x)=>(Sin(balk.K*x))/(balk.K*balk.ElasticModulus*balk.MomentInertion)), new Function((x)=>(1-Cos(balk.K*x))/(balk.ExternalForce))},
-                    { 0, 0, new Function((x)=>Cos(balk.K*x)), new Function((x)=>(Sin(balk.K*x))/(balk.K)) },
-                    { 0, 0, new Function((x)=>-balk.K*Sin(balk.K*x)), new Function((x)=>Cos(balk.K*x))}
-                }
-            };
 
-            startVector = new VectorFunction(4)
-            {
-                Components = new Function[4] { 1, 1, 1, 1 }
-            };
 
             balk.LengthChanged += balkView_SpringViewChanged;
             balk.LengthChanged += balk_LengthChanged;
+            balk.Springs.CollectionChanged += Springs_CollectionChanged;
 
             balk.MomentInertionChanged += balk_MomentInertionChanged;
 
@@ -160,6 +172,11 @@ namespace CalculationStabilityRod
             PointsAngle.CollectionChanged += FormLossStability_CollectionChanged;
             PointsMoment.CollectionChanged += FormLossStability_CollectionChanged;
             PointsForce.CollectionChanged += FormLossStability_CollectionChanged;
+        }
+
+        private void Springs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+
         }
 
         private void AddElementsSpringInCanvas(Canvas canvas, IEnumerable<System.Windows.UIElement> elements)
@@ -343,6 +360,7 @@ namespace CalculationStabilityRod
 
                 springsPictures[springID] = new SpringView(leftCanvas);
                 AddElementsSpringInCanvas(OutlineBalkCanvas, springsPictures[springID]);
+                FindSolutionStabilityProblemRod(balk);
             }
         }
 
@@ -383,15 +401,130 @@ namespace CalculationStabilityRod
             FindSolutionStabilityProblemRod(b);
         }
 
+        private double FindRoot(Function f, double startPoint)
+        {
+            double newPoint, oldPoint = startPoint;
+
+            for(; ; )
+            {
+                newPoint = oldPoint - f.Invoke(oldPoint) / f.FindFirstDerivative(oldPoint);
+
+                if (Math.Abs(newPoint - oldPoint) <= 0.0001) { break; }
+
+                oldPoint = newPoint;
+            }
+
+            return newPoint; 
+        }
+
+        private Function FindDeterminant(MatrixFunction matrix)
+        {
+            return (matrix[0, 0] * matrix[1, 1]) - (matrix[0, 1] * matrix[1, 0]);
+        }
+
+        private Tuple<ObservableCollection<DataPoint>, ObservableCollection<DataPoint>, ObservableCollection<DataPoint>, ObservableCollection<DataPoint>> FindFormsLossStability(double start, double end, double rigidity)
+        {
+            ObservableCollection<DataPoint> deflaction = new ObservableCollection<DataPoint>();
+            ObservableCollection<DataPoint> angle = new ObservableCollection<DataPoint>();
+            ObservableCollection<DataPoint> moment = new ObservableCollection<DataPoint>();
+            ObservableCollection<DataPoint> force = new ObservableCollection<DataPoint>();
+
+            Mathematics.Objects.Vector oldVector = startVector.ToVectorDouble(0.0);
+            Mathematics.Objects.Vector newVector;
+
+            Mathematics.Objects.Matrix matrixRigidity = new Mathematics.Objects.Matrix(4, 4)
+            {
+                Components = new double[4, 4]
+                {
+                        {1,0,0,0 },
+                        {0,1,0,0 },
+                        {0,0,1,0 },
+                        {-rigidity,0,0,1 }
+                }
+            };
+
+            double step = (end - start) / (60);
+
+            for(double x = start; x<=end; x+=step)
+            {
+                newVector = spanMatrix.ToMatrixDouble(x) * oldVector;
+                if(x==end)
+                {
+                    newVector = matrixRigidity * newVector;
+                }
+
+                deflaction.Add(new DataPoint(x, newVector[0]));
+                angle.Add(new DataPoint(x, newVector[1]));
+                moment.Add(new DataPoint(x, newVector[2]));
+                force.Add(new DataPoint(x, newVector[3]));
+
+                oldVector = newVector;
+            }
+
+            return new Tuple<ObservableCollection<DataPoint>, ObservableCollection<DataPoint>, ObservableCollection<DataPoint>, ObservableCollection<DataPoint>>(deflaction, angle, moment, force);
+        }
+
+        public Function FindEquation()
+        {
+            MatrixFunction matrix = new MatrixFunction(2, 2);
+            switch(balk.LeftBorderConditions)
+            {
+                case BorderConditions.HingedSupport: matrix = equationMatrixExtension.Minor(3, 0).Minor(1, 1); break;
+                case BorderConditions.Slider: matrix = equationMatrixExtension.Minor(3, 0).Minor(2, 0); break;
+                case BorderConditions.FixedSupport: matrix = equationMatrixExtension.Minor(3, 0).Minor(2, 0); break;
+                case BorderConditions.HingelessFixedSupport: matrix = equationMatrixExtension.Minor(3, 0).Minor(1, 1); break;
+            }
+
+            return FindDeterminant(matrix);
+        }
+
         private void FindSolutionStabilityProblemRod(Balk model)
         {
-            VectorFunction result = spanMatrix * startVector;
+            /*int countSpring = model.Springs.Count;
+            double[] countCoordsX = new double[countSpring];
+            double[] rigidity = new double[countSpring];
+            Mathematics.Objects.Matrix[] matrices = new Mathematics.Objects.Matrix[countSpring];
+
+            for(int i=0; i<model.Springs.Count; i++)
+            {
+                countCoordsX[i] = balk.Springs[i].CoordsX;
+                rigidity[i] = balk.Springs[i].Rigidity;
+
+                matrices[i] = new Mathematics.Objects.Matrix(4, 4)
+                {
+                    Components = new double[4, 4]
+                    {
+                        {1,0,0,0 },
+                        {0,1,0,0 },
+                        {0,0,1,0 },
+                        {-balk.Springs[i].Rigidity,0,0,1 }
+                    }
+                };
+            }
+
+            double a, b, h;
+            for(int i=0; i<countCoordsX.Length; i++)
+            { 
+                
+            }*/
+
+            Function equation = FindEquation();
+            double root = FindRoot(equation, PI);
+            balk.CriticalForce = (root * root * balk.MomentInertion * balk.ElasticModulus) / (balk.Length * balk.Length);
             CriticalForceTextBox.Text = balk.CriticalForce.Value.ToString();
         }
 
         private void FormLossStability_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
 
+        }
+    }
+
+    internal static class Extensions
+    {
+        public static double FindFirstDerivative(this Function f, double x)
+        {
+            return Function.FindFirstDerivative(f, x);
         }
     }
 }

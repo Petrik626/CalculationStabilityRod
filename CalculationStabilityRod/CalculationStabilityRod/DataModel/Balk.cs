@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace CalculationStabilityRod.DataModel
 {
@@ -81,13 +83,13 @@ namespace CalculationStabilityRod.DataModel
         {
             FrameworkPropertyMetadata metadataLength = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault);
             FrameworkPropertyMetadata metadataMoment = new FrameworkPropertyMetadata(new double(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault);
-            FrameworkPropertyMetadata metadataSprings = new FrameworkPropertyMetadata(new List<Spring>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault);
+            FrameworkPropertyMetadata metadataSprings = new FrameworkPropertyMetadata(new ObservableCollection<Spring>(), FrameworkPropertyMetadataOptions.BindsTwoWayByDefault);
             FrameworkPropertyMetadata metadataCriticalForce = new FrameworkPropertyMetadata(new Force(), FrameworkPropertyMetadataOptions.None);
             FrameworkPropertyMetadata metadataLeftBorderConditions = new FrameworkPropertyMetadata(BorderConditions.HingelessFixedSupport, FrameworkPropertyMetadataOptions.None);
 
             LengthProperty = DependencyProperty.Register("Length", typeof(double), typeof(Balk), metadataLength);
             MomentInertionProperty = DependencyProperty.Register("MomentInertion", typeof(double), typeof(Balk), metadataMoment);
-            SpringsProperty = DependencyProperty.Register("Springs", typeof(IList<Spring>), typeof(Balk), metadataSprings);
+            SpringsProperty = DependencyProperty.Register("Springs", typeof(ObservableCollection<Spring>), typeof(Balk), metadataSprings);
             CriticalForceProperty = DependencyProperty.Register("CriticalForce", typeof(Force), typeof(Balk), metadataCriticalForce);
             LeftBorderConditionsProperty = DependencyProperty.Register("LeftBorderConditions", typeof(BorderConditions), typeof(Balk), metadataLeftBorderConditions);
         }
@@ -131,10 +133,10 @@ namespace CalculationStabilityRod.DataModel
             }
             get => (double)GetValue(MomentInertionProperty);
         }
-        public IList<Spring> Springs
+        public ObservableCollection<Spring> Springs
         {
             set => SetValue(SpringsProperty, value);
-            get => (IList<Spring>)(GetValue(SpringsProperty));
+            get => (ObservableCollection<Spring>)(GetValue(SpringsProperty));
         }
         public Force CriticalForce
         {
@@ -153,7 +155,7 @@ namespace CalculationStabilityRod.DataModel
                 OnChangeLeftBorderConditions(new LeftBorderConditionChangedEventArgs(old, value));
             }
         }
-        public Force ExternalForce { get; set; } = 1000000.0;
+        public Force ExternalForce { get; set; } = 17765.5407;
         public double ElasticModulus { get; set; } = 100000.0;
         public double K => Math.Sqrt(ExternalForce / (ElasticModulus * MomentInertion));
         public BorderConditions RightBorderConditions { get => _rigthBorderConditions; }

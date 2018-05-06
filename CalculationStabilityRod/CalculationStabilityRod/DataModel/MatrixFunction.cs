@@ -343,6 +343,27 @@ namespace CalculationStabilityRod.DataModel
 
             return matrix;
         }
+
+        public MatrixFunction Minor(int index1, int index2)
+        {
+            if ((index1 < 0) || (index1 > _numberOfRow - 1) || (index2 < 0) || (index2 > _numberOfColumn - 1)) { throw new ArgumentException("These arguments are bigger than numbers of row and column "); }
+
+            Function[,] components = new Function[_numberOfRow - 1, _numberOfColumn - 1];
+            int di = 0, dj = 0;
+
+            for (int i = 0; i < _numberOfRow - 1; i++)
+            {
+                if (i == index1) { di = 1; }
+                for (int j = 0; j < _numberOfColumn - 1; j++)
+                {
+                    if (j == index2) { dj = 1; }
+                    components[i, j] = _components[i + di, j + dj];
+                }
+                dj = 0;
+            }
+
+            return new MatrixFunction(components);
+        }
         #endregion
     }
 }

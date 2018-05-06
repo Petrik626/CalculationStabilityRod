@@ -55,8 +55,8 @@
                     </StackPanel>
 
                     <StackPanel Grid.Column="2" Margin="4">
-                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" x:Name="NameDimensionRod" HorizontalAlignment="Left" Content="cm"/>
-                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" x:Name="NameDimensionMonentInertion" HorizontalAlignment="Left" Content="cm^4"/>
+                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" x:Name="NameDimensionRod" HorizontalAlignment="Left" Content="m"/>
+                        <Label Margin="1" FontSize="16" FontFamily="Times New Roman" FontStyle="Italic" FontWeight="Bold" x:Name="NameDimensionMonentInertion" HorizontalAlignment="Left" Content="m^4"/>
                     </StackPanel>
                 </Grid>
             </Border>
@@ -138,7 +138,8 @@
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman" Margin="5"><Run Text="Критическая сила ="/></TextBlock>
-                        <TextBox Width="250" Margin="5,8,5,8" FontFamily="Times New Roman" FontSize="14" FontWeight="Bold" Name="CriticalForceTextBox" IsReadOnly="True"/>
+                        <TextBox Width="250" Margin="5,8,2,8" FontFamily="Times New Roman" FontSize="14" FontWeight="Bold" Name="CriticalForceTextBox" IsReadOnly="True"/>
+                        <TextBlock Margin="0,8,5,8">H</TextBlock>
                     </StackPanel>
                 </StackPanel>
             </Border>

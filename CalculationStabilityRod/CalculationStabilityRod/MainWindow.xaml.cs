@@ -172,11 +172,13 @@ namespace CalculationStabilityRod
             PointsAngle.CollectionChanged += FormLossStability_CollectionChanged;
             PointsMoment.CollectionChanged += FormLossStability_CollectionChanged;
             PointsForce.CollectionChanged += FormLossStability_CollectionChanged;
+
+            FindSolutionStabilityProblemRod(balk);
         }
 
         private void Springs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-
+            FindSolutionStabilityProblemRod(balk);
         }
 
         private void AddElementsSpringInCanvas(Canvas canvas, IEnumerable<System.Windows.UIElement> elements)

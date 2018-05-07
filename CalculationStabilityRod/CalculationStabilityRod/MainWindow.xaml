@@ -133,7 +133,7 @@
 
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontSize="20" FontWeight="UltraBold" FontFamily="Times New Roman" Margin="5"><Run Text="K ="/></TextBlock>
-                        <TextBox Margin="5,8,5,8" Width="400" FontFamily="Times New Roman" FontSize="14" FontWeight="Bold" IsReadOnly="True"/>
+                        <TextBox Margin="5,8,5,8" Width="400" FontFamily="Times New Roman" FontSize="14" FontWeight="Bold" IsReadOnly="True" Name="RootTextBox"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">

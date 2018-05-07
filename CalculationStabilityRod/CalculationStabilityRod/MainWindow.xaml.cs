@@ -401,7 +401,7 @@ namespace CalculationStabilityRod
             FindSolutionStabilityProblemRod(b);
         }
 
-        private double FindRoot(Function f, double startPoint)
+        private double MethodNewton(Function f, double startPoint)
         {
             double newPoint, oldPoint = startPoint;
 
@@ -409,12 +409,48 @@ namespace CalculationStabilityRod
             {
                 newPoint = oldPoint - f.Invoke(oldPoint) / f.FindFirstDerivative(oldPoint);
 
-                if (Math.Abs(newPoint - oldPoint) <= 0.0001) { break; }
+                if (Math.Abs(newPoint - oldPoint) <= 0.00001) { break; }
 
                 oldPoint = newPoint;
             }
 
             return newPoint; 
+        }
+
+        private double FindRoot(Balk model)
+        {
+            int countSpring = model.Springs.Count;
+            Function f = FindEquation();
+            double startPoint = FindStartPoint(model);
+
+            if (countSpring == 0)
+            {
+                double root = MethodNewton(f, startPoint);
+                return (root * root * balk.ElasticModulus * balk.MomentInertion) / (balk.Length * balk.Length);
+            }
+
+            double[] coords = new double[countSpring + 1];
+            double[] roots = new double[countSpring + 1];
+            double[] criticalForce = new double[countSpring + 1];
+
+            double sum = model.Springs[0].CoordsX;
+            coords[0] = model.Springs[0].CoordsX;
+            int i = 1;
+
+            for(; i < countSpring; i++)
+            {
+                coords[i] = model.Springs[i].CoordsX - sum;
+                sum += coords[i];
+            }
+            coords[i] = balk.Length - sum;
+
+            for(int j=0; j<criticalForce.Length; j++)
+            {
+                roots[j] = MethodNewton(f, startPoint);
+                criticalForce[j] = (Math.Pow(roots[j], 2) * balk.MomentInertion * balk.ElasticModulus) / (coords[j] * coords[j]);
+            }
+
+            return criticalForce.Min(x => Math.Abs(x));
         }
 
         private Function FindDeterminant(MatrixFunction matrix)
@@ -478,6 +514,18 @@ namespace CalculationStabilityRod
             return FindDeterminant(matrix);
         }
 
+        private double FindStartPoint(Balk model)
+        {
+            switch(model.LeftBorderConditions)
+            {
+                case BorderConditions.HingedSupport: return PI;
+                case BorderConditions.HingelessFixedSupport: return PI;
+                case BorderConditions.Slider: return 4.5;
+                case BorderConditions.FixedSupport: return 4.5;
+                default: return balk.K;
+            }
+        }
+
         private void FindSolutionStabilityProblemRod(Balk model)
         {
             /*int countSpring = model.Springs.Count;
@@ -508,9 +556,11 @@ namespace CalculationStabilityRod
                 
             }*/
 
-            Function equation = FindEquation();
-            double root = FindRoot(equation, PI);
-            balk.CriticalForce = (root * root * balk.MomentInertion * balk.ElasticModulus) / (balk.Length * balk.Length);
+            //Function equation = FindEquation();
+            //double startPoint = FindStartPoint(model);
+            double root = FindRoot(model);
+            balk.CriticalForce = root;
+            RootTextBox.Text = root.ToString();
             CriticalForceTextBox.Text = balk.CriticalForce.Value.ToString();
         }
 

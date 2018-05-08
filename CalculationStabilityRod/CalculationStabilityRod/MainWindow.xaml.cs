@@ -44,10 +44,7 @@ namespace CalculationStabilityRod
 
         private MatrixFunction spanMatrix;
         private MatrixFunction equationMatrixExtension;
-        private VectorFunction startVector = new VectorFunction(4)
-        {
-            Components = new Function[4] { 1, 1, 1, 1 }
-        };
+        private Mathematics.Objects.Vector startVector = new Mathematics.Objects.Vector(0, 1, 0, 1);
         Dictionary<int, SpringView> springsPictures = new Dictionary<int, SpringView>();
         private Balk balk = Balk.Source;
 
@@ -258,7 +255,6 @@ namespace CalculationStabilityRod
             {
                 case 1:
                     balk.LeftBorderConditions = BorderConditions.HingedSupport;
-                    startVector[0] = 0; startVector[2] = 0;
                     SetStrokeThicknessLines(slider, 0.0);
                     SetStrokeThicknessLines(fixedSupport, 0.0);
                     SetStrokeThicknessLines(hingelessFixedSupport, 0.0);
@@ -268,7 +264,6 @@ namespace CalculationStabilityRod
                     break;
                 case 2:
                     balk.LeftBorderConditions = BorderConditions.Slider;
-                    startVector[0] = 0; startVector[1] = 0;
                     SetStrokeThicknessLines(hingedSupport,0.0);
                     SetStrokeThicknessLines(fixedSupport, 0.0);
                     SetStrokeThicknessLines(hingelessFixedSupport, 0.0);
@@ -278,7 +273,6 @@ namespace CalculationStabilityRod
                     break;
                 case 3:
                     balk.LeftBorderConditions = BorderConditions.FixedSupport;
-                    startVector[0] = 0; startVector[1] = 0;
                     SetStrokeThicknessLines(hingedSupport,0.0);
                     SetStrokeThicknessLines(slider, 0.0);
                     SetStrokeThicknessLines(hingelessFixedSupport, 0.0);
@@ -288,7 +282,6 @@ namespace CalculationStabilityRod
                     break;
                 case 4:
                     balk.LeftBorderConditions = BorderConditions.HingelessFixedSupport;
-                    startVector[0] = 0; startVector[2] = 0;
                     SetStrokeThicknessLines(slider, 0.0);
                     SetStrokeThicknessLines(fixedSupport, 0.0);
                     SetStrokeThicknessLines(hingedSupport, 0.0);
@@ -401,6 +394,13 @@ namespace CalculationStabilityRod
         {
             Balk b = sender as Balk;
 
+            switch(e.NewLeftBorderConditions)
+            {
+                case BorderConditions.HingedSupport: startVector[0] = 0; startVector[1] = 1; startVector[2] = 0; startVector[3] = 1; break;
+                case BorderConditions.HingelessFixedSupport: startVector[0] = 0; startVector[1] = 1; startVector[2] = 0; startVector[3] = 1; break;
+                case BorderConditions.Slider: startVector[0] = 0;startVector[1] = 0;startVector[2] = 1; startVector[3] = 1; break;
+                case BorderConditions.FixedSupport: startVector[0] = 0; startVector[1] = 0; startVector[2] = 1; startVector[3] = 1; break;
+            }
             FindSolutionStabilityProblemRod(b);
         }
 
@@ -468,7 +468,7 @@ namespace CalculationStabilityRod
             ObservableCollection<DataPoint> moment = new ObservableCollection<DataPoint>();
             ObservableCollection<DataPoint> force = new ObservableCollection<DataPoint>();
 
-            Mathematics.Objects.Vector oldVector = startVector.ToVectorDouble(0.0);
+            Mathematics.Objects.Vector oldVector = startVector;
             Mathematics.Objects.Vector newVector;
 
             Mathematics.Objects.Matrix matrixRigidity = new Mathematics.Objects.Matrix(4, 4)
@@ -565,8 +565,7 @@ namespace CalculationStabilityRod
             PointsAngle.Clear();
             PointsMoment.Clear();
             PointsForce.Clear();
-            Mathematics.Objects.Vector oldV = startVector.ToVectorDouble(0.0);
-            MessageBox.Show(startVector.ToVectorDouble(0).ToString());
+            Mathematics.Objects.Vector oldV = startVector;
             Mathematics.Objects.Vector newV;
             
             double root = FindRoot(model);

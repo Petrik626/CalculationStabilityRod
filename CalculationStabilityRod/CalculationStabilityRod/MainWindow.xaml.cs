@@ -461,14 +461,14 @@ namespace CalculationStabilityRod
             return (matrix[0, 0] * matrix[1, 1]) - (matrix[0, 1] * matrix[1, 0]);
         }
 
-        private Tuple<ObservableCollection<DataPoint>, ObservableCollection<DataPoint>, ObservableCollection<DataPoint>, ObservableCollection<DataPoint>> FindFormsLossStability(double start, double end, double rigidity)
+        private Tuple<ObservableCollection<DataPoint>, ObservableCollection<DataPoint>, ObservableCollection<DataPoint>, ObservableCollection<DataPoint>> FindFormsLossStability(double start, double end, double rigidity, Mathematics.Objects.Vector startV)
         {
             ObservableCollection<DataPoint> deflaction = new ObservableCollection<DataPoint>();
             ObservableCollection<DataPoint> angle = new ObservableCollection<DataPoint>();
             ObservableCollection<DataPoint> moment = new ObservableCollection<DataPoint>();
             ObservableCollection<DataPoint> force = new ObservableCollection<DataPoint>();
 
-            Mathematics.Objects.Vector oldVector = startVector;
+            Mathematics.Objects.Vector oldVector = startV;
             Mathematics.Objects.Vector newVector;
 
             Mathematics.Objects.Matrix matrixRigidity = new Mathematics.Objects.Matrix(4, 4)
@@ -486,7 +486,7 @@ namespace CalculationStabilityRod
 
             for(double x = start; x<=end; x+=step)
             {
-                newVector = spanMatrix.ToMatrixDouble(x) * oldVector;
+                newVector = spanMatrix.ToMatrixDouble(x) * startV;
                 if(x==end)
                 {
                     newVector = matrixRigidity * newVector;
@@ -496,8 +496,6 @@ namespace CalculationStabilityRod
                 angle.Add(new DataPoint(x, newVector[1]));
                 moment.Add(new DataPoint(x, newVector[2]));
                 force.Add(new DataPoint(x, newVector[3]));
-
-                oldVector = newVector;
             }
 
             return new Tuple<ObservableCollection<DataPoint>, ObservableCollection<DataPoint>, ObservableCollection<DataPoint>, ObservableCollection<DataPoint>>(deflaction, angle, moment, force);
@@ -573,9 +571,6 @@ namespace CalculationStabilityRod
             RootTextBox.Text = root.ToString();
 
             balk.K = Math.Sqrt(root / (balk.ElasticModulus * balk.MomentInertion));
-            //Function deflaction = new Function((x) => Math.Sin(balk.K * x));
-            //Function deflaction = new Function((x) => Sin(4.49 * x / balk.Length) - (x / balk.Length) * Math.Sin(4.49));
-            //balk.K = Math.Sqrt(root / (balk.ElasticModulus * balk.MomentInertion));
             double h = balk.Length / 100;
             for (double x = 0; x <= balk.Length; x += h)
             {
@@ -584,11 +579,6 @@ namespace CalculationStabilityRod
                 PointsAngle.Add(new DataPoint(x, newV[1]));
                 PointsForce.Add(new DataPoint(x, newV[3]));
                 PointsMoment.Add(new DataPoint(x, newV[2]));
-
-                /*PointsDeflection.Add(new DataPoint(x, deflaction.Invoke(x)));
-                PointsAngle.Add(new DataPoint(x, deflaction.FindFirstDerivative(x)));
-                PointsMoment.Add(new DataPoint(x, deflaction.FindDerivative(x, 2)));
-                PointsForce.Add(new DataPoint(x, deflaction.FindDerivative(x, 3)));*/
             }
 
             CriticalForceTextBox.Text = balk.CriticalForce.Value.ToString();
@@ -610,6 +600,18 @@ namespace CalculationStabilityRod
         public static double FindDerivative(this Function f, double x, int n)
         {
             return Function.FindDerivative(f, x, n);
+        }
+
+        public static ObservableCollection<T> ToObservableCollection<T>(IEnumerable<T> ts)
+        {
+            ObservableCollection<T> collection = new ObservableCollection<T>();
+
+            foreach(var el in ts)
+            {
+                collection.Add(el);
+            }
+
+            return collection;
         }
     }
 }

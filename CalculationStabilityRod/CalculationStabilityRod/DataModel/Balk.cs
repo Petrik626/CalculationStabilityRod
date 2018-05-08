@@ -61,7 +61,7 @@ namespace CalculationStabilityRod.DataModel
     }
 
     [StructLayout(LayoutKind.Auto)]
-    internal sealed class Balk:UIElement
+    internal sealed class Balk : UIElement
     {
         public static readonly DependencyProperty LengthProperty;
         public static readonly DependencyProperty MomentInertionProperty;
@@ -114,7 +114,7 @@ namespace CalculationStabilityRod.DataModel
             set
             {
                 double oldLength = Length;
-                if(oldLength == value) { return; }
+                if (oldLength == value) { return; }
 
                 SetValue(LengthProperty, value);
                 OnChageLength(new LengthBalkChangedEventArgs(oldLength, value));
@@ -126,7 +126,7 @@ namespace CalculationStabilityRod.DataModel
             set
             {
                 double oldMoment = MomentInertion;
-                if(oldMoment == value) { return; }
+                if (oldMoment == value) { return; }
 
                 SetValue(MomentInertionProperty, value);
                 OnChangeMomentInertion(new MomentInertionBalkChangedEventArgs(oldMoment, value));
@@ -157,7 +157,8 @@ namespace CalculationStabilityRod.DataModel
         }
         public Force ExternalForce { get; set; } = 17765.5407;
         public double ElasticModulus { get; set; } = 100000.0;
-        public double K => Math.Sqrt(ExternalForce / (ElasticModulus * MomentInertion));
+        public double K { get; set; }
+
         public BorderConditions RightBorderConditions { get => _rigthBorderConditions; }
         public static Balk Source { get => instance.Value; }
     } 

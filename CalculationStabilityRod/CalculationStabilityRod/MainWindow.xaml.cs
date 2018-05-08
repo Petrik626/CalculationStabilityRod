@@ -103,6 +103,7 @@ namespace CalculationStabilityRod
                 hingedSupportLine10
             };
 
+            balk.K = Math.Sqrt(balk.ExternalForce / (balk.ElasticModulus * balk.MomentInertion));
             spanMatrix = new MatrixFunction(4, 4)
             {
                 Components = new Function[4, 4]
@@ -392,7 +393,7 @@ namespace CalculationStabilityRod
         private void balk_MomentInertionChanged(object sender, MomentInertionBalkChangedEventArgs e)
         {
             Balk b = sender as Balk;
-
+            b.K = Math.Sqrt(b.ExternalForce / (b.ElasticModulus * e.NewMoment));
             FindSolutionStabilityProblemRod(b);
         }
 
@@ -560,9 +561,37 @@ namespace CalculationStabilityRod
 
             //Function equation = FindEquation();
             //double startPoint = FindStartPoint(model);
+            PointsDeflection.Clear();
+            PointsAngle.Clear();
+            PointsMoment.Clear();
+            PointsForce.Clear();
+            Mathematics.Objects.Vector oldV = startVector.ToVectorDouble(0.0);
+            MessageBox.Show(startVector.ToVectorDouble(0).ToString());
+            Mathematics.Objects.Vector newV;
+            
             double root = FindRoot(model);
             balk.CriticalForce = root;
             RootTextBox.Text = root.ToString();
+
+            balk.K = Math.Sqrt(root / (balk.ElasticModulus * balk.MomentInertion));
+            //Function deflaction = new Function((x) => Math.Sin(balk.K * x));
+            //Function deflaction = new Function((x) => Sin(4.49 * x / balk.Length) - (x / balk.Length) * Math.Sin(4.49));
+            //balk.K = Math.Sqrt(root / (balk.ElasticModulus * balk.MomentInertion));
+            double h = balk.Length / 100;
+            for (double x = 0; x <= balk.Length; x += h)
+            {
+                newV = spanMatrix.ToMatrixDouble(x) * oldV;
+                PointsDeflection.Add(new DataPoint(x, newV[0]));
+                PointsAngle.Add(new DataPoint(x, newV[1]));
+                PointsForce.Add(new DataPoint(x, newV[3]));
+                PointsMoment.Add(new DataPoint(x, newV[2]));
+
+                /*PointsDeflection.Add(new DataPoint(x, deflaction.Invoke(x)));
+                PointsAngle.Add(new DataPoint(x, deflaction.FindFirstDerivative(x)));
+                PointsMoment.Add(new DataPoint(x, deflaction.FindDerivative(x, 2)));
+                PointsForce.Add(new DataPoint(x, deflaction.FindDerivative(x, 3)));*/
+            }
+
             CriticalForceTextBox.Text = balk.CriticalForce.Value.ToString();
         }
 
@@ -577,6 +606,11 @@ namespace CalculationStabilityRod
         public static double FindFirstDerivative(this Function f, double x)
         {
             return Function.FindFirstDerivative(f, x);
+        }
+
+        public static double FindDerivative(this Function f, double x, int n)
+        {
+            return Function.FindDerivative(f, x, n);
         }
     }
 }

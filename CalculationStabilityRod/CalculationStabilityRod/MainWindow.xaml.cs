@@ -3,15 +3,9 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using OxyPlot.Wpf;
 using OxyPlot;
@@ -115,7 +109,7 @@ namespace CalculationStabilityRod
             {
                 Components = new Function[4, 4]
                 {
-                    { 1, new Function((x)=>balk.Length), new Function((x)=>(1-Cos(balk.Length*x))/(x*x*balk.MomentInertion*balk.ElasticModulus)),new Function((x)=>(x*balk.Length-Sin(balk.Length))/(Pow(x,3)*balk.ElasticModulus*balk.MomentInertion)) },
+                    { 1, new Function((x)=>balk.Length), new Function((x)=>(1-Cos(balk.Length*x))/(x*x*balk.MomentInertion*balk.ElasticModulus)),new Function((x)=>(x*balk.Length-Sin(x*balk.Length))/(Pow(x,3)*balk.ElasticModulus*balk.MomentInertion)) },
                     { 0, 1, new Function((x)=>(Sin(balk.Length*x))/(x*balk.ElasticModulus*balk.MomentInertion)), new Function((x)=>(1-Cos(balk.Length*x))/(x*x*balk.ElasticModulus*balk.MomentInertion))},
                     { 0, 0, new Function((x)=>Cos(balk.Length *x)), new Function((x)=>(Sin(balk.Length *x))/(x)) },
                     { 0, 0, new Function((x)=>-x*Sin(balk.Length*x)), new Function((x)=>Cos(balk.Length*x))}
@@ -308,7 +302,6 @@ namespace CalculationStabilityRod
                     RemoveElementsSpringOfCanvas(OutlineBalkCanvas, springsPictures[springID]);
                     springsPictures.Remove(springID);
                     SpringGrid.CanUserDeleteRows = true;
-                    //FindSolutionStabilityProblemRod(balk);
                 }
                 else
                 {
@@ -444,13 +437,13 @@ namespace CalculationStabilityRod
             double[] roots = new double[countSpring + 1];
             double[] criticalForce = new double[countSpring + 1];
 
-            double sum = springs[0].CoordsX;//model.Springs[0].CoordsX;
-            coords[0] = springs[0].CoordsX;//model.Springs[0].CoordsX;
+            double sum = springs[0].CoordsX;
+            coords[0] = springs[0].CoordsX;
             int i = 1;
 
             for(; i < countSpring; i++)
             {
-                coords[i] = springs[i].CoordsX - sum;//model.Springs[i].CoordsX - sum;
+                coords[i] = springs[i].CoordsX - sum;
                 sum += coords[i];
             }
             coords[i] = model.Length - sum;
@@ -554,75 +547,50 @@ namespace CalculationStabilityRod
             }
         }
 
-        private void FindSolutionStabilityProblemRod(Balk model)
+        private Function FindDeflectionFunction(Balk model)
         {
-            if (PointsDeflection.Count != 0 && PointsAngle.Count != 0 && PointsMoment.Count != 0 && PointsForce.Count != 0)
+            Function f = 0.0;
+            int n1 = model.Springs.Count + 1;
+            double n2 = PI * (model.Springs.Count + 1 + 0.5);
+
+            switch(balk.LeftBorderConditions)
             {
-                PointsDeflection.Clear();
-                PointsAngle.Clear();
-                PointsMoment.Clear();
-                PointsForce.Clear();
+                case BorderConditions.HingelessFixedSupport: f = new Function((x) => Sin((n1 * x * PI) / model.Length)); break;
+                case BorderConditions.FixedSupport: f = new Function((x) => Sin(n2 * x / model.Length) - (x / model.Length) * Sin(n2)); break;
+                case BorderConditions.HingedSupport: f = new Function((x) => Sin((n1 * x * PI) / model.Length)); break;
+                case BorderConditions.Slider: f = new Function((x) => Sin(n2 * x / model.Length) - (x / model.Length) * Sin(n2)); break;
             }
 
-            //PointsDeflection.Clear();
+            return f;
+        }
 
-            var deflaction = new ObservableCollection<DataPoint>();
-            var angle = new ObservableCollection<DataPoint>();
-            var moment = new ObservableCollection<DataPoint>();
-            var force = new ObservableCollection<DataPoint>();
+        private void FindSolutionStabilityProblemRod(Balk model)
+        {
+            PointsDeflection.Clear();
+            PointsAngle.Clear();
+            PointsMoment.Clear();
+            PointsForce.Clear();
+           
             Mathematics.Objects.Vector currentStartVector = startVector;
             double root = FindRoot(model);
             model.CriticalForce = root;
-            RootTextBox.Text = root.ToString();
             CriticalForceTextBox.Text = model.CriticalForce.Value.ToString();
 
             int countSpring = model.Springs.Count;
             model.K = Sqrt(root / (model.ElasticModulus * model.MomentInertion));
-            //currentStartVector[0] = Sqrt(root / (model.ElasticModulus * model.MomentInertion));
-            //currentStartVector[2] = Sqrt(root / (model.ElasticModulus * model.MomentInertion));
             Mathematics.Objects.Vector newV;
+            Function deflactionFunction = FindDeflectionFunction(model);
 
-            if (countSpring == 0)
+
+            double h = model.Length / 100;
+            for (double x = 0; x <= model.Length; x += h)
             {
-                double h = model.Length / 100;
-                for (double x = 0; x <= model.Length; x += h)
-                {
-                    newV = spanMatrix.ToMatrixDouble(x) * currentStartVector;
-                    PointsDeflection.Add(new DataPoint(x, newV[0]));
-                    PointsAngle.Add(new DataPoint(x, newV[1]));
-                    PointsForce.Add(new DataPoint(x, newV[3]));
-                    PointsMoment.Add(new DataPoint(x, newV[2]));
-                }
+                newV = spanMatrix.ToMatrixDouble(x) * currentStartVector;
+                PointsDeflection.Add(new DataPoint(x, deflactionFunction.Invoke(x)));
+                PointsAngle.Add(new DataPoint(x, deflactionFunction.FindFirstDerivative(x)));
+                PointsForce.Add(new DataPoint(x, deflactionFunction.FindThirdDerivative(x)));
+                PointsMoment.Add(new DataPoint(x, deflactionFunction.FindSecondDerivative(x)));
             }
-            else
-            {
-                double[] rigidity = new double[countSpring + 2];
-                double[] coordsStartInterval = new double[countSpring + 2];
-                coordsStartInterval[0] = 0.0; rigidity[0] = 0.0;
-                coordsStartInterval[coordsStartInterval.Length - 1] = model.Length; rigidity[rigidity.Length - 1] = 0.0;
-
-                for (int i = 1; i < coordsStartInterval.Length - 1; i++)
-                {
-                    coordsStartInterval[i] = model.Springs[i - 1].CoordsX;
-                    rigidity[i] = model.Springs[i - 1].Rigidity;
-                }
-
-
-                for (int i = 0; i < countSpring + 1; i++)
-                {
-                    var solve = FindFormsLossStability(coordsStartInterval[i], coordsStartInterval[i + 1], rigidity[i + 1], currentStartVector);
-                    deflaction = deflaction.Union(solve.Item1).OrderBy(p => p.X).ToObservableCollection();
-                    angle = PointsAngle.Union(solve.Item2).OrderBy(p => p.X).ToObservableCollection();
-                    moment = PointsMoment.Union(solve.Item3).OrderBy(p => p.X).ToObservableCollection();
-                    force = PointsForce.Union(solve.Item4).OrderBy(p => p.X).ToObservableCollection();
-                    currentStartVector = solve.Item5;
-                }
-
-                CopyDataPoint(deflaction, PointsDeflection);
-                CopyDataPoint(angle, PointsAngle);
-                CopyDataPoint(moment, PointsMoment);
-                CopyDataPoint(force, PointsForce);
-            }         
         }
 
         private void FormLossStability_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -638,9 +606,21 @@ namespace CalculationStabilityRod
             return Function.FindFirstDerivative(f, x);
         }
 
+        public static double FindSecondDerivative(this Function f, double x)
+        {
+            return Function.FindSecondDerivative(f, x);
+        }
+
         public static double FindDerivative(this Function f, double x, int n)
         {
             return Function.FindDerivative(f, x, n);
+        }
+
+        public static double FindThirdDerivative(this Function f, double x)
+        {
+            double step1 = 0.01;
+            
+            return - (f.Invoke(x - step1) - 3 * f.Invoke(x) + 3 * f.Invoke(x + step1) - f.Invoke(x + 2 * step1)) / (step1 * step1 * step1);
         }
 
         public static ObservableCollection<T> ToObservableCollection<T>(this IEnumerable<T> ts)

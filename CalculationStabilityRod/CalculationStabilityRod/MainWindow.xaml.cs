@@ -41,6 +41,8 @@ namespace CalculationStabilityRod
         public ObservableCollection<DataPoint> PointsForce { get; private set; }
 
         private IList<SpringView> Springs = new List<SpringView>();
+        private List<double> Coords = new List<double>();
+        private List<double> Rigidity = new List<double>();
 
         private MatrixFunction spanMatrix;
         private MatrixFunction equationMatrixExtension;
@@ -353,9 +355,11 @@ namespace CalculationStabilityRod
                     springsPictures.Remove(springID);
                 }
 
-
+                //Coords.Add(balk.Springs[index].CoordsX);
+                //Rigidity.Add(balk.Springs[index].Rigidity);
                 springsPictures[springID] = new SpringView(leftCanvas);
                 AddElementsSpringInCanvas(OutlineBalkCanvas, springsPictures[springID]);
+
                 FindSolutionStabilityProblemRod(balk);
             }
         }
@@ -561,7 +565,7 @@ namespace CalculationStabilityRod
                  PointsForce.Add(new DataPoint(x, newV[3]));
                  PointsMoment.Add(new DataPoint(x, newV[2]));
             }
-          
+
             /*else
             {
                 double[] rigidity = new double[countSpring + 2];

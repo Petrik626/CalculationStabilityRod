@@ -72,9 +72,35 @@
 
                 <StackPanel Margin="1">
                     <TextBlock TextAlignment="Center" Margin="1" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman"><Run Text="Типы заделки"/></TextBlock>
-
+                    <TextBlock TextAlignment="Center" FontSize="14" FontWeight="Bold" FontFamily="Times New Roman">Левый край</TextBlock>
+                      
                     <ComboBox Margin="2" x:Name="ComboBoxTypeOfSealing" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="ComboBoxTypeOfSealing_SelectionChanged">
                         <ComboBoxItem IsSelected="True"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hinged support.jpg"/>
+                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold"><Run Text="Шарнирно подвижная опора"/></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Slider.jpg"/>
+                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold"><Run Text="Ползун"/></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Fixed support.jpg"/>
+                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold"><Run Text="Жесткая заделка"/></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hingeless fixed support.jpg"/>
+                            <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold"><Run Text="Шарнирно неподвижная опора"/></TextBlock>
+                        </StackPanel>
+                    </ComboBox>
+
+                    <TextBlock FontSize="14" FontFamily="Times New Roman" FontWeight="Bold" TextAlignment="Center">Правый край</TextBlock>
+                    <ComboBox Margin="5" x:Name="ComboBoxRightTypeOfSealing" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" SelectionChanged="ComboBoxRightTypeOfSealing_SelectionChanged">
+                        <ComboBoxItem IsSelected="True"/>
+
                         <StackPanel Orientation="Horizontal">
                             <Image Source="D:\Github\CalculationStabilityRodProject\CalculationStabilityRod\CalculationStabilityRod\Resources\Hinged support.jpg"/>
                             <TextBlock Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Times New Roman" FontWeight="Bold"><Run Text="Шарнирно подвижная опора"/></TextBlock>
@@ -108,7 +134,7 @@
                 </Border.Background>
                 <StackPanel>
                     <TextBlock TextAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="Times New Roman" Margin="5"><Run Text="Пружины"/></TextBlock>
-                    <DataGrid Name="SpringGrid" AutoGenerateColumns="False" Height="200" PreviewKeyDown="SpringGrid_PreviewKeyDown" PreviewKeyUp="SpringGrid_PreviewKeyUp">
+                    <DataGrid Name="SpringGrid" AutoGenerateColumns="False" Height="100" PreviewKeyDown="SpringGrid_PreviewKeyDown" PreviewKeyUp="SpringGrid_PreviewKeyUp">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Координата X" Width="140" Binding="{Binding Path=CoordsX}"></DataGridTextColumn>
                             <DataGridTextColumn Header="Жесткость пружини" Width="185" Binding="{Binding Path=Rigidity}"></DataGridTextColumn>
@@ -159,6 +185,8 @@
                 <Line Stroke="Black" StrokeThickness="1" Canvas.Right="56" Canvas.Top="84" X1="-10" Y1="10"/>
                 <Line Stroke="Black" StrokeThickness="1" Canvas.Right="61" Canvas.Top="84" X1="-10" Y1="10"/>
                 <Line Stroke="Black" StrokeThickness="1" Canvas.Right="66" Canvas.Top="84" X1="-10" Y1="10"/>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="42" Canvas.Top="44" X1="20" Y1="0" Name="RightSliderLine0"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="42" Canvas.Top="64" X1="20" Y1="0" Name="RightSliderLine1"></Line>
                 <Ellipse Canvas.Left="22" Canvas.Top="50" Fill="White" Stroke="Black" Height="10" Width="10" x:Name="hingelessFixedSupportEllipse"/>
                 <Line Stroke="Black" StrokeThickness="0" Canvas.Left="27" Canvas.Top="60" X1="10" Y1="25" x:Name="hingelessFixedSupportLine0"/>
                 <Line Stroke="Black" StrokeThickness="0" Canvas.Left="27" Canvas.Top="60" X1="-10" Y1="25" x:Name="hingelessFixedSupportLine1"/>

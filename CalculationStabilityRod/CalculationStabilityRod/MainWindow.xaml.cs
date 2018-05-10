@@ -24,10 +24,15 @@ namespace CalculationStabilityRod
     public partial class MainWindow : Window
     {
         private Func<double, double> SpringStartDrawing = (x) => 22.0 + 338.0 * x + 328.0 * x * x - 512.0 * x * x * x + 256.0 * x * x * x * x;
-        private List<Line> fixedSupport;
-        private List<Line> hingelessFixedSupport;
-        private List<Line> slider;
-        private List<Line> hingedSupport;
+        private List<Line> fixedSupportLeft;
+        private List<Line> hingelessFixedSupportleft;
+        private List<Line> sliderLeft;
+        private List<Line> hingedSupportLeft;
+
+        private List<Line> fixedSupportRight;
+        private List<Line> hingelessFixedSupportRight;
+        private List<Line> sliderRight;
+        private List<Line> hingedSupportRight;
 
         public ObservableCollection<DataPoint> PointsDeflection { get; private set; }
         public ObservableCollection<DataPoint> PointsAngle { get; private set; }
@@ -39,6 +44,7 @@ namespace CalculationStabilityRod
         private MatrixFunction spanMatrix;
         private MatrixFunction equationMatrixExtension;
         private Mathematics.Objects.Vector startVector = new Mathematics.Objects.Vector(0, 1, 0, 1);
+        private Mathematics.Objects.Vector endVector = new Mathematics.Objects.Vector(0, 1, 0, 1);
         Dictionary<int, SpringView> springsPictures = new Dictionary<int, SpringView>();
         private Balk balk = Balk.Source;
 
@@ -48,7 +54,7 @@ namespace CalculationStabilityRod
             this.DataContext = this;
             SpringGrid.ItemsSource = balk.Springs;
 
-            fixedSupport = new List<Line>()
+            fixedSupportLeft = new List<Line>()
             {
                 fixedSupportLine0,
                 fixedSupportLine1,
@@ -57,7 +63,7 @@ namespace CalculationStabilityRod
                 fixedSupportLine4,
                 fixedSupportLine5
             };
-            hingelessFixedSupport = new List<Line>()
+            hingelessFixedSupportleft = new List<Line>()
             {
                 hingelessFixedSupportLine0,
                 hingelessFixedSupportLine1,
@@ -68,7 +74,7 @@ namespace CalculationStabilityRod
                 hingelessFixedSupportLine6,
                 hingelessFixedSupportLine7
             };
-            slider = new List<Line>()
+            sliderLeft = new List<Line>()
             {
                 sliderLine0,
                 sliderLine1,
@@ -79,7 +85,7 @@ namespace CalculationStabilityRod
                 sliderLine6,
                 sliderLine7
             };
-            hingedSupport = new List<Line>()
+            hingedSupportLeft = new List<Line>()
             {
                 hingedSupportLine0,
                 hingedSupportLine1,
@@ -117,6 +123,7 @@ namespace CalculationStabilityRod
             };
 
             ComboBoxTypeOfSealing.SelectedIndex = 4;
+            ComboBoxRightTypeOfSealing.SelectedIndex = 1;
             balk.LeftBorderConditions = BorderConditions.HingelessFixedSupport;
 
             PointsDeflection = new ObservableCollection<DataPoint>
@@ -159,6 +166,7 @@ namespace CalculationStabilityRod
             balk.MomentInertionChanged += balk_MomentInertionChanged;
 
             balk.LeftBorderConditionChanged += balk_LeftBorderConditionChanged;
+            balk.RightBorderConditionChanged += Balk_RightBorderConditionChanged;
 
             PointsDeflection.CollectionChanged += FormLossStability_CollectionChanged;
             PointsAngle.CollectionChanged += FormLossStability_CollectionChanged;
@@ -166,6 +174,20 @@ namespace CalculationStabilityRod
             PointsForce.CollectionChanged += FormLossStability_CollectionChanged;
 
             FindSolutionStabilityProblemRod(balk);
+        }
+
+        private void Balk_RightBorderConditionChanged(object sender, BorderConditionChangedEventArgs e)
+        {
+            Balk b = sender as Balk;
+
+            switch(b.RightBorderConditios)
+            {
+                case BorderConditions.HingedSupport: endVector[0] = 0; endVector[1] = 1;endVector[2] = 0; endVector[3] = 1; break;
+                case BorderConditions.HingelessFixedSupport: endVector[0] = 0; endVector[1] = 1; endVector[2] = 0; endVector[3] = 1; break;
+                case BorderConditions.Slider: endVector[0] = 0; endVector[1] = 0; endVector[2] = 1; endVector[3] = 1; break;
+                case BorderConditions.FixedSupport: endVector[0] = 0; endVector[1] = 0; endVector[2] = 1; endVector[3] = 1; break;
+            }
+
         }
 
         private void Springs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -253,39 +275,39 @@ namespace CalculationStabilityRod
             {
                 case 1:
                     balk.LeftBorderConditions = BorderConditions.HingedSupport;
-                    SetStrokeThicknessLines(slider, 0.0);
-                    SetStrokeThicknessLines(fixedSupport, 0.0);
-                    SetStrokeThicknessLines(hingelessFixedSupport, 0.0);
+                    SetStrokeThicknessLines(sliderLeft, 0.0);
+                    SetStrokeThicknessLines(fixedSupportLeft, 0.0);
+                    SetStrokeThicknessLines(hingelessFixedSupportleft, 0.0);
                     hingelessFixedSupportEllipse.StrokeThickness = 1.0;
                     hingedSupportEllipse.StrokeThickness = 1.0;
-                    SetStrokeThicknessLines(hingedSupport, 1.0);
+                    SetStrokeThicknessLines(hingedSupportLeft, 1.0);
                     break;
                 case 2:
                     balk.LeftBorderConditions = BorderConditions.Slider;
-                    SetStrokeThicknessLines(hingedSupport,0.0);
-                    SetStrokeThicknessLines(fixedSupport, 0.0);
-                    SetStrokeThicknessLines(hingelessFixedSupport, 0.0);
+                    SetStrokeThicknessLines(hingedSupportLeft,0.0);
+                    SetStrokeThicknessLines(fixedSupportLeft, 0.0);
+                    SetStrokeThicknessLines(hingelessFixedSupportleft, 0.0);
                     hingelessFixedSupportEllipse.StrokeThickness = 0.0;
                     hingedSupportEllipse.StrokeThickness = 0.0;
-                    SetStrokeThicknessLines(slider, 1.0);
+                    SetStrokeThicknessLines(sliderLeft, 1.0);
                     break;
                 case 3:
                     balk.LeftBorderConditions = BorderConditions.FixedSupport;
-                    SetStrokeThicknessLines(hingedSupport,0.0);
-                    SetStrokeThicknessLines(slider, 0.0);
-                    SetStrokeThicknessLines(hingelessFixedSupport, 0.0);
+                    SetStrokeThicknessLines(hingedSupportLeft,0.0);
+                    SetStrokeThicknessLines(sliderLeft, 0.0);
+                    SetStrokeThicknessLines(hingelessFixedSupportleft, 0.0);
                     hingelessFixedSupportEllipse.StrokeThickness = 0.0;
                     hingedSupportEllipse.StrokeThickness = 0.0;
-                    SetStrokeThicknessLines(fixedSupport, 1.0);
+                    SetStrokeThicknessLines(fixedSupportLeft, 1.0);
                     break;
                 case 4:
                     balk.LeftBorderConditions = BorderConditions.HingelessFixedSupport;
-                    SetStrokeThicknessLines(slider, 0.0);
-                    SetStrokeThicknessLines(fixedSupport, 0.0);
-                    SetStrokeThicknessLines(hingedSupport, 0.0);
+                    SetStrokeThicknessLines(sliderLeft, 0.0);
+                    SetStrokeThicknessLines(fixedSupportLeft, 0.0);
+                    SetStrokeThicknessLines(hingedSupportLeft, 0.0);
                     hingelessFixedSupportEllipse.StrokeThickness = 1.0;
                     hingedSupportEllipse.StrokeThickness = 0.0;
-                    SetStrokeThicknessLines(hingelessFixedSupport, 1.0);
+                    SetStrokeThicknessLines(hingelessFixedSupportleft, 1.0);
                     break;
             }
         }
@@ -389,11 +411,11 @@ namespace CalculationStabilityRod
             FindSolutionStabilityProblemRod(b);
         }
 
-        private void balk_LeftBorderConditionChanged(object sender, LeftBorderConditionChangedEventArgs e)
+        private void balk_LeftBorderConditionChanged(object sender, BorderConditionChangedEventArgs e)
         {
             Balk b = sender as Balk;
 
-            switch(e.NewLeftBorderConditions)
+            switch(e.NewBorderConditions)
             {
                 case BorderConditions.HingedSupport: startVector[0] = 0; startVector[1] = 1; startVector[2] = 0; startVector[3] = 1; break;
                 case BorderConditions.HingelessFixedSupport: startVector[0] = 0; startVector[1] = 1; startVector[2] = 0; startVector[3] = 1; break;
@@ -596,6 +618,19 @@ namespace CalculationStabilityRod
         private void FormLossStability_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
 
+        }
+
+        private void ComboBoxRightTypeOfSealing_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = ComboBoxRightTypeOfSealing.SelectedIndex;
+
+            switch(index)
+            {
+                case 1: balk.RightBorderConditios = BorderConditions.HingedSupport; break;
+                case 2: balk.RightBorderConditios = BorderConditions.Slider; break;
+                case 3: balk.RightBorderConditios = BorderConditions.FixedSupport; break;
+                case 4: balk.RightBorderConditios = BorderConditions.HingelessFixedSupport; break;
+            }
         }
     }
 

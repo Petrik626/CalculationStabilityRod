@@ -100,6 +100,32 @@ namespace CalculationStabilityRod
                 hingedSupportLine10
             };
 
+            hingedSupportRight = new List<Line>()
+            {
+                hingedSupportLineRight0,
+                hingedSupportLineRight1,
+                hingedSupportLineRight2,
+                hingedSupportLineRight3,
+                hingedSupportLineRight4,
+                hingedSupportLineRight5,
+                hingedSupportLineRight6,
+                hingedSupportLineRight7,
+                hingedSupportLineRight8,
+                hingedSupportLineRight9
+            };
+
+            sliderRight = new List<Line>()
+            {
+                RightSliderLine0,
+                RightSliderLine1,
+                RightSliderLine2,
+                RightSliderLine3,
+                RightSliderLine4,
+                RightSliderLine5,
+                RightSliderLine6,
+                RightSliderLine7
+            };
+
             balk.K = Math.Sqrt(balk.ExternalForce / (balk.ElasticModulus * balk.MomentInertion));
             spanMatrix = new MatrixFunction(4, 4)
             {
@@ -626,8 +652,20 @@ namespace CalculationStabilityRod
 
             switch(index)
             {
-                case 1: balk.RightBorderConditios = BorderConditions.HingedSupport; break;
-                case 2: balk.RightBorderConditios = BorderConditions.Slider; break;
+                case 1:
+                    balk.RightBorderConditios = BorderConditions.HingedSupport;
+                    SetStrokeThicknessLines(sliderRight, 0.0);
+                    hingelessFixedSupportEllipseRight2.StrokeThickness = 1.0;
+                    hingelessFixedSupportEllipseRight.StrokeThickness = 1.0;
+                    SetStrokeThicknessLines(hingedSupportRight, 1.0);
+                    break;
+                case 2:
+                    balk.RightBorderConditios = BorderConditions.Slider;
+                    SetStrokeThicknessLines(hingedSupportRight, 0.0);
+                    hingelessFixedSupportEllipseRight2.StrokeThickness = 0.0;
+                    hingelessFixedSupportEllipseRight.StrokeThickness = 0.0;
+                    SetStrokeThicknessLines(sliderRight, 1.0);
+                    break;
                 case 3: balk.RightBorderConditios = BorderConditions.FixedSupport; break;
                 case 4: balk.RightBorderConditios = BorderConditions.HingelessFixedSupport; break;
             }

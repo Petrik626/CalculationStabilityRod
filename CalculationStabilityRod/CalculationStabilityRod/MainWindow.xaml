@@ -169,24 +169,31 @@
         <StackPanel Grid.Column="1">
             <TextBlock Margin="5" TextAlignment="Center" FontFamily="Times New Roman" FontWeight="Bold" FontSize="20"><Run Text="Схема"/></TextBlock>
             <Canvas Margin="5" Height="100" Name="OutlineBalkCanvas">
-                <Ellipse Fill="White" Canvas.Right="45" Canvas.Top="50" Stroke="Black" Height="10" Width="10"/>
+                <Ellipse Fill="White" Canvas.Right="45" Canvas.Top="50" Stroke="Black" Height="10" Width="10" Name="hingelessFixedSupportEllipseRight" />
                 <Line Canvas.Top="55" Canvas.Left="20" X1="10" Y1="0" X2="408" Y2="0" Stroke="Black" StrokeThickness="3"/>
                 <Line Canvas.Right="14" Canvas.Top="55" X1="30" Y1="0" X2="0" Y2="0" StrokeThickness="1" Stroke="Red"/>
                 <Line Canvas.Right="35" Canvas.Top="55" X1="0" Y1="5" X2="-10" Y2="0" Stroke="Red" StrokeThickness="1"/>
                 <Line Canvas.Right="35" Canvas.Top="55" X1="0" Y1="-5" X2="-10" Y2="0" Stroke="Red" StrokeThickness="1"/>
-                <Line Canvas.Right="49" Canvas.Top="60" X1="0" Y2="15" StrokeThickness="2" Stroke="Black"/>
-                <Ellipse Fill="White" Stroke="Black" Height="10" Width="10" Canvas.Right="45" Canvas.Top="75"/>
-                <Line Stroke="Black" StrokeThickness="2" Canvas.Right="33" Canvas.Top="85" X1="35"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="31" Canvas.Top="84" X1="-10" Y1="10"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="36" Canvas.Top="84" X1="-10" Y1="10"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="41" Canvas.Top="84" X1="-10" Y1="10"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="46" Canvas.Top="84" X1="-10" Y1="10"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="51" Canvas.Top="84" X1="-10" Y1="10"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="56" Canvas.Top="84" X1="-10" Y1="10"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="61" Canvas.Top="84" X1="-10" Y1="10"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="66" Canvas.Top="84" X1="-10" Y1="10"/>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="42" Canvas.Top="44" X1="20" Y1="0" Name="RightSliderLine0"></Line>
-                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="42" Canvas.Top="64" X1="20" Y1="0" Name="RightSliderLine1"></Line>
+                <Line Canvas.Right="49" Canvas.Top="60" X1="0" Y2="15" StrokeThickness="0" Stroke="Black" Name="hingedSupportLineRight9"/>
+                <Ellipse Fill="White" Stroke="Black" StrokeThickness="0" Height="10" Width="10" Canvas.Right="45" Canvas.Top="75" Name="hingelessFixedSupportEllipseRight2"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="33" Canvas.Top="85" X1="35" Name="hingedSupportLineRight0"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="31" Canvas.Top="84" X1="-10" Y1="10" Name="hingedSupportLineRight1"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="36" Canvas.Top="84" X1="-10" Y1="10" Name="hingedSupportLineRight2"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="41" Canvas.Top="84" X1="-10" Y1="10" Name="hingedSupportLineRight3"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="46" Canvas.Top="84" X1="-10" Y1="10" Name="hingedSupportLineRight4"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="51" Canvas.Top="84" X1="-10" Y1="10" Name="hingedSupportLineRight5"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="56" Canvas.Top="84" X1="-10" Y1="10" Name="hingedSupportLineRight6"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="61" Canvas.Top="84" X1="-10" Y1="10" Name="hingedSupportLineRight7"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="66" Canvas.Top="84" X1="-10" Y1="10" Name="hingedSupportLineRight8"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="42" Canvas.Top="44" X1="20" Y1="0" Name="RightSliderLine0"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="42" Canvas.Top="64" X1="20" Y1="0" Name="RightSliderLine1"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="35" Canvas.Top="64" X1="10" Y1="5" Name="RightSliderLine2"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="44" Canvas.Top="64" X1="10" Y1="5" Name="RightSliderLine3"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="53" Canvas.Top="64" X1="10" Y1="5" Name="RightSliderLine4"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="35" Canvas.Top="44" X1="10" Y1="-5" Name="RightSliderLine5"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="44" Canvas.Top="44" X1="10" Y1="-5" Name="RightSliderLine6"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="53" Canvas.Top="44" X1="10" Y1="-5" Name="RightSliderLine7"></Line>
+                
                 <Ellipse Canvas.Left="22" Canvas.Top="50" Fill="White" Stroke="Black" Height="10" Width="10" x:Name="hingelessFixedSupportEllipse"/>
                 <Line Stroke="Black" StrokeThickness="0" Canvas.Left="27" Canvas.Top="60" X1="10" Y1="25" x:Name="hingelessFixedSupportLine0"/>
                 <Line Stroke="Black" StrokeThickness="0" Canvas.Left="27" Canvas.Top="60" X1="-10" Y1="25" x:Name="hingelessFixedSupportLine1"/>

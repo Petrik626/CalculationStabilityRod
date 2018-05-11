@@ -360,6 +360,8 @@ namespace CalculationStabilityRod
                     SetStrokeThicknessLines(hingelessFixedSupportleft, 1.0);
                     break;
             }
+
+            ValidatingBorderConditions(balk);
         }
 
         private void SpringGrid_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -711,6 +713,46 @@ namespace CalculationStabilityRod
                     hingelessFixedSupportEllipseRight2.StrokeThickness = 0.0;
                     hingelessFixedSupportEllipseRight.StrokeThickness = 1.0;
                     SetStrokeThicknessLines(hingelessFixedSupportRight, 1.0);
+                    break;
+            }
+
+           // ValidatingBorderConditions(balk);
+        }
+
+        private void ValidatingBorderConditions(Balk b)
+        {
+            int left = (int)b.LeftBorderConditions;
+            int right = (int)b.RightBorderConditios;
+
+            switch(left)
+            {
+                case 1: 
+                    if(right!=4 || right!=3)
+                    {
+                        ComboBoxRightTypeOfSealing.SelectedIndex = 4;
+                        //b.RightBorderConditios = BorderConditions.HingelessFixedSupport;
+                    }
+                    break;
+                case 2:
+                    if(right!=3)
+                    {
+                        ComboBoxRightTypeOfSealing.SelectedIndex = 3;
+                        //b.RightBorderConditios = BorderConditions.FixedSupport;
+                    }
+                    break;
+                case 3:
+                    if(right!=1 || right!=2)
+                    {
+                        ComboBoxRightTypeOfSealing.SelectedIndex = 1;
+                        //b.RightBorderConditios = BorderConditions.HingedSupport;
+                    }
+                    break;
+                case 4:
+                    if(right!=1)
+                    {
+                        ComboBoxRightTypeOfSealing.SelectedIndex = 1;
+                        //b.RightBorderConditios = BorderConditions.HingedSupport;
+                    }
                     break;
             }
         }

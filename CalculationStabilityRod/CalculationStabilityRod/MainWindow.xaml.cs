@@ -126,6 +126,30 @@ namespace CalculationStabilityRod
                 RightSliderLine7
             };
 
+            fixedSupportRight = new List<Line>()
+            {
+                RightFixedSupportLine0,
+                RightFixedSupportLine1,
+                RightFixedSupportLine2,
+                RightFixedSupportLine3,
+                RightFixedSupportLine4,
+                RightFixedSupportLine5,
+                RightFixedSupportLine6
+            };
+
+            hingelessFixedSupportRight = new List<Line>()
+            {
+                hingedFixedSupportLineRight0,
+                hingedFixedSupportLineRight1,
+                hingedFixedSupportLineRight2,
+                hingedFixedSupportLineRight3,
+                hingedFixedSupportLineRight5,
+                hingedFixedSupportLineRight6,
+                hingedFixedSupportLineRight7,
+                hingedFixedSupportLineRight8,
+                hingedFixedSupportLineRight9
+            };
+
             balk.K = Math.Sqrt(balk.ExternalForce / (balk.ElasticModulus * balk.MomentInertion));
             spanMatrix = new MatrixFunction(4, 4)
             {
@@ -654,20 +678,40 @@ namespace CalculationStabilityRod
             {
                 case 1:
                     balk.RightBorderConditios = BorderConditions.HingedSupport;
+                    SetStrokeThicknessLines(hingelessFixedSupportRight, 0.0);
                     SetStrokeThicknessLines(sliderRight, 0.0);
+                    SetStrokeThicknessLines(fixedSupportRight, 0.0);
                     hingelessFixedSupportEllipseRight2.StrokeThickness = 1.0;
                     hingelessFixedSupportEllipseRight.StrokeThickness = 1.0;
                     SetStrokeThicknessLines(hingedSupportRight, 1.0);
                     break;
                 case 2:
                     balk.RightBorderConditios = BorderConditions.Slider;
+                    SetStrokeThicknessLines(hingelessFixedSupportRight, 0.0);
                     SetStrokeThicknessLines(hingedSupportRight, 0.0);
+                    SetStrokeThicknessLines(fixedSupportRight, 0.0);
                     hingelessFixedSupportEllipseRight2.StrokeThickness = 0.0;
                     hingelessFixedSupportEllipseRight.StrokeThickness = 0.0;
                     SetStrokeThicknessLines(sliderRight, 1.0);
                     break;
-                case 3: balk.RightBorderConditios = BorderConditions.FixedSupport; break;
-                case 4: balk.RightBorderConditios = BorderConditions.HingelessFixedSupport; break;
+                case 3:
+                    balk.RightBorderConditios = BorderConditions.FixedSupport;
+                    SetStrokeThicknessLines(hingelessFixedSupportRight, 0.0);
+                    SetStrokeThicknessLines(sliderRight, 0.0);
+                    SetStrokeThicknessLines(hingedSupportRight, 0.0);
+                    hingelessFixedSupportEllipseRight2.StrokeThickness = 0.0;
+                    hingelessFixedSupportEllipseRight.StrokeThickness = 0.0;
+                    SetStrokeThicknessLines(fixedSupportRight, 1.0);
+                    break;
+                case 4:
+                    balk.RightBorderConditios = BorderConditions.HingelessFixedSupport;
+                    SetStrokeThicknessLines(sliderRight, 0.0);
+                    SetStrokeThicknessLines(hingedSupportRight, 0.0);
+                    SetStrokeThicknessLines(fixedSupportRight, 0.0);
+                    hingelessFixedSupportEllipseRight2.StrokeThickness = 0.0;
+                    hingelessFixedSupportEllipseRight.StrokeThickness = 1.0;
+                    SetStrokeThicknessLines(hingelessFixedSupportRight, 1.0);
+                    break;
             }
         }
     }

@@ -193,7 +193,23 @@
                 <Line Stroke="Black" StrokeThickness="0" Canvas.Right="35" Canvas.Top="44" X1="10" Y1="-5" Name="RightSliderLine5"></Line>
                 <Line Stroke="Black" StrokeThickness="0" Canvas.Right="44" Canvas.Top="44" X1="10" Y1="-5" Name="RightSliderLine6"></Line>
                 <Line Stroke="Black" StrokeThickness="0" Canvas.Right="53" Canvas.Top="44" X1="10" Y1="-5" Name="RightSliderLine7"></Line>
-                
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="53" Canvas.Top="31" X1="0" Y1="50" Name="RightFixedSupportLine0"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="44" Canvas.Top="31" X1="10" Y1="-5" Name="RightFixedSupportLine1"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="44" Canvas.Top="41" X1="10" Y1="-5" Name="RightFixedSupportLine2"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="44" Canvas.Top="51" X1="10" Y1="-5" Name="RightFixedSupportLine3"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="44" Canvas.Top="61" X1="10" Y1="-5" Name="RightFixedSupportLine4"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="44" Canvas.Top="71" X1="10" Y1="-5" Name="RightFixedSupportLine5"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="44" Canvas.Top="81" X1="10" Y1="-5" Name="RightFixedSupportLine6"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="40" Canvas.Top="59" X1="10" Y1="25" Name="hingedFixedSupportLineRight0"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="49" Canvas.Top="59" X1="-10" Y1="25" Name="hingedFixedSupportLineRight1"></Line>
+                <Line Stroke="Black" StrokeThickness="1" Canvas.Right="33" Canvas.Top="85" X1="35" Name="hingedFixedSupportLineRight2"></Line>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="31" Canvas.Top="84" X1="-10" Y1="10" Name="hingedFixedSupportLineRight3"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="35" Canvas.Top="84" X1="-10" Y1="10" Name="hingedFixedSupportLineRight4"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="40" Canvas.Top="84" X1="-10" Y1="10" Name="hingedFixedSupportLineRight5"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="46" Canvas.Top="84" X1="-10" Y1="10" Name="hingedFixedSupportLineRight6"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="52" Canvas.Top="84" X1="-10" Y1="10" Name="hingedFixedSupportLineRight7"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="58" Canvas.Top="84" X1="-10" Y1="10" Name="hingedFixedSupportLineRight8"/>
+                <Line Stroke="Black" StrokeThickness="0" Canvas.Right="64" Canvas.Top="84" X1="-10" Y1="10" Name="hingedFixedSupportLineRight9"/>
                 <Ellipse Canvas.Left="22" Canvas.Top="50" Fill="White" Stroke="Black" Height="10" Width="10" x:Name="hingelessFixedSupportEllipse"/>
                 <Line Stroke="Black" StrokeThickness="0" Canvas.Left="27" Canvas.Top="60" X1="10" Y1="25" x:Name="hingelessFixedSupportLine0"/>
                 <Line Stroke="Black" StrokeThickness="0" Canvas.Left="27" Canvas.Top="60" X1="-10" Y1="25" x:Name="hingelessFixedSupportLine1"/>

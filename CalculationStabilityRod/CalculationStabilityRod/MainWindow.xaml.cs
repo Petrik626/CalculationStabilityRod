@@ -175,6 +175,7 @@ namespace CalculationStabilityRod
             ComboBoxTypeOfSealing.SelectedIndex = 4;
             ComboBoxRightTypeOfSealing.SelectedIndex = 1;
             balk.LeftBorderConditions = BorderConditions.HingelessFixedSupport;
+            balk.RightBorderConditios = BorderConditions.HingedSupport;
 
             PointsDeflection = new ObservableCollection<DataPoint>
             {
@@ -361,7 +362,7 @@ namespace CalculationStabilityRod
                     break;
             }
 
-            ValidatingBorderConditions(balk);
+            ValidatingBorderConditions(balk.LeftBorderConditions, balk.RightBorderConditios, ComboBoxRightTypeOfSealing);
         }
 
         private void SpringGrid_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -716,42 +717,36 @@ namespace CalculationStabilityRod
                     break;
             }
 
-           // ValidatingBorderConditions(balk);
+            ValidatingBorderConditions(balk.RightBorderConditios, balk.LeftBorderConditions, ComboBoxTypeOfSealing);
         }
 
-        private void ValidatingBorderConditions(Balk b)
+        private void ValidatingBorderConditions(BorderConditions verifiable, BorderConditions variable, ComboBox box)
         {
-            int left = (int)b.LeftBorderConditions;
-            int right = (int)b.RightBorderConditios;
-
-            switch(left)
+            int variableInt = (int)variable;
+            switch (verifiable)
             {
-                case 1: 
-                    if(right!=4 || right!=3)
+                case BorderConditions.HingedSupport:
+                    if(variableInt != 3 && variableInt != 4)
                     {
-                        ComboBoxRightTypeOfSealing.SelectedIndex = 4;
-                        //b.RightBorderConditios = BorderConditions.HingelessFixedSupport;
+                        box.SelectedIndex = 4;
                     }
                     break;
-                case 2:
-                    if(right!=3)
+                case BorderConditions.Slider:
+                    if(variableInt!=3)
                     {
-                        ComboBoxRightTypeOfSealing.SelectedIndex = 3;
-                        //b.RightBorderConditios = BorderConditions.FixedSupport;
+                        box.SelectedIndex = 3;
                     }
                     break;
-                case 3:
-                    if(right!=1 || right!=2)
+                case BorderConditions.FixedSupport:
+                    if(variableInt!=1 && variableInt!=2)
                     {
-                        ComboBoxRightTypeOfSealing.SelectedIndex = 1;
-                        //b.RightBorderConditios = BorderConditions.HingedSupport;
+                        box.SelectedIndex = 1;
                     }
                     break;
-                case 4:
-                    if(right!=1)
+                case BorderConditions.HingelessFixedSupport:
+                    if(variableInt!=1)
                     {
-                        ComboBoxRightTypeOfSealing.SelectedIndex = 1;
-                        //b.RightBorderConditios = BorderConditions.HingedSupport;
+                        box.SelectedIndex = 1;
                     }
                     break;
             }

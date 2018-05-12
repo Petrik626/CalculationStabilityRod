@@ -722,30 +722,35 @@ namespace CalculationStabilityRod
 
         private void ValidatingBorderConditions(BorderConditions verifiable, BorderConditions variable, ComboBox box)
         {
+            string message = "Выбранны неверные кинематические связи. Ваш выбор был изменен на более удачный вариант";
             int variableInt = (int)variable;
             switch (verifiable)
             {
                 case BorderConditions.HingedSupport:
                     if(variableInt != 3 && variableInt != 4)
                     {
+                        MessageBox.Show(message, "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
                         box.SelectedIndex = 4;
                     }
                     break;
                 case BorderConditions.Slider:
                     if(variableInt!=3)
                     {
+                        MessageBox.Show(message, "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
                         box.SelectedIndex = 3;
                     }
                     break;
                 case BorderConditions.FixedSupport:
                     if(variableInt!=1 && variableInt!=2)
                     {
+                        MessageBox.Show(message, "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
                         box.SelectedIndex = 1;
                     }
                     break;
                 case BorderConditions.HingelessFixedSupport:
                     if(variableInt!=1)
                     {
+                        MessageBox.Show(message, "Предупреждение", MessageBoxButton.OK, MessageBoxImage.Information);
                         box.SelectedIndex = 1;
                     }
                     break;

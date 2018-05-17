@@ -666,9 +666,9 @@ namespace CalculationStabilityRod
             switch(value)
             {
                 case 1: return PI;
-                case 2: return 4.5;
+                case 2: return 1.4292126 * PI;
                 case 3: return 2 * PI;
-                case 4: return 4.5;
+                case 4: return 1.4292126 * PI; 
                 case 5: return 2 * PI;
                 case 6: return PI;
                 default: return model.K;

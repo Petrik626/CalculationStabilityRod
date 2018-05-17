@@ -21,6 +21,48 @@ namespace CalculationStabilityRod
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
   
+    internal struct PairBoundaryConditions:IEquatable<PairBoundaryConditions>
+    {
+        #region FIELDS
+        private readonly BorderConditions _left;
+        private readonly BorderConditions _right;
+        #endregion
+        #region CONSTRUCTOR
+        public PairBoundaryConditions(BorderConditions left, BorderConditions right)
+        {
+            _left = left;
+            _right = right;
+        }
+        #endregion
+        #region PROPERTIES
+        public BorderConditions Left
+        {
+            get => _left;
+        }
+
+        public BorderConditions Right
+        {
+            get => _right;
+        }
+        #endregion
+        #region METHODS
+        public bool Equals(PairBoundaryConditions other)
+        {
+            return (_left == other._left) && (_right == other._right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return (obj is PairBoundaryConditions) ? Equals((PairBoundaryConditions)obj) : false;
+        }
+
+        public override int GetHashCode()
+        {
+            return _left.GetHashCode() ^ _right.GetHashCode();
+        }
+        #endregion
+    }
+
     public partial class MainWindow : Window
     {
         private Func<double, double> SpringStartDrawing = (x) => 22.0 + 338.0 * x + 328.0 * x * x - 512.0 * x * x * x + 256.0 * x * x * x * x;
@@ -46,6 +88,15 @@ namespace CalculationStabilityRod
         private Mathematics.Objects.Vector startVector = new Mathematics.Objects.Vector(0, 1, 0, 1);
         private Mathematics.Objects.Vector endVector = new Mathematics.Objects.Vector(0, 1, 0, 1);
         Dictionary<int, SpringView> springsPictures = new Dictionary<int, SpringView>();
+        readonly Dictionary<PairBoundaryConditions, int> pairs = new Dictionary<PairBoundaryConditions, int>()
+        {
+            [new PairBoundaryConditions(BorderConditions.HingedSupport, BorderConditions.HingelessFixedSupport)] = 1,
+            [new PairBoundaryConditions(BorderConditions.HingedSupport, BorderConditions.FixedSupport)] = 2,
+            [new PairBoundaryConditions(BorderConditions.Slider, BorderConditions.FixedSupport)] = 3,
+            [new PairBoundaryConditions(BorderConditions.FixedSupport, BorderConditions.HingedSupport)] = 4,
+            [new PairBoundaryConditions(BorderConditions.FixedSupport, BorderConditions.Slider)] = 5,
+            [new PairBoundaryConditions(BorderConditions.HingelessFixedSupport, BorderConditions.HingedSupport)] = 6
+        };
         private Balk balk = Balk.Source;
 
         public MainWindow()
@@ -238,7 +289,7 @@ namespace CalculationStabilityRod
                 case BorderConditions.Slider: endVector[0] = 0; endVector[1] = 0; endVector[2] = 1; endVector[3] = 1; break;
                 case BorderConditions.FixedSupport: endVector[0] = 0; endVector[1] = 0; endVector[2] = 1; endVector[3] = 1; break;
             }
-
+            FindSolutionStabilityProblemRod(b);
         }
 
         private void Springs_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -309,7 +360,7 @@ namespace CalculationStabilityRod
             if (sb.ToString() == string.Empty)
             {
                 output = string.Empty;
-                parameter = 0.0;
+                parameter = 1;
 
                 return;
             }
@@ -487,7 +538,6 @@ namespace CalculationStabilityRod
                 newPoint = oldPoint - f.Invoke(oldPoint) / f.FindFirstDerivative(oldPoint);
 
                 if (Math.Abs(newPoint - oldPoint) <= 0.00001) { break; }
-
                 oldPoint = newPoint;
             }
 
@@ -500,10 +550,12 @@ namespace CalculationStabilityRod
             Function f = FindEquation();
             double startPoint = FindStartPoint(model);
 
+            double length = balk.Length == 0.0 ? 1.0 : balk.Length;
+
             if (countSpring == 0)
             {
                 double root = MethodNewton(f, startPoint);
-                return (root * root * balk.ElasticModulus * balk.MomentInertion) / (balk.Length * balk.Length);
+                return (root * root * balk.ElasticModulus * balk.MomentInertion) / (length * length);
             }
 
             ObservableCollection<Spring> springs = model.Springs.OrderBy(s => s.CoordsX).ToObservableCollection();
@@ -590,27 +642,36 @@ namespace CalculationStabilityRod
 
         public Function FindEquation()
         {
+            int value;
             MatrixFunction matrix = new MatrixFunction(2, 2);
-            switch(balk.LeftBorderConditions)
-            {
-                case BorderConditions.HingedSupport: matrix = equationMatrixExtension.Minor(3, 0).Minor(1, 1); break;
-                case BorderConditions.Slider: matrix = equationMatrixExtension.Minor(3, 0).Minor(2, 0); break;
-                case BorderConditions.FixedSupport: matrix = equationMatrixExtension.Minor(3, 0).Minor(2, 0); break;
-                case BorderConditions.HingelessFixedSupport: matrix = equationMatrixExtension.Minor(3, 0).Minor(1, 1); break;
-            }
+            pairs.TryGetValue(new PairBoundaryConditions(balk.LeftBorderConditions, balk.RightBorderConditios), out value);
 
+            switch(value)
+            {
+                case 1: matrix = equationMatrixExtension.Minor(3, 0).Minor(1, 1); break;
+                case 2: matrix = equationMatrixExtension.Minor(3, 0).Minor(2, 0); break;
+                case 3: matrix = equationMatrixExtension.Minor(3, 0).Minor(2, 0); break;
+                case 4: matrix = equationMatrixExtension.Minor(3, 0).Minor(2, 0); break;
+                case 5: matrix = equationMatrixExtension.Minor(3, 0).Minor(2, 0); break;
+                case 6: matrix = equationMatrixExtension.Minor(3, 0).Minor(1, 1); break;
+                default: matrix = equationMatrixExtension.Minor(3, 0).Minor(2, 0); break;
+            }
             return FindDeterminant(matrix);
         }
 
         private double FindStartPoint(Balk model)
         {
-            switch(model.LeftBorderConditions)
+            int value;
+            pairs.TryGetValue(new PairBoundaryConditions(model.LeftBorderConditions, model.RightBorderConditios), out value);
+            switch(value)
             {
-                case BorderConditions.HingedSupport: return PI;
-                case BorderConditions.HingelessFixedSupport: return PI;
-                case BorderConditions.Slider: return 4.5;
-                case BorderConditions.FixedSupport: return 4.5;
-                default: return balk.K;
+                case 1: return PI;
+                case 2: return 4.5;
+                case 3: return 2 * PI;
+                case 4: return 4.5;
+                case 5: return 2 * PI;
+                case 6: return PI;
+                default: return model.K;
             }
         }
 
@@ -627,13 +688,19 @@ namespace CalculationStabilityRod
             Function f = 0.0;
             int n1 = model.Springs.Count + 1;
             double n2 = PI * (model.Springs.Count + 1 + 0.5);
+            double length = model.Length == 0.0 ? 1.0 : model.Length;
+            int value;
 
-            switch(balk.LeftBorderConditions)
+            pairs.TryGetValue(new PairBoundaryConditions(model.LeftBorderConditions, model.RightBorderConditios), out value);
+
+            switch(value)
             {
-                case BorderConditions.HingelessFixedSupport: f = new Function((x) => Sin((n1 * x * PI) / model.Length)); break;
-                case BorderConditions.FixedSupport: f = new Function((x) => Sin(n2 * x / model.Length) - (x / model.Length) * Sin(n2)); break;
-                case BorderConditions.HingedSupport: f = new Function((x) => Sin((n1 * x * PI) / model.Length)); break;
-                case BorderConditions.Slider: f = new Function((x) => Sin(n2 * x / model.Length) - (x / model.Length) * Sin(n2)); break;
+                case 1: f = new Function((x) => Sin((n1 * x * PI) / length)); break;
+                case 2: f = new Function((x) => Sin(n2 * x / length) - (x / length) * Sin(n2)); break;
+                case 3: f = new Function((x) => Sin(n1 * x * PI / length) * Sin(n1 * x * PI / length)); break;
+                case 4: f = new Function((x) => Sin(n2 * x / length) - (x / length) * Sin(n2)); break;
+                case 5: f = new Function((x) => Sin(n1 * x * PI / length) * Sin(n1 * x * PI / length)); break;
+                case 6: f = new Function((x) => Sin((n1 * x * PI) / length)); break;
             }
 
             return f;
